@@ -66,8 +66,15 @@ export default function Navigation() {
               e.preventDefault();
               handleClick('#hero');
             }}
-            className="flex items-center gap-0.5"
+            className="flex items-center gap-2.5 group"
           >
+            <div className="w-9 h-9 rounded-full overflow-hidden border border-[#2A2A2A] group-hover:border-[#C9A96E]/50 transition-all duration-500 shadow-[0_0_20px_rgba(201,169,110,0.1)]">
+              <img
+                src="/brand/ai-handle-logo.png"
+                alt="AI Handle"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <span className="font-body font-semibold text-sm tracking-[0.12em] text-[#F5F0EB]">
               AI HANDLE
             </span>
@@ -120,6 +127,16 @@ export default function Navigation() {
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 bg-[#0A0A0A]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden">
+          {/* Mobile Logo */}
+          <div className="mb-4">
+            <div className="w-16 h-16 rounded-full overflow-hidden border border-[#2A2A2A] shadow-[0_0_30px_rgba(201,169,110,0.15)]">
+              <img
+                src="/brand/ai-handle-logo.png"
+                alt="AI Handle"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
           {[
             { label: 'Home', href: '#hero' },
             { label: 'Services', href: '#services' },

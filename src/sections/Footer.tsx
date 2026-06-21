@@ -30,7 +30,10 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <div className="mb-4">
+            <div className="mb-4 flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full overflow-hidden border border-[#2A2A2A] shadow-[0_0_15px_rgba(201,169,110,0.1)]">
+                <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
+              </div>
               <span className="font-body font-semibold text-sm tracking-[0.12em] text-[#F5F0EB]">
                 AI HANDLE
               </span>

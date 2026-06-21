@@ -1,73 +1,119 @@
-# React + TypeScript + Vite
+# AI Handle — Global AI Agency Based in the UAE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **We deploy intelligence into your business.**
 
-Currently, two official plugins are available:
+AI Handle is a UAE-based global AI agency deploying AI agents, automations, websites, communication systems, and growth infrastructure into businesses.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Website
 
-## React Compiler
+**[aihandle.cloud](https://aihandle.cloud)**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework:** React 19 + TypeScript
+- **Build Tool:** Vite 7
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Animation:** GSAP ScrollTrigger + Framer Motion
+- **Backend:** Supabase
+- **QR Codes:** qrcode.react
+- **Icons:** Lucide React
+- **Routing:** React Router (admin dashboard)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📁 Project Structure
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+ai-handles-web/
+├── public/
+│   ├── brand/           # Logo files, QR codes
+│   └── images/          # Building and robot images
+├── src/
+│   ├── admin/           # Admin dashboard pages
+│   ├── components/      # Reusable components (Navigation, QRCode, etc.)
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utilities, Supabase config, store
+│   ├── pages/           # Page components
+│   ├── sections/        # Website sections (Hero, Services, Founder, etc.)
+│   ├── data.ts          # Central data store (brand, services, robots)
+│   ├── App.tsx          # Main application
+│   └── main.tsx         # Entry point with routing
+├── index.html           # HTML with SEO meta tags and structured data
+├── package.json         # Project configuration
+├── tailwind.config.js   # Tailwind configuration
+└── vite.config.ts       # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🏗️ Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 18+ 
+- npm or package manager of choice
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
+
+The site will be available at `http://localhost:3000`.
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## 🔧 Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## 📋 Services
+
+- AI Agents (WhatsApp, CRM, Research, Content, Voice, Reporting)
+- Business Automations
+- AI Deployment into Existing Systems
+- Premium Websites
+- Paid Advertising & Growth Infrastructure
+- AI Voice Reception
+- Content Systems
+- Reporting & Management Dashboards
+
+## 🏢 Industries
+
+- Business Owners
+- B2B Companies
+- Real Estate Agencies & Developers
+- Individual Real Estate Agents
+- Clinics & Appointment-Based Businesses
+- Agencies & Partners
+
+## 📞 Contact
+
+**Omar Mohamed** — Founder of AI Handle  
+- Phone: +971 50 803 3084  
+- Email: AIHandle.cloud@gmail.com  
+- WhatsApp: [wa.me/971508033084](https://wa.me/971508033084)
+
+**Sales Manager**  
+- Phone: +971 54 553 0754  
+- Email: mrayhan2005m@gmail.com  
+- WhatsApp: [wa.me/971545530754](https://wa.me/971545530754)
+
+## 📄 License
+
+© 2026 AI Handle. All rights reserved.

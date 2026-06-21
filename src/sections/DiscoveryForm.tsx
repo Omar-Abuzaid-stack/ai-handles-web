@@ -75,7 +75,7 @@ export default function DiscoveryForm() {
     );
   }
 
-  const { founder } = brand;
+  const { founder, salesManager } = brand;
 
   return (
     <section id="contact" className="bg-[#141414] section-padding">
@@ -96,7 +96,14 @@ export default function DiscoveryForm() {
               className="flex items-center gap-2 px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-[#C9A96E]/50 transition-colors"
             >
               <Phone size={14} className="text-[#C9A96E]" />
-              <span className="font-body text-xs text-[#8A8478]">{founder.phone}</span>
+              <span className="font-body text-xs text-[#8A8478]">Omar: {founder.phone}</span>
+            </a>
+            <a
+              href={`tel:${salesManager.phoneRaw}`}
+              className="flex items-center gap-2 px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-[#C9A96E]/50 transition-colors"
+            >
+              <Phone size={14} className="text-[#C9A96E]" />
+              <span className="font-body text-xs text-[#8A8478]">Sales: {salesManager.phone}</span>
             </a>
             <a
               href={`mailto:${founder.email}`}
@@ -116,9 +123,9 @@ export default function DiscoveryForm() {
             </a>
           </div>
 
-          {/* QR Code */}
-          <div className="flex justify-center mb-8 animate-item">
-            <QRCodeDisplay size={120} showLabel showSupporting />
+          {/* QR Codes - Both */}
+          <div className="mb-8 animate-item">
+            <QRCodeDisplay size={120} showLabel variant="both" />
           </div>
         </div>
 

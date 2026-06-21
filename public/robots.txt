@@ -1,0 +1,11 @@
+# AI Handle - robots.txt
+# https://aihandle.cloud
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://aihandle.cloud/sitemap.xml
+
+# AI Handle — Global AI Agency Based in the UAE

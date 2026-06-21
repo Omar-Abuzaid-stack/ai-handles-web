@@ -8,6 +8,9 @@ export const brand = {
   mainMessage: 'We deploy intelligence into your business.',
   supportingMessage: 'AI Handle builds coordinated AI agents and automations that communicate, research, organise, follow up, create content, manage systems, and support business growth.',
   headline: 'Your Business, Operated by Intelligence.',
+  positioning: 'A UAE-based global AI agency deploying AI agents, automations, websites, communication systems, and growth infrastructure into businesses.',
+  supportingMessage2: 'Based in the UAE. Working with businesses globally.',
+  domain: 'aihandle.cloud',
   founder: {
     name: 'Omar Mohamed',
     title: 'Founder of AI Handle',
@@ -18,10 +21,22 @@ export const brand = {
     description: 'Omar Mohamed founded AI Handle to help businesses move beyond disconnected software and deploy coordinated AI systems directly into their real operations. His focus is building practical AI agents, automations, websites, lead-generation systems, and growth infrastructure that help teams operate more efficiently and scale.',
     imageAlt: 'Omar Mohamed — Founder of AI Handle',
   },
+  salesManager: {
+    name: 'Sales Manager',
+    title: 'Sales Manager at AI Handle',
+    phone: '+971 54 553 0754',
+    phoneRaw: '+971545530754',
+    email: 'mrayhan2005m@gmail.com',
+    whatsappUrl: 'https://wa.me/971545530754',
+    imageAlt: 'AI Handle Sales Manager',
+  },
   qr: {
-    destination: 'https://wa.me/971508033084',
-    title: 'Scan to Speak With Omar',
-    supportingText: 'Scan the QR code to start a WhatsApp conversation with Omar Mohamed, Founder of AI Handle.',
+    founderDestination: 'https://wa.me/971508033084',
+    founderTitle: 'Scan to Speak With Omar',
+    founderSupporting: 'Scan the QR code to start a WhatsApp conversation with Omar Mohamed, Founder of AI Handle.',
+    salesDestination: 'https://wa.me/971545530754',
+    salesTitle: 'Scan to Speak With Sales',
+    salesSupporting: 'Scan the QR code to start a WhatsApp conversation with our Sales Manager.',
   },
 };
 

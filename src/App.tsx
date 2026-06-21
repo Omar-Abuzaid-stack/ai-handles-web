@@ -47,7 +47,17 @@ function App() {
   }, [loading]);
 
   if (loading) {
-    return <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center text-[#C9A96E] font-mono tracking-widest">INITIALIZING AI HANDLE...</div>;
+    return (
+      <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center gap-6">
+        <div className="w-20 h-20 rounded-full overflow-hidden border border-[#2A2A2A] shadow-[0_0_40px_rgba(201,169,110,0.15)] animate-pulse">
+          <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-mono text-xs tracking-[0.2em] text-[#C9A96E] uppercase">Initializing AI Handle</p>
+          <div className="w-32 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
+        </div>
+      </div>
+    );
   }
 
   const standardRobots = robots.filter(

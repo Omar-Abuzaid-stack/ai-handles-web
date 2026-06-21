@@ -39,30 +39,30 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 
 export default function Founder() {
   const ref = useScrollAnimation();
-  const { founder } = brand;
+  const { founder, salesManager } = brand;
 
   return (
     <section id="founder" className="bg-[#141414] section-padding border-t border-[#2A2A2A]">
       <div ref={ref} className="content-max">
         <div className="text-center mb-16">
           <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-            The Founder
+            The Team
           </p>
           <h2 className="section-title text-[#F5F0EB] mb-4 animate-item">
-            Meet the Founder Behind AI Handle
+            Meet the Team Behind AI Handle
           </h2>
           <p className="font-body text-base text-[#8A8478] max-w-[600px] mx-auto animate-item leading-relaxed">
             Built by Omar Mohamed — practical AI systems that help businesses operate more efficiently and scale.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Founder Card */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
           {/* Left — Portrait & QR */}
           <div className="space-y-8 animate-item">
             {/* Portrait Frame */}
             <div className="relative max-w-[400px] mx-auto">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-[#2A2A2A] bg-[#0A0A0A] relative group">
-                {/* Portrait placeholder */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-[#141414] to-[#0A0A0A]">
                   <div className="w-24 h-24 rounded-full bg-[#1E1E1E] border-2 border-[#2A2A2A] flex items-center justify-center group-hover:border-[#C9A96E]/50 transition-colors duration-500">
                     <User size={40} className="text-[#5A5550]" />
@@ -76,13 +76,10 @@ export default function Founder() {
                     </p>
                   </div>
                 </div>
-                {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#C9A96E]/30 rounded-tl-2xl z-10" />
                 <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#C9A96E]/30 rounded-br-2xl z-10" />
-                {/* Ambient glow */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#C9A96E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               </div>
-              {/* Name plate */}
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-[#141414] border border-[#2A2A2A] rounded-full px-6 py-2 shadow-xl">
                 <p className="font-body font-semibold text-sm text-[#F5F0EB] whitespace-nowrap">
                   {founder.name}
@@ -90,7 +87,7 @@ export default function Founder() {
               </div>
             </div>
 
-            {/* QR Code */}
+            {/* QR Code for Founder */}
             <div className="mt-12">
               <QRCodeDisplay size={140} showLabel showSupporting />
             </div>
@@ -98,7 +95,6 @@ export default function Founder() {
 
           {/* Right — Bio & Contact */}
           <div className="space-y-8 animate-item">
-            {/* Bio */}
             <div>
               <p className="font-mono text-[11px] tracking-[0.15em] text-[#C9A96E] mb-3">
                 {founder.title}
@@ -113,7 +109,6 @@ export default function Founder() {
 
             {/* Contact Buttons */}
             <div className="space-y-3">
-              {/* Phone */}
               <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5 hover:border-[#C9A96E]/50 transition-all group">
                 <a href={`tel:${founder.phoneRaw}`} className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-[#1E1E1E] border border-[#2A2A2A] flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A96E]/50 transition-colors">
@@ -129,7 +124,6 @@ export default function Founder() {
                 </div>
               </div>
 
-              {/* WhatsApp */}
               <a
                 href={founder.whatsappUrl}
                 target="_blank"
@@ -145,7 +139,6 @@ export default function Founder() {
                 </div>
               </a>
 
-              {/* Email */}
               <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5 hover:border-[#C9A96E]/50 transition-all group">
                 <a href={`mailto:${founder.email}`} className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-[#1E1E1E] border border-[#2A2A2A] flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A96E]/50 transition-colors">
@@ -162,7 +155,6 @@ export default function Founder() {
               </div>
             </div>
 
-            {/* CTA */}
             <div className="pt-4">
               <a
                 href={founder.whatsappUrl}
@@ -172,6 +164,76 @@ export default function Founder() {
               >
                 Start a Conversation
               </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Sales Manager Section */}
+        <div className="border-t border-[#2A2A2A] pt-16">
+          <div className="text-center mb-12">
+            <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 uppercase">
+              Sales
+            </p>
+            <h3 className="font-display text-xl lg:text-2xl text-[#F5F0EB] mb-4">
+              Speak With Our Sales Manager
+            </h3>
+            <p className="font-body text-sm text-[#8A8478] max-w-[500px] mx-auto leading-relaxed">
+              For pricing, packages, and partnership enquiries, connect directly with our sales team.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {/* Sales Manager Contact */}
+            <div className="space-y-4">
+              <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5 hover:border-[#C9A96E]/50 transition-all group">
+                <a href={`tel:${salesManager.phoneRaw}`} className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#1E1E1E] border border-[#2A2A2A] flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A96E]/50 transition-colors">
+                    <Phone size={20} className="text-[#C9A96E]" />
+                  </div>
+                  <div>
+                    <p className="font-body font-semibold text-sm text-[#F5F0EB]">Call Sales</p>
+                    <p className="font-body text-xs text-[#8A8478]">{salesManager.phone}</p>
+                  </div>
+                </a>
+                <div className="mt-2 ml-16">
+                  <CopyButton text={salesManager.phoneRaw} label="phone" />
+                </div>
+              </div>
+
+              <a
+                href={salesManager.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5 hover:border-[#C9A96E]/50 transition-all group"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#1E1E1E] border border-[#2A2A2A] flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A96E]/50 transition-colors">
+                  <MessageCircle size={20} className="text-[#4ADE80]" />
+                </div>
+                <div>
+                  <p className="font-body font-semibold text-sm text-[#F5F0EB]">WhatsApp Sales</p>
+                  <p className="font-body text-xs text-[#8A8478]">Quick response</p>
+                </div>
+              </a>
+
+              <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-5 hover:border-[#C9A96E]/50 transition-all group">
+                <a href={`mailto:${salesManager.email}`} className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#1E1E1E] border border-[#2A2A2A] flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A96E]/50 transition-colors">
+                    <Mail size={20} className="text-[#C9A96E]" />
+                  </div>
+                  <div>
+                    <p className="font-body font-semibold text-sm text-[#F5F0EB]">Email Sales</p>
+                    <p className="font-body text-xs text-[#8A8478]">{salesManager.email}</p>
+                  </div>
+                </a>
+                <div className="mt-2 ml-16">
+                  <CopyButton text={salesManager.email} label="email" />
+                </div>
+              </div>
+            </div>
+
+            {/* Sales QR Code */}
+            <div className="flex items-center justify-center">
+              <QRCodeDisplay size={140} variant="sales" showLabel showSupporting />
             </div>
           </div>
         </div>

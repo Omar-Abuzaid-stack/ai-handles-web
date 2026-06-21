@@ -204,7 +204,7 @@ export default function WorkShowcase() {
                   <p className="font-body text-sm text-[#8A8478] leading-relaxed p-4 bg-[#0A0A0A] rounded-lg border border-[#2A2A2A]">{selectedProject.challenge}</p>
                 </div>
                 <div>
-                  <h4 className="font-body font-semibold text-sm text-[#F5F0EB] mb-3 uppercase tracking-wider">Vantility Solution</h4>
+                  <h4 className="font-body font-semibold text-sm text-[#F5F0EB] mb-3 uppercase tracking-wider">AI Handle Solution</h4>
                   <p className="font-body text-sm text-[#8A8478] leading-relaxed p-4 bg-[#C9A96E]/5 rounded-lg border border-[#C9A96E]/20 text-[#F5F0EB]">{selectedProject.solution}</p>
                 </div>
               </div>
