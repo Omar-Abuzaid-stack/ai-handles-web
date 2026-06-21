@@ -33,11 +33,15 @@ export default function AgencyIntro() {
           </div>
 
           {/* Right - Pillars */}
-          <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-8 lg:p-10 animate-item shadow-2xl shadow-black/50 hover:border-[#C9A96E]/30 transition-colors duration-500">
-            <h3 className="font-body font-semibold text-lg text-[#F5F0EB] mb-8">
+          <div className="relative rounded-2xl p-8 lg:p-10 animate-item overflow-hidden border border-[rgba(42,42,42,0.5)] bg-gradient-to-br from-[rgba(30,30,30,0.8)] to-[rgba(20,20,20,0.9)] backdrop-blur-sm shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
+            {/* Subtle gold corner accent */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-[#C9A96E]/5 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[#C9A96E]/5 to-transparent pointer-events-none" />
+            
+            <h3 className="font-display font-semibold text-lg text-[#F5F0EB] mb-8 relative z-10">
               Every system is designed around:
             </h3>
-            <div ref={listRef} className="grid sm:grid-cols-2 gap-y-6 gap-x-4">
+            <div ref={listRef} className="grid sm:grid-cols-2 gap-y-5 gap-x-6 relative z-10">
               {[
                 { icon: <Target size={16} />, label: 'Your Projects' },
                 { icon: <Layers size={16} />, label: 'Your Lead Sources' },
@@ -46,16 +50,16 @@ export default function AgencyIntro() {
                 { icon: <ShieldCheck size={16} />, label: 'Your Approval Rules' },
                 { icon: <Target size={16} />, label: 'Your Reporting' },
               ].map((item, i) => (
-                <div key={i} className="pillar-item flex items-center gap-3 text-[#8A8478] group cursor-default">
-                  <div className="text-[#5A5550] group-hover:text-[#C9A96E] transition-colors">
+                <div key={i} className="pillar-item flex items-center gap-3 text-[#8A8478] group cursor-default py-1">
+                  <div className="w-8 h-8 rounded-lg bg-[#C9A96E]/5 border border-[#C9A96E]/10 flex items-center justify-center text-[#5A5550] group-hover:text-[#C9A96E] group-hover:bg-[#C9A96E]/10 group-hover:border-[#C9A96E]/20 transition-all duration-300">
                     {item.icon}
                   </div>
-                  <span className="font-body text-sm tracking-wide group-hover:text-[#F5F0EB] transition-colors">{item.label}</span>
+                  <span className="font-body text-sm tracking-wide group-hover:text-[#F5F0EB] transition-colors duration-300">{item.label}</span>
                 </div>
               ))}
             </div>
             
-            <div className="mt-12 pt-8 border-t border-[#2A2A2A] flex items-center justify-between">
+            <div className="mt-12 pt-8 border-t border-[rgba(42,42,42,0.6)] flex items-center justify-between relative z-10">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#5A5550]">
                 AI HANDLE AGENCY INFRASTRUCTURE
               </p>
