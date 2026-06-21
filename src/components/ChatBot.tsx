@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { MessageCircle, X, Send, Loader2, Bot, User, Sparkles } from 'lucide-react';
 
-interface Message {
+interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
   content: string;
@@ -31,25 +31,21 @@ function incrementChatCount(): number {
   try {
     const data = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '{}');
     data[getTodayKey()] = count;
-    // Clean up old days
     const keys = Object.keys(data);
     if (keys.length > 7) {
       const sorted = keys.sort();
       sorted.slice(0, sorted.length - 7).forEach(k => delete data[k]);
     }
     localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(data));
-  } catch {
-    // ignore
-  }
+  } catch { /* ignore */ }
   return count;
 }
 
-function loadHistory(): Message[] {
+function loadHistory(): ChatMessage[] {
   try {
     const raw = localStorage.getItem(MESSAGES_KEY);
     if (!raw) return [];
-    const messages: Message[] = JSON.parse(raw);
-    // Only keep messages from today
+    const messages: ChatMessage[] = JSON.parse(raw);
     const today = getTodayKey();
     return messages.filter(m => new Date(m.timestamp).toISOString().split('T')[0] === today);
   } catch {
@@ -57,12 +53,10 @@ function loadHistory(): Message[] {
   }
 }
 
-function saveHistory(messages: Message[]) {
+function saveHistory(messages: ChatMessage[]) {
   try {
     localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
-  } catch {
-    // ignore
-  }
+  } catch { /* ignore */ }
 }
 
 const NAVIGATION_MAP: Record<string, string> = {
@@ -81,19 +75,38 @@ const NAVIGATION_MAP: Record<string, string> = {
   'safety': '#safety',
 };
 
-function parseActionFromResponse(content: string): { text: string; action: Message['action'] } {
-  // Look for JSON action block in the response
+/** Safe markdown renderer — no dangerouslySetInnerHTML */
+function ChatMessageContent({ content }: { content: string }) {
+  const parts = content.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <span className="whitespace-pre-wrap">
+      {parts.map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return <strong key={i} className="font-semibold">{part.slice(2, -2)}</strong>;
+        }
+        const lines = part.split(/\u2022/g);
+        return lines.map((line, j) => {
+          if (j > 0) {
+            return <span key={`${i}-${j}`}><span className="text-[#C9A96E]">{'\u2022'}</span> {line}</span>;
+          }
+          return <span key={`${i}-${j}`}>{line}</span>;
+        });
+      })}
+    </span>
+  );
+}
+
+function parseActionFromResponse(content: string): { text: string; action: ChatMessage['action'] } {
   const jsonMatch = content.match(/\{"action":\s*"navigate",\s*"target":\s*"([^"]+)"[^}]*\}/);
   if (jsonMatch) {
     const target = jsonMatch[1];
-    // Remove the JSON block from the displayed text
     const cleanedText = content.replace(/\n?\n?\{"action":\s*"navigate"[^}]+\}/, '').trim();
     return { text: cleanedText, action: { type: 'navigate', target } };
   }
   return { text: content, action: null };
 }
 
-function executeAction(action: Message['action']) {
+function executeAction(action: ChatMessage['action']) {
   if (!action || action.type !== 'navigate') return;
   const selector = NAVIGATION_MAP[action.target] || `#${action.target}`;
   const el = document.querySelector(selector);
@@ -104,7 +117,7 @@ function executeAction(action: Message['action']) {
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRateLimited, setIsRateLimited] = useState(false);
@@ -112,9 +125,7 @@ export default function ChatBot() {
   const [hasGreeted, setHasGreeted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Load history on mount
   useEffect(() => {
     const history = loadHistory();
     if (history.length > 0) {
@@ -128,64 +139,41 @@ export default function ChatBot() {
     }
   }, []);
 
-  // Save history when messages change
   useEffect(() => {
-    if (messages.length > 0) {
-      saveHistory(messages);
-    }
+    if (messages.length > 0) saveHistory(messages);
   }, [messages]);
 
-  // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  // Focus input when opened
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
+    if (isOpen) setTimeout(() => inputRef.current?.focus(), 100);
   }, [isOpen]);
 
   const greetUser = useCallback(() => {
     if (hasGreeted) return;
     setHasGreeted(true);
-    const greeting: Message = {
+    setMessages([{
       id: `msg-greeting-${Date.now()}`,
       role: 'assistant',
-      content: `Welcome to AI Handle. 👋
-
-I'm your AI assistant, ready to help you understand how our coordinated AI workforce can transform your business.
-
-Here's what I can help with:
-• **Services** — AI agents, automations, websites, growth systems
-• **Industries** — Real estate, clinics, B2B, agencies, and more
-• **The AI Team** — Meet our 12 specialised AI agents
-• **How It Works** — Our 9-step implementation process
-• **Getting Started** — Book a discovery session
-
-What would you like to know?`,
+      content: `Welcome to AI Handle. 👋\n\nI'm your AI assistant, ready to help you understand how our coordinated AI workforce can transform your business.\n\nHere's what I can help with:\n• **Services** — AI agents, automations, websites, growth systems\n• **Industries** — Real estate, clinics, B2B, agencies, and more\n• **The AI Team** — Meet our 12 specialised AI agents\n• **How It Works** — Our 9-step implementation process\n• **Getting Started** — Book a discovery session\n\nWhat would you like to know?`,
       timestamp: Date.now(),
       action: null,
-    };
-    setMessages([greeting]);
+    }]);
   }, [hasGreeted]);
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
-    if (!hasGreeted) {
-      greetUser();
-    }
+    if (!hasGreeted) greetUser();
   }, [hasGreeted, greetUser]);
 
-  const sendMessage = useCallback(async () => {
-    const text = input.trim();
-    if (!text || isLoading) return;
-
-    // Check rate limit
+  /** Core send logic — shared by input and quick actions */
+  const sendText = useCallback(async (text: string, historyContext: ChatMessage[]) => {
+    // isLoading guard checked at call sites (sendMessage + quick actions)
     if (isRateLimited) return;
 
-    const userMessage: Message = {
+    const userMessage: ChatMessage = {
       id: `msg-user-${Date.now()}`,
       role: 'user',
       content: text,
@@ -196,7 +184,6 @@ What would you like to know?`,
     setInput('');
     setIsLoading(true);
 
-    // Increment rate counter
     const newCount = incrementChatCount();
     if (newCount >= DAILY_LIMIT) {
       setIsRateLimited(true);
@@ -204,10 +191,9 @@ What would you like to know?`,
     }
 
     try {
-      // Build message history for API
-      const apiMessages = [...messages, userMessage]
+      const apiMessages = [...historyContext, userMessage]
         .filter(m => m.role === 'user' || m.role === 'assistant')
-        .slice(-10) // Keep last 10 messages for context
+        .slice(-10)
         .map(m => ({ role: m.role, content: m.content }));
 
       const response = await fetch('/api/chat', {
@@ -219,57 +205,54 @@ What would you like to know?`,
       if (response.status === 429) {
         setIsRateLimited(true);
         setRateLimitMessage('Too Much Chats Done Today, Come Again Later');
-        const rateLimitMsg: Message = {
+        setMessages(prev => [...prev, {
           id: `msg-system-${Date.now()}`,
           role: 'assistant',
           content: 'Too Much Chats Done Today, Come Again Later',
           timestamp: Date.now(),
-        };
-        setMessages(prev => [...prev, rateLimitMsg]);
+        }]);
         return;
       }
 
       const data = await response.json();
 
       if (data.error) {
-        const errMsg: Message = {
+        setMessages(prev => [...prev, {
           id: `msg-error-${Date.now()}`,
           role: 'assistant',
           content: data.message || 'Sorry, something went wrong. Please try again.',
           timestamp: Date.now(),
-        };
-        setMessages(prev => [...prev, errMsg]);
+        }]);
         return;
       }
 
       const { text: responseText, action } = parseActionFromResponse(data.content);
-
-      const assistantMessage: Message = {
+      setMessages(prev => [...prev, {
         id: `msg-assistant-${Date.now()}`,
         role: 'assistant',
         content: responseText,
         timestamp: Date.now(),
         action,
-      };
+      }]);
 
-      setMessages(prev => [...prev, assistantMessage]);
-
-      // Execute navigation if present
-      if (action) {
-        setTimeout(() => executeAction(action), 500);
-      }
-    } catch (err) {
-      const errMsg: Message = {
+      if (action) setTimeout(() => executeAction(action), 500);
+    } catch {
+      setMessages(prev => [...prev, {
         id: `msg-error-${Date.now()}`,
         role: 'assistant',
         content: 'Connection error. Please check your internet and try again.',
         timestamp: Date.now(),
-      };
-      setMessages(prev => [...prev, errMsg]);
+      }]);
     } finally {
       setIsLoading(false);
     }
-  }, [input, isLoading, messages, isRateLimited]);
+  }, [isRateLimited]);
+
+  const sendMessage = useCallback(() => {
+    const text = input.trim();
+    if (!text || isLoading) return;
+    sendText(text, messages);
+  }, [input, isLoading, messages, sendText]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -295,7 +278,6 @@ What would you like to know?`,
           aria-label="Open AI chat assistant"
         >
           <MessageCircle size={22} className="group-hover:rotate-12 transition-transform" />
-          {/* Pulse ring */}
           <span className="absolute inset-0 rounded-full border-2 border-[#C9A96E]/40 animate-ping opacity-30" />
         </button>
       )}
@@ -333,7 +315,6 @@ What would you like to know?`,
 
           {/* Messages */}
           <div
-            ref={chatContainerRef}
             className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth"
             style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(201,169,110,0.2) transparent' }}
           >
@@ -354,12 +335,7 @@ What would you like to know?`,
                       : 'bg-white/5 text-[#F5F0EB] border border-white/5 rounded-bl-md'
                   }`}
                 >
-                  <div className="whitespace-pre-wrap" dangerouslySetInnerHTML={{
-                    __html: msg.content
-                      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
-                      .replace(/• /g, '<span class="text-[#C9A96E]">•</span> ')
-                  }} />
-                  {/* Navigate button */}
+                  <ChatMessageContent content={msg.content} />
                   {msg.action?.type === 'navigate' && (
                     <button
                       onClick={() => executeAction(msg.action)}
@@ -378,7 +354,6 @@ What would you like to know?`,
               </div>
             ))}
 
-            {/* Loading indicator */}
             {isLoading && (
               <div className="flex gap-2.5 justify-start animate-msg-in">
                 <div className="w-7 h-7 rounded-full bg-[#C9A96E]/10 border border-[#C9A96E]/20 flex items-center justify-center flex-shrink-0">
@@ -402,14 +377,9 @@ What would you like to know?`,
               {quickActions.map((qa) => (
                 <button
                   key={qa.label}
-                  onClick={() => {
-                    // Set input and trigger send via refs
-                    setInput(qa.text);
-                    setTimeout(() => {
-                      inputRef.current?.focus();
-                    }, 50);
-                  }}
-                  className="text-[11px] font-body px-2.5 py-1.5 rounded-full border border-[#C9A96E]/20 text-[#C9A96E] hover:bg-[#C9A96E]/10 transition-colors"
+                  onClick={() => sendText(qa.text, messages)}
+                  disabled={isLoading}
+                  className="text-[11px] font-body px-2.5 py-1.5 rounded-full border border-[#C9A96E]/20 text-[#C9A96E] hover:bg-[#C9A96E]/10 transition-colors disabled:opacity-40"
                 >
                   {qa.label}
                 </button>
@@ -455,34 +425,17 @@ What would you like to know?`,
         </div>
       )}
 
-      {/* Animation styles */}
       <style>{`
         @keyframes chatIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          from { opacity: 0; transform: translateY(20px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes msgIn {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .animate-chat-in {
-          animation: chatIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-msg-in {
-          animation: msgIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        .animate-chat-in { animation: chatIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-msg-in { animation: msgIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
     </>
   );

@@ -3,6 +3,31 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || '';
 const MISTRAL_MODEL = 'mistral-small-latest';
 
+// Simple in-memory rate limiting (resets on cold start — acceptable for serverless)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const MAX_REQUESTS_PER_HOUR = 30;
+const WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return true;
+  }
+  if (entry.count >= MAX_REQUESTS_PER_HOUR) return false;
+  entry.count++;
+  return true;
+}
+
+// Clean up old entries periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, val] of rateLimitMap) {
+    if (now > val.resetAt) rateLimitMap.delete(key);
+  }
+}, 60000);
+
 const SYSTEM_PROMPT = `You are the AI Handle assistant — a professional, knowledgeable representative of AI Handle, a UAE-based AI agency serving businesses across the Gulf and globally.
 
 ## About AI Handle
@@ -118,6 +143,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (!MISTRAL_API_KEY) {
     return res.status(500).json({ error: 'API key not configured' });
+  }
+
+  // Server-side rate limiting
+  const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 'unknown';
+  if (!checkRateLimit(clientIp)) {
+    return res.status(429).json({
+      error: 'rate_limited',
+      message: 'Too Much Chats Done Today, Come Again Later',
+    });
   }
 
   try {
