@@ -2,8 +2,8 @@ import React from 'react';
 import { Navigate, Outlet, Link, useLocation } from 'react-router';
 import { useAuth } from './AuthContext';
 import { 
-  LayoutDashboard, Users, UserCog, Settings, LogOut, 
-  Image as ImageIcon, Video, Globe
+  LayoutDashboard, Users, UserCog, LogOut, 
+  Image as ImageIcon, Video, Globe, Home, Palette, Shield
 } from 'lucide-react';
 
 const AdminLayout: React.FC = () => {
@@ -26,20 +26,33 @@ const AdminLayout: React.FC = () => {
           <Link to="/admin" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname === '/admin' ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
             <LayoutDashboard size={18} /> Dashboard
           </Link>
+          <div className="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">Content</div>
+          <Link to="/admin/homepage" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/homepage') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Home size={18} /> Homepage
+          </Link>
+          <Link to="/admin/team" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/team') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Users size={18} /> Team Members
+          </Link>
           <Link to="/admin/agents" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/agents') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
             <UserCog size={18} /> AI Agents
           </Link>
-          <Link to="/admin/clients" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/clients') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
-            <Users size={18} /> Clients & Work
+          <div className="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">Media</div>
+          <Link to="/admin/videos" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/videos') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Video size={18} /> Videos
           </Link>
           <Link to="/admin/media" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/media') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
             <ImageIcon size={18} /> Media Library
           </Link>
-          <Link to="/admin/videos" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/videos') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
-            <Video size={18} /> Videos
+          <div className="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">Business</div>
+          <Link to="/admin/clients" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/clients') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Globe size={18} /> Clients & Projects
           </Link>
-          <Link to="/admin/settings" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/settings') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
-            <Settings size={18} /> Site Settings
+          <div className="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">System</div>
+          <Link to="/admin/theme" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/theme') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Palette size={18} /> Theme
+          </Link>
+          <Link to="/admin/users" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/users') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Shield size={18} /> Users & Roles
           </Link>
         </nav>
 

@@ -35,7 +35,7 @@ const AdminLogin: React.FC = () => {
           <Lock size={40} strokeWidth={1} />
         </div>
         <h2 className="mt-6 text-center text-3xl font-mono tracking-widest text-[#F5F0EB]">
-          VANTILITY
+          AI HANDLE
         </h2>
         <p className="mt-2 text-center text-sm text-[#8A8478]">
           Executive Command Center
@@ -46,7 +46,7 @@ const AdminLogin: React.FC = () => {
         <div className="bg-[#111111] py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-white/5">
           {isLocalMode && (
             <div className="mb-6 p-4 bg-[#C9A96E]/10 border border-[#C9A96E]/20 rounded-md text-sm text-[#C9A96E] text-center">
-              Running in Local Mode.<br/>Use <strong>admin@vantility.com / admin</strong>
+              Running in Local Mode.<br/>Use <strong>admin@aihandle.com / admin</strong>
             </div>
           )}
 
