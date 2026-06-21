@@ -29,6 +29,7 @@ import RooftopCTA from '@/sections/RooftopCTA';
 import DiscoveryForm from '@/sections/DiscoveryForm';
 import Footer from '@/sections/Footer';
 import DemoVideo from '@/sections/DemoVideo';
+import ChatBot from '@/components/ChatBot';
 import { useCmsData } from '@/hooks/useCmsData';
 import { brand } from '@/data';
 
@@ -143,6 +144,7 @@ function App() {
       </CinematicJourney>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 }
