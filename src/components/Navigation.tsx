@@ -3,6 +3,7 @@ import { Menu, X, Phone, Mail, MessageCircle } from 'lucide-react';
 import { brand } from '@/data';
 import QRCodeDisplay from '@/components/QRCode';
 import TikTokIcon from '@/components/TikTokIcon';
+import LinkedInIcon from '@/components/LinkedInIcon';
 
 const navLinks = [
   { label: 'Services', href: '#services' },
@@ -203,6 +204,9 @@ export default function Navigation() {
               </a>
               <a href={brand.social.tiktok} target="_blank" rel="noopener noreferrer" className="text-[#8A8478] hover:text-[#C9A96E] transition-colors" aria-label="TikTok">
                 <TikTokIcon size={18} />
+              </a>
+              <a href={brand.founder.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#8A8478] hover:text-[#C9A96E] transition-colors" aria-label="LinkedIn">
+                <LinkedInIcon size={18} />
               </a>
             </div>
           </div>

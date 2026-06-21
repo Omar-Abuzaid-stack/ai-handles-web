@@ -19,6 +19,7 @@ export const brand = {
     phoneRaw: '+971508033084',
     email: 'AIHandle.cloud@gmail.com',
     whatsappUrl: 'https://wa.me/971508033084',
+    linkedinUrl: 'https://www.linkedin.com/in/omar-elgar7y-69a763208',
     description: 'Omar Mohamed founded AI Handle to help businesses move beyond disconnected software and deploy coordinated AI systems directly into their real operations. His focus is building practical AI agents, automations, websites, lead-generation systems, and growth infrastructure that help teams operate more efficiently and scale.',
     imageAlt: 'Omar Mohamed — Founder of AI Handle',
   },

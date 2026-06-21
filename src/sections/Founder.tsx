@@ -3,6 +3,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Phone, Mail, MessageCircle, User, Copy, Check, Globe } from 'lucide-react';
 import { brand } from '@/data';
 import QRCodeDisplay from '@/components/QRCode';
+import LinkedInIcon from '@/components/LinkedInIcon';
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false);
@@ -28,8 +29,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   );
 }
 
-function PersonCard({ name, title, nationality, phone, phoneRaw, email, whatsappUrl, variant }: {
-  name: string; title: string; nationality: string; phone: string; phoneRaw: string; email: string; whatsappUrl: string; variant: 'founder' | 'sales';
+function PersonCard({ name, title, nationality, phone, phoneRaw, email, whatsappUrl, linkedinUrl, variant }: {
+  name: string; title: string; nationality: string; phone: string; phoneRaw: string; email: string; whatsappUrl: string; linkedinUrl?: string; variant: 'founder' | 'sales';
 }) {
   return (
     <div className="space-y-8 animate-item">
@@ -103,6 +104,17 @@ function PersonCard({ name, title, nationality, phone, phoneRaw, email, whatsapp
               <CopyButton text={email} label="email" />
             </a>
           </div>
+          {linkedinUrl && (
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-4 hover:border-[#C9A96E]/50 transition-all group">
+              <div className="w-11 h-11 rounded-full bg-[#1E1E1E] border border-[#2A2A2A] flex items-center justify-center flex-shrink-0 group-hover:border-[#C9A96E]/50 transition-colors">
+                <LinkedInIcon size={18} className="text-[#0A66C2]" />
+              </div>
+              <div>
+                <p className="font-body font-semibold text-sm text-[#F5F0EB]">LinkedIn</p>
+                <p className="font-body text-xs text-[#8A8478]">Connect on LinkedIn</p>
+              </div>
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -134,6 +146,7 @@ export default function Founder() {
             phoneRaw={founder.phoneRaw}
             email={founder.email}
             whatsappUrl={founder.whatsappUrl}
+            linkedinUrl={founder.linkedinUrl}
             variant="founder"
           />
           {/* Mohamed Rayan — Sales Manager */}

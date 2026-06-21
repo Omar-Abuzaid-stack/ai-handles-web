@@ -1,6 +1,7 @@
 import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { brand } from '@/data';
 import TikTokIcon from '@/components/TikTokIcon';
+import LinkedInIcon from '@/components/LinkedInIcon';
 
 const footerServices = [
   'AI Agents',
@@ -64,6 +65,9 @@ export default function Footer() {
               <a href={social.tiktok} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-[#2A2A2A] flex items-center justify-center text-[#8A8478] hover:text-[#C9A96E] hover:border-[#C9A96E]/50 transition-all" aria-label="TikTok">
                 <TikTokIcon size={15} />
               </a>
+              <a href={founder.linkedinUrl} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-[#2A2A2A] flex items-center justify-center text-[#8A8478] hover:text-[#C9A96E] hover:border-[#C9A96E]/50 transition-all" aria-label="LinkedIn">
+                <LinkedInIcon size={15} />
+              </a>
               <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-[#2A2A2A] flex items-center justify-center text-[#8A8478] hover:text-[#4ADE80] hover:border-[#4ADE80]/50 transition-all" aria-label="WhatsApp">
                 <MessageCircle size={15} />
               </a>
@@ -118,6 +122,9 @@ export default function Footer() {
               </a>
               <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="block font-body text-sm text-[#8A8478] hover:text-[#4ADE80] transition-colors">
                 WhatsApp
+              </a>
+              <a href={founder.linkedinUrl} target="_blank" rel="noopener noreferrer" className="block font-body text-sm text-[#8A8478] hover:text-[#C9A96E] transition-colors">
+                LinkedIn
               </a>
             </div>
 
