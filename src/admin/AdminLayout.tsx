@@ -18,7 +18,7 @@ const AdminLayout: React.FC = () => {
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/10 bg-black/50 flex flex-col">
         <div className="p-6 border-b border-white/10">
-          <h1 className="text-xl font-mono tracking-widest text-[#C9A96E]">VANTILITY</h1>
+          <h1 className="text-xl font-mono tracking-widest text-[#C9A96E]">AI HANDLE</h1>
           <p className="text-xs text-white/50 uppercase tracking-wider mt-1">Command Center</p>
         </div>
         
@@ -58,7 +58,7 @@ const AdminLayout: React.FC = () => {
         {isLocalMode && (
           <div className="bg-[#C9A96E]/20 border-b border-[#C9A96E]/30 px-6 py-2 flex items-center justify-between">
             <span className="text-sm text-[#C9A96E]">
-              <strong>Local Development Mode:</strong> Changes are saved to this device only. They do not update the live Vercel website.
+              <strong>Local Development Mode:</strong> Changes are saved to this device only. They do not update the live website.
             </span>
           </div>
         )}

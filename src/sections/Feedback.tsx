@@ -1,5 +1,5 @@
 import { useScrollAnimation, useStaggerAnimation } from '@/hooks/useScrollAnimation';
-import { Target, Zap, ShieldCheck, IterationCw } from 'lucide-react';
+import { Target, Zap, ShieldCheck, IterationCw, MessageSquare, Clock } from 'lucide-react';
 
 const standards = [
   {
@@ -34,7 +34,7 @@ export default function ClientStandards() {
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
           <div className="max-w-2xl">
             <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-              The Vantility Standard
+              Client Feedback
             </p>
             <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
               What Clients Evaluate Us On
@@ -45,7 +45,7 @@ export default function ClientStandards() {
           </div>
         </div>
 
-        <div ref={gridRef} className="grid md:grid-cols-2 gap-6">
+        <div ref={gridRef} className="grid md:grid-cols-2 gap-6 mb-12">
           {standards.map((std, i) => (
             <div key={i} className="standard-card bg-[#0A0A0A] border border-[#2A2A2A] rounded-xl p-8 hover:border-[#C9A96E]/30 transition-all duration-500 flex gap-6">
               <div className="text-[#C9A96E] flex-shrink-0">
@@ -57,6 +57,23 @@ export default function ClientStandards() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Client Feedback Placeholder */}
+        <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-2xl p-12 text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <MessageSquare size={24} className="text-[#C9A96E]" />
+            <Clock size={20} className="text-[#5A5550]" />
+          </div>
+          <h3 className="font-body font-semibold text-lg text-[#F5F0EB] mb-3">
+            Verified Client Feedback Coming Soon
+          </h3>
+          <p className="font-body text-sm text-[#8A8478] max-w-[500px] mx-auto leading-relaxed mb-4">
+            Client feedback is currently being reviewed for public release. Private client feedback is available upon request during discovery calls.
+          </p>
+          <p className="font-mono text-[10px] text-[#5A5550] uppercase tracking-widest">
+            Client experience standards apply to every implementation
+          </p>
         </div>
       </div>
     </section>

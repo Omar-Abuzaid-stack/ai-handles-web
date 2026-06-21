@@ -69,9 +69,9 @@ export default function ServiceLevels() {
               </p>
 
               {/* Example */}
-              <p className="font-body text-[13px] text-[#5A5550] mb-6">
-                e.g. {service.example}
-              </p>
+            <p className="font-body text-[13px] text-[#5A5550] mb-6">
+              {service.example}
+            </p>
 
               {/* CTA */}
               <a

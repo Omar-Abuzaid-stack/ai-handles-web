@@ -19,13 +19,13 @@ export default function Integrations() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-              Integration Readiness
+              AI Deployment
             </p>
             <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
               Ready to Connect
             </h2>
             <p className="font-body text-base text-[#8A8478] animate-item leading-relaxed mb-6">
-              Vantility infrastructure is designed to integrate with your existing tech stack. We don't force you to abandon your tools; we make them smarter.
+              AI Handle can deploy AI into your existing systems. We don't force you to abandon your tools; we make them smarter.
             </p>
             <div className="space-y-4 animate-item">
               <div className="flex items-start gap-3">

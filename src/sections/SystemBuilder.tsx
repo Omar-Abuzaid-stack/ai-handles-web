@@ -41,7 +41,7 @@ export default function SystemBuilder() {
             Design Your AI Workforce
           </h2>
           <p className="font-body text-base text-[#8A8478] max-w-[600px] mx-auto animate-item">
-            Select your primary business parameters below to see a simulated Vantility system recommendation.
+            Select your primary business parameters below to see a simulated AI Handle system recommendation.
           </p>
         </div>
 

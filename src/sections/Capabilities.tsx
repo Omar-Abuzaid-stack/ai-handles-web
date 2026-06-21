@@ -54,13 +54,13 @@ export default function Capabilities() {
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
           <div className="max-w-2xl">
             <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-              Vantility Capabilities
+              AI Handle Capabilities
             </p>
             <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
               Infrastructure That Scales Without the Admin Overhead
             </h2>
             <p className="font-body text-base text-[#8A8478] animate-item leading-relaxed">
-              We build the technical layers that allow real estate companies to handle more leads, process more data, and manage more communication — while maintaining absolute control.
+              We build the technical layers that allow businesses to handle more leads, process more data, and manage more communication — while maintaining absolute control.
             </p>
           </div>
           <a href="#system-builder" className="btn-secondary hidden md:inline-flex animate-item">

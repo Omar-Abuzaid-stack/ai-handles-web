@@ -15,10 +15,12 @@ import RobotSection from '@/sections/RobotSection';
 import LumenSection from '@/sections/LumenDashboard';
 import PulseSection from '@/sections/PulseTelegram';
 import FluxSection from '@/sections/FluxWorkflows';
+import WhoWeWorkWith from '@/sections/WhoWeWorkWith';
 import WorkShowcase from '@/sections/WorkShowcase';
 import Clients from '@/sections/Clients';
 import Partnerships from '@/sections/Partnerships';
 import ClientStandards from '@/sections/Feedback';
+import Founder from '@/sections/Founder';
 import ImplementationTimeline from '@/sections/Timeline';
 import SafetyCentre from '@/sections/SafetyCentre';
 import Integrations from '@/sections/Integrations';
@@ -45,7 +47,7 @@ function App() {
   }, [loading]);
 
   if (loading) {
-    return <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center text-[#C9A96E] font-mono tracking-widest">INITIALIZING SECURE CONNECTION...</div>;
+    return <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center text-[#C9A96E] font-mono tracking-widest">INITIALIZING AI HANDLE...</div>;
   }
 
   const standardRobots = robots.filter(
@@ -92,7 +94,7 @@ function App() {
                   Observing the Workforce in Action
                 </h2>
                 <p className="font-body text-base text-[#8A8478] max-w-[600px] mx-auto">
-                  Every agent is assigned to a specific department workstation, operating your real estate business around the clock.
+                  Every agent is assigned to a specific department workstation, operating your business around the clock.
                 </p>
               </div>
             </div>
@@ -105,10 +107,12 @@ function App() {
           </div>
 
           <div className="space-y-[40vh]">
+             <WhoWeWorkWith />
              <WorkShowcase />
              <Clients />
              <Partnerships />
              <ClientStandards />
+             <Founder />
              <ImplementationTimeline />
              <SafetyCentre />
              <Integrations />

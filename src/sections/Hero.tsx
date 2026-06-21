@@ -335,24 +335,24 @@ export default function Hero() {
         <div className="max-w-3xl">
           {/* Label */}
           <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-6 animate-item uppercase">
-            Vantility — AI Infrastructure for Real Estate
+            AI Handle — AI Agents, Automations and Growth Systems
           </p>
 
           {/* Headline */}
           <h1 className="hero-display text-[#F5F0EB] mb-4 animate-item">
-            Imagine a Team That
+            Your Business,
             <br />
-            <span className="text-[#C9A96E]">Never Sleeps.</span>
+            <span className="text-[#C9A96E]">Operated by Intelligence.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="font-body text-lg text-[#8A8478] max-w-[540px] mb-8 animate-item" style={{ animationDelay: '0.2s' }}>
-            Vantility builds specialised AI agents and automations that support real estate sales, CRM, communication, research, content, reporting, and daily operations.
+            AI Handle deploys AI agents, automations, websites, communication systems, and growth infrastructure directly into businesses.
           </p>
 
           {/* Signals */}
           <div className="flex flex-wrap gap-2 mb-10 animate-item" style={{ animationDelay: '0.3s' }}>
-            {['AI Agents', 'Automations', 'Sales', 'CRM', 'Communication', 'Reporting'].map(tag => (
+            {['AI Agents', 'Automations', 'Websites', 'CRM', 'Communication', 'Growth'].map(tag => (
               <span key={tag} className="px-3 py-1 bg-[#141414] border border-[#2A2A2A] rounded-full text-xs font-mono text-[#8A8478]">{tag}</span>
             ))}
           </div>
@@ -360,13 +360,13 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-4 animate-item" style={{ animationDelay: '0.4s' }}>
             <button onClick={scrollToEntrance} className="btn-primary">
-              Enter Vantility
+              Explore AI Handle
             </button>
             <a href="#work" onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
-              View Our Work
+              View Selected Work
             </a>
             <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="font-body text-[13px] text-[#C9A96E] hover:text-[#F5F0EB] transition-colors ml-2 border-b border-[#C9A96E]/30 hover:border-[#F5F0EB]">
-              Book a Discovery Session
+              Speak With Omar
             </a>
           </div>
         </div>

@@ -35,7 +35,7 @@ export default function Lobby() {
             <span className="font-mono text-[10px] text-[#C9A96E] tracking-widest uppercase">Building Directory</span>
           </div>
           <h2 className="section-title text-[#F5F0EB] mb-4">
-            Welcome to Vantility Headquarters
+            Welcome to AI Handle
           </h2>
           <p className="font-body text-base text-[#8A8478] max-w-[600px] mx-auto">
             Navigate through our specialized departments to meet the AI digital workforce.

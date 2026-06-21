@@ -27,7 +27,7 @@ export default function PulseSection({ robot }: { robot: Robot }) {
               <Bot size={16} className="text-[#C9A96E]" />
             </div>
             <div>
-              <p className="font-body font-semibold text-xs text-[#F5F0EB]">Vantility AI</p>
+              <p className="font-body font-semibold text-xs text-[#F5F0EB]">AI Handle</p>
               <p className="font-mono text-[9px] text-[#4ADE80]">Online</p>
             </div>
           </div>

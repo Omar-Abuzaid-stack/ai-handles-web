@@ -1,13 +1,13 @@
 import { useScrollAnimation, useStaggerAnimation } from '@/hooks/useScrollAnimation';
-import { Building2, Home, Users, Landmark, Globe, Briefcase } from 'lucide-react';
+import { Building2, Home, Users, Globe, Briefcase, Heart } from 'lucide-react';
 
 const clientCategories = [
   { icon: <Building2 size={24} />, title: 'Real Estate Developers', desc: 'Off-plan launches, lead qualification, and buyer communication at scale.' },
   { icon: <Home size={24} />, title: 'Real Estate Agencies', desc: 'Automating B2B and B2C sales workflows, CRM management, and follow-up sequences.' },
-  { icon: <Users size={24} />, title: 'B2B Real Estate Agents', desc: 'Coordinating large-scale broker outreach and partner research for independent agents.' },
-  { icon: <Landmark size={24} />, title: 'Property Investment', desc: 'Structured research for acquisition opportunities and market analysis.' },
-  { icon: <Globe size={24} />, title: 'International Sales', desc: 'Managing cross-border enquiries and multilingual outreach agents.' },
-  { icon: <Briefcase size={24} />, title: 'Business Consultants', desc: 'Implementing AI infrastructure for corporate real estate partners.' },
+  { icon: <Heart size={24} />, title: 'Clinics & Healthcare', desc: 'Appointment requests, patient follow-up, AI reception, and enquiry management.' },
+  { icon: <Users size={24} />, title: 'B2B Companies', desc: 'AI systems across departments, teams, communication channels, and customer workflows.' },
+  { icon: <Briefcase size={24} />, title: 'Agencies & Partners', desc: 'White-label delivery, AI-agent architecture, automation planning, and technical support.' },
+  { icon: <Globe size={24} />, title: 'Other Industries', desc: 'Hospitality, e-commerce, education, professional services, recruitment, fitness, and more.' },
 ];
 
 export default function Clients() {
@@ -17,16 +17,15 @@ export default function Clients() {
   return (
     <section id="clients" className="bg-[#141414] section-padding">
       <div ref={sectionRef} className="content-max">
-        <div className="text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-            Built For Real Estate
-          </p>
-          <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
-            Infrastructure Tailored to Your Model
-          </h2>
-          <p className="font-body text-base text-[#8A8478] max-w-[700px] mx-auto animate-item leading-relaxed">
-            We don't sell generic SaaS. Vantility infrastructure is explicitly designed for the workflows of ambitious real estate companies.
-          </p>
+        <div className="text-center mb-16">            <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
+              Built For Business
+            </p>
+            <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
+              Infrastructure Tailored to Your Model
+            </h2>
+            <p className="font-body text-base text-[#8A8478] max-w-[700px] mx-auto animate-item leading-relaxed">
+              We don't sell generic SaaS. AI Handle infrastructure is explicitly designed for the workflows of ambitious businesses.
+            </p>
         </div>
 
         <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-item">

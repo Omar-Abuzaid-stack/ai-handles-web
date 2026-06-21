@@ -22,7 +22,7 @@ export default function Entrance() {
                     <div className="w-20 h-20 rounded-full border-2 border-[#C9A96E] flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(201,169,110,0.2)]">
                        <span className="font-display text-4xl text-[#C9A96E]">V</span>
                     </div>
-                    <p className="font-mono text-[10px] text-[#8A8478] tracking-[0.3em] uppercase">Security Scanning</p>
+                    <p className="font-mono text-[10px] text-[#8A8478] tracking-[0.3em] uppercase">Initializing AI Handle</p>
                     <div className="w-48 h-1 bg-[#2A2A2A] rounded-full mx-auto overflow-hidden">
                        <div className="w-full h-full bg-[#C9A96E] animate-scan" />
                     </div>
@@ -44,7 +44,7 @@ export default function Entrance() {
                 THE ENTRANCE
               </p>
               <h2 className="section-title text-[#F5F0EB] mb-6">
-                Welcome to Vantility Headquarters
+                Welcome to AI Handle
               </h2>
               <p className="font-body text-base text-[#8A8478] max-w-[480px] leading-relaxed">
                 This building contains specialized AI departments, each staffed by professional digital workers. Every agent handles a specific responsibility — from qualifying leads to preparing reports.

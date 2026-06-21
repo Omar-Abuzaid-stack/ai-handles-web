@@ -6,7 +6,9 @@ const categories = [
   'All Work',
   'AI Agents',
   'Automations',
-  'Real Estate Websites',
+  'Websites',
+  'Clinics',
+  'Full Infrastructure',
 ];
 
 const projects = [
@@ -67,7 +69,7 @@ export default function WorkShowcase() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
             <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-              Selected Vantility Work
+              Selected AI Handle Work
             </p>
             <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
               Infrastructure in Action

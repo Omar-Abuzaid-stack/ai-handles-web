@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, AlertCircle, Loader2, Phone, Mail, MessageCircle } from 'lucide-react';
+import { brand } from '@/data';
+import QRCodeDisplay from '@/components/QRCode';
 
 const countries = ['UAE', 'Saudi Arabia', 'Pakistan', 'Qatar', 'Kuwait', 'Bahrain', 'Oman', 'Other'];
-const companyTypes = ['Developer', 'Agency', 'Brokerage', 'Investment Company', 'Property Management', 'Other'];
+const companyTypes = ['Developer', 'Agency', 'Brokerage', 'Investment Company', 'Property Management', 'Healthcare', 'Other'];
 const salesTeamSizes = ['1-5', '6-15', '16-50', '50+'];
 const crmOptions = ['Salesforce', 'HubSpot', 'Zoho', 'Property Finder CRM', 'Bayut CRM', 'Custom', 'None', 'Other'];
 const contactMethods = ['Email', 'Phone', 'WhatsApp', 'Video Call'];
@@ -53,7 +55,6 @@ export default function DiscoveryForm() {
     setFormState('loading');
 
     // TODO: Connect to backend API for form submission
-    // Simulate API call
     setTimeout(() => {
       setFormState('success');
     }, 1500);
@@ -65,13 +66,16 @@ export default function DiscoveryForm() {
         <div className="content-max max-w-2xl mx-auto text-center py-16">
           <CheckCircle size={64} className="text-[#4ADE80] mx-auto mb-6" />
           <h2 className="section-title text-[#F5F0EB] mb-4">Thank You</h2>
-          <p className="font-body text-lg text-[#8A8478]">
-            We&apos;ll be in touch within 24 hours to schedule your AI Discovery Session
+          <p className="font-body text-lg text-[#8A8478] mb-8">
+            We'll be in touch within 24 hours to schedule your AI Discovery Session
           </p>
+          <QRCodeDisplay size={120} showLabel showSupporting />
         </div>
       </section>
     );
   }
+
+  const { founder } = brand;
 
   return (
     <section id="contact" className="bg-[#141414] section-padding">
@@ -79,11 +83,43 @@ export default function DiscoveryForm() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="section-title text-[#F5F0EB] mb-4 animate-item">
-            Start Building Your AI Workforce
+            Deploy AI Into Your Business
           </h2>
-          <p className="font-body text-base text-[#8A8478] animate-item">
-            Tell us about your operation and we&apos;ll design the right AI team for your needs
+          <p className="font-body text-base text-[#8A8478] animate-item mb-8">
+            Tell us about your operation and we'll design the right AI infrastructure for your needs
           </p>
+
+          {/* Quick Contact Bar */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8 animate-item">
+            <a
+              href={`tel:${founder.phoneRaw}`}
+              className="flex items-center gap-2 px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-[#C9A96E]/50 transition-colors"
+            >
+              <Phone size={14} className="text-[#C9A96E]" />
+              <span className="font-body text-xs text-[#8A8478]">{founder.phone}</span>
+            </a>
+            <a
+              href={`mailto:${founder.email}`}
+              className="flex items-center gap-2 px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-[#C9A96E]/50 transition-colors"
+            >
+              <Mail size={14} className="text-[#C9A96E]" />
+              <span className="font-body text-xs text-[#8A8478]">{founder.email}</span>
+            </a>
+            <a
+              href={founder.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-[#C9A96E]/50 transition-colors"
+            >
+              <MessageCircle size={14} className="text-[#4ADE80]" />
+              <span className="font-body text-xs text-[#8A8478]">WhatsApp</span>
+            </a>
+          </div>
+
+          {/* QR Code */}
+          <div className="flex justify-center mb-8 animate-item">
+            <QRCodeDisplay size={120} showLabel showSupporting />
+          </div>
         </div>
 
         {/* Form */}
@@ -189,7 +225,7 @@ export default function DiscoveryForm() {
 
               <div>
                 <label className="block font-body text-sm text-[#8A8478] mb-2">
-                  Number of Salespeople
+                  Number of Team Members
                 </label>
                 <select
                   name="salesTeamSize"
@@ -304,9 +340,6 @@ export default function DiscoveryForm() {
               )}
             </button>
           </div>
-
-          {/* Backend TODO Note */}
-          {/* TODO: Connect to backend API for form submission */}
         </form>
       </div>
     </section>

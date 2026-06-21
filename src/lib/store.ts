@@ -4,7 +4,7 @@ import type { Robot } from '../data';
 
 // Local storage keys
 const KEYS = {
-  ROBOTS: 'vantility_cms_robots',
+  ROBOTS: 'aihandle_cms_robots',
   // other keys later
 };
 

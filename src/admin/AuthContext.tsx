@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return () => subscription.unsubscribe();
     } else {
       // Local honest mode
-      const localUser = localStorage.getItem('vantility_local_admin');
+      const localUser = localStorage.getItem('aihandle_local_admin');
       if (localUser) {
         setUser(JSON.parse(localUser));
       }
@@ -47,9 +47,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return !!data.user;
     } else {
-      if (email === 'admin@vantility.com' && pass === 'admin') {
+      if (email === 'admin@aihandle.com' && pass === 'admin') {
         const dummyUser = { id: 'local-admin', email };
-        localStorage.setItem('vantility_local_admin', JSON.stringify(dummyUser));
+        localStorage.setItem('aihandle_local_admin', JSON.stringify(dummyUser));
         setUser(dummyUser);
         return true;
       }
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (isSupabaseConfigured && supabase) {
       await supabase.auth.signOut();
     } else {
-      localStorage.removeItem('vantility_local_admin');
+      localStorage.removeItem('aihandle_local_admin');
       setUser(null);
     }
   };

@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Phone, Mail, MessageCircle } from 'lucide-react';
+import { brand } from '@/data';
+import QRCodeDisplay from '@/components/QRCode';
 
 const navLinks = [
-  { label: 'Building', href: '#entrance' },
-  { label: 'Agents', href: '#agents' },
-  { label: 'Automations', href: '#robot-flux' },
-  { label: 'Benefits', href: '#benefits' },
+  { label: 'Services', href: '#services' },
+  { label: 'AI Workforce', href: '#agents' },
+  { label: 'Industries', href: '#industries' },
+  { label: 'Work', href: '#work' },
+  { label: 'Founder', href: '#founder' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -66,7 +69,7 @@ export default function Navigation() {
             className="flex items-center gap-0.5"
           >
             <span className="font-body font-semibold text-sm tracking-[0.12em] text-[#F5F0EB]">
-              VANTILITY
+              AI HANDLE
             </span>
           </a>
 
@@ -100,7 +103,7 @@ export default function Navigation() {
             }}
             className="hidden md:inline-flex btn-primary text-[13px] py-2.5 px-6"
           >
-            Book Discovery
+            Speak With Omar
           </a>
 
           {/* Mobile Menu Button */}
@@ -119,10 +122,12 @@ export default function Navigation() {
         <div className="fixed inset-0 z-40 bg-[#0A0A0A]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden">
           {[
             { label: 'Home', href: '#hero' },
-            { label: 'Services', href: '#capabilities' },
+            { label: 'Services', href: '#services' },
             { label: 'AI Workforce', href: '#agents' },
-            { label: 'Automations', href: '#robot-flux' },
+            { label: 'Industries', href: '#industries' },
             { label: 'Work', href: '#work' },
+            { label: 'Founder', href: '#founder' },
+            { label: 'Contact', href: '#contact' },
           ].map((link) => (
             <a
               key={link.href}
@@ -144,8 +149,36 @@ export default function Navigation() {
             }}
             className="btn-primary mt-4"
           >
-            Book Discovery
+            Speak With Omar
           </a>
+
+          {/* Mobile Contact Bar */}
+          <div className="flex flex-col items-center gap-3 mt-6 pt-6 border-t border-[#2A2A2A]/50 w-full max-w-[300px]">
+            <a
+              href={`tel:${brand.founder.phoneRaw}`}
+              className="flex items-center gap-2 text-[#8A8478] hover:text-[#C9A96E] transition-colors"
+            >
+              <Phone size={14} />
+              <span className="font-body text-xs">{brand.founder.phone}</span>
+            </a>
+            <a
+              href={`mailto:${brand.founder.email}`}
+              className="flex items-center gap-2 text-[#8A8478] hover:text-[#C9A96E] transition-colors"
+            >
+              <Mail size={14} />
+              <span className="font-body text-xs">{brand.founder.email}</span>
+            </a>
+            <a
+              href={brand.founder.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-[#8A8478] hover:text-[#4ADE80] transition-colors"
+            >
+              <MessageCircle size={14} />
+              <span className="font-body text-xs">WhatsApp</span>
+            </a>
+            <QRCodeDisplay size={120} showLabel={false} />
+          </div>
         </div>
       )}
     </>
