@@ -1,37 +1,46 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
+const countries = [
+  { name: 'United Arab Emirates', primary: true },
+  { name: 'Saudi Arabia' },
+  { name: 'Qatar' },
+  { name: 'Kuwait' },
+  { name: 'Bahrain' },
+  { name: 'Oman' },
+  { name: 'Global Markets' },
+];
+
 export default function About() {
-  const sectionRef = useScrollAnimation();
+  const ref = useScrollAnimation();
 
   return (
-    <section id="about" className="bg-[#141414] section-padding border-t border-[#2A2A2A]">
-      <div ref={sectionRef} className="content-max">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-6 animate-item uppercase">
-              About AI Handle
-            </p>
-            <h2 className="section-title text-[#F5F0EB] mb-8 animate-item">
-              Building the Foundations for Scale
-            </h2>
-            <div className="space-y-6 animate-item">
-              <p className="font-body text-base text-[#F5F0EB] leading-relaxed">
-                AI Handle is an agency deploying AI agents, automations, websites, communication systems, and growth infrastructure directly into businesses. We help teams operate more efficiently and scale without proportional administrative bloat.
-              </p>
-              <p className="font-body text-base text-[#8A8478] leading-relaxed">
-                We believe the future isn't just about having the best AI tools, but having the best AI infrastructure. We combine AI strategy, agent design, automation architecture, and business workflow mapping to create a technical foundation that actually supports growth.
-              </p>
-            </div>
-          </div>
-          <div className="bg-[#0A0A0A] border border-[#2A2A2A] rounded-2xl p-8 lg:p-12 animate-item">
-            <h3 className="font-display text-2xl text-[#F5F0EB] mb-6 italic">
-              "We don't replace your team. We give them a team of digital workers to handle everything else."
-            </h3>
-            <p className="font-body text-sm text-[#8A8478] uppercase tracking-widest">
-              — Omar Mohamed, Founder
-            </p>
-          </div>
+    <section className="section-padding">
+      <div ref={ref} className="content-max">
+        <div className="text-center mb-16">
+          <p className="label-text text-purple mb-4 animate-item">Coverage</p>
+          <h2 className="heading-section mb-4 animate-item">
+            UAE Based. Gulf Focused. <span className="serif-italic text-white/50">Globally Capable.</span>
+          </h2>
         </div>
+
+        <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto animate-item">
+          {countries.map((c) => (
+            <div
+              key={c.name}
+              className={`px-6 py-3 rounded-full border transition-colors ${
+                c.primary
+                  ? 'border-purple/30 bg-purple/5 text-white'
+                  : 'border-white/8 text-white/50 hover:border-white/15'
+              }`}
+            >
+              <span className="text-sm font-medium">{c.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <p className="body-text text-center mt-12 max-w-xl mx-auto animate-item">
+          We work with responsible businesses where AI can improve communication, operations, customer handling, lead management, content, or reporting.
+        </p>
       </div>
     </section>
   );

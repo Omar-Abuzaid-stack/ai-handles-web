@@ -1,382 +1,99 @@
-import { useEffect, useRef } from 'react';
-import { ChevronDown, Mail } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { ArrowRight, Play, ChevronDown } from 'lucide-react';
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const handleCanPlay = () => setVideoLoaded(true);
+    video.addEventListener('canplay', handleCanPlay);
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    // Fluid simulation parameters
-    const scale = prefersReducedMotion ? 0.5 : 1;
-    const gridSize = Math.floor(128 * scale);
-    const _cellW = width / gridSize;
-    const _cellH = height / gridSize;
-    void _cellW; void _cellH;
-
-    // Velocity and density fields
-    const vx = new Float32Array(gridSize * gridSize);
-    const vy = new Float32Array(gridSize * gridSize);
-    const density = new Float32Array(gridSize * gridSize);
-    const prevVx = new Float32Array(gridSize * gridSize);
-    const prevVy = new Float32Array(gridSize * gridSize);
-    const prevDensity = new Float32Array(gridSize * gridSize);
-
-    let mouseX = width * 0.5;
-    let mouseY = height * 0.5;
-    let prevMouseX = mouseX;
-    let prevMouseY = mouseY;
-    let mouseActive = false;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      prevMouseX = mouseX;
-      prevMouseY = mouseY;
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      mouseActive = true;
+    // Smooth loop: fade to black near end, then restart
+    let raf: number;
+    const checkLoop = () => {
+      if (video && video.duration && video.currentTime > video.duration - 0.6) {
+        video.style.opacity = '0';
+      }
+      if (video && video.currentTime < 0.3) {
+        video.style.opacity = videoLoaded ? '1' : '0';
+      }
+      raf = requestAnimationFrame(checkLoop);
     };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      prevMouseX = mouseX;
-      prevMouseY = mouseY;
-      mouseX = touch.clientX;
-      mouseY = touch.clientY;
-      mouseActive = true;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-
-    function idx(x: number, y: number) {
-      const ix = Math.max(0, Math.min(gridSize - 1, x));
-      const iy = Math.max(0, Math.min(gridSize - 1, y));
-      return iy * gridSize + ix;
-    }
-
-    function addForce(cx: number, cy: number, fx: number, fy: number, strength: number) {
-      const r = 4;
-      for (let y = cy - r; y <= cy + r; y++) {
-        for (let x = cx - r; x <= cx + r; x++) {
-          if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
-            const d = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
-            const falloff = Math.exp(-d * d / (r * r * 0.5));
-            const i = idx(x, y);
-            vx[i] += fx * falloff * strength;
-            vy[i] += fy * falloff * strength;
-            density[i] += falloff * strength * 0.3;
-          }
-        }
-      }
-    }
-
-    function diffuse(src: Float32Array, dst: Float32Array, rate: number) {
-      for (let y = 1; y < gridSize - 1; y++) {
-        for (let x = 1; x < gridSize - 1; x++) {
-          const i = idx(x, y);
-          dst[i] = src[i] + rate * (
-            src[idx(x - 1, y)] + src[idx(x + 1, y)] +
-            src[idx(x, y - 1)] + src[idx(x, y + 1)] - 4 * src[i]
-          );
-        }
-      }
-    }
-
-    function advect(src: Float32Array, dst: Float32Array, vxField: Float32Array, vyField: Float32Array) {
-      for (let y = 1; y < gridSize - 1; y++) {
-        for (let x = 1; x < gridSize - 1; x++) {
-          const i = idx(x, y);
-          let px = x - vxField[i] * 0.5;
-          let py = y - vyField[i] * 0.5;
-          px = Math.max(0.5, Math.min(gridSize - 1.5, px));
-          py = Math.max(0.5, Math.min(gridSize - 1.5, py));
-          const x0 = Math.floor(px);
-          const y0 = Math.floor(py);
-          const x1 = x0 + 1;
-          const y1 = y0 + 1;
-          const sx = px - x0;
-          const sy = py - y0;
-          dst[i] =
-            (1 - sx) * (1 - sy) * src[idx(x0, y0)] +
-            sx * (1 - sy) * src[idx(x1, y0)] +
-            (1 - sx) * sy * src[idx(x0, y1)] +
-            sx * sy * src[idx(x1, y1)];
-        }
-      }
-    }
-
-    function project() {
-      const div = new Float32Array(gridSize * gridSize);
-      const p = new Float32Array(gridSize * gridSize);
-
-      for (let y = 1; y < gridSize - 1; y++) {
-        for (let x = 1; x < gridSize - 1; x++) {
-          const i = idx(x, y);
-          div[i] = -0.5 * (
-            vx[idx(x + 1, y)] - vx[idx(x - 1, y)] +
-            vy[idx(x, y + 1)] - vy[idx(x, y - 1)]
-          ) / gridSize;
-        }
-      }
-
-      for (let iter = 0; iter < 20; iter++) {
-        for (let y = 1; y < gridSize - 1; y++) {
-          for (let x = 1; x < gridSize - 1; x++) {
-            const i = idx(x, y);
-            p[i] = (div[i] + p[idx(x - 1, y)] + p[idx(x + 1, y)] + p[idx(x, y - 1)] + p[idx(x, y + 1)]) * 0.25;
-          }
-        }
-      }
-
-      for (let y = 1; y < gridSize - 1; y++) {
-        for (let x = 1; x < gridSize - 1; x++) {
-          const i = idx(x, y);
-          vx[i] -= 0.5 * (p[idx(x + 1, y)] - p[idx(x - 1, y)]);
-          vy[i] -= 0.5 * (p[idx(x, y + 1)] - p[idx(x, y - 1)]);
-        }
-      }
-    }
-
-    const timeOffset = Math.random() * 1000;
-    let frameCount = 0;
-
-    function animate() {
-      if (!ctx) return;
-      frameCount++;
-      const t = (Date.now() / 1000) + timeOffset;
-
-      // Mouse force
-      if (mouseActive) {
-        const mdx = mouseX - prevMouseX;
-        const mdy = mouseY - prevMouseY;
-        const mcx = Math.floor((mouseX / width) * gridSize);
-        const mcy = Math.floor((mouseY / height) * gridSize);
-        addForce(mcx, mcy, mdx * 0.5, mdy * 0.5, 1.0);
-      }
-
-      // Ambient forces - gentle swirling
-      const cx = Math.floor(gridSize * 0.5);
-      const cy = Math.floor(gridSize * 0.5);
-      for (let i = 0; i < 3; i++) {
-        const angle = t * 0.3 + i * Math.PI * 2 / 3;
-        const fx = Math.cos(angle) * 0.02;
-        const fy = Math.sin(angle) * 0.02;
-        const rx = cx + Math.floor(Math.cos(angle * 0.7) * gridSize * 0.2);
-        const ry = cy + Math.floor(Math.sin(angle * 0.7) * gridSize * 0.2);
-        addForce(rx, ry, fx, fy, 0.3);
-      }
-
-      // Diffuse and advect
-      prevVx.set(vx);
-      prevVy.set(vy);
-      prevDensity.set(density);
-
-      diffuse(prevVx, vx, 0.0001);
-      diffuse(prevVy, vy, 0.0001);
-      diffuse(prevDensity, density, 0.0001);
-
-      project();
-
-      prevVx.set(vx);
-      prevVy.set(vy);
-      advect(vx, prevVx, vx, vy);
-      advect(vy, prevVy, vx, vy);
-      vx.set(prevVx);
-      vy.set(prevVy);
-
-      prevDensity.set(density);
-      advect(density, prevDensity, vx, vy);
-      density.set(prevDensity);
-
-      // Damping
-      for (let i = 0; i < gridSize * gridSize; i++) {
-        vx[i] *= 0.995;
-        vy[i] *= 0.995;
-        density[i] *= 0.998;
-      }
-
-      project();
-
-      // Render
-      if (frameCount % 2 === 0 || prefersReducedMotion) {
-        const imageData = ctx.createImageData(width, height);
-        const data = imageData.data;
-
-        for (let y = 0; y < height; y += 2) {
-          for (let x = 0; x < width; x += 2) {
-            const gx = Math.floor((x / width) * gridSize);
-            const gy = Math.floor((y / height) * gridSize);
-            const gi = idx(gx, gy);
-
-            const vel = Math.sqrt(vx[gi] ** 2 + vy[gi] ** 2);
-            const d = density[gi];
-
-            // Metallic champagne-gold coloring
-            const nx = x / width;
-            const ny = y / height;
-
-            // Base dark obsidian with subtle variation
-            let r = 10 + Math.sin(nx * 3 + t * 0.1) * 3 + Math.cos(ny * 2) * 2;
-            let g = 10 + Math.cos(nx * 2 + t * 0.15) * 2;
-            let b = 10 + Math.sin(ny * 3) * 2;
-
-            // Champagne gold highlights from fluid motion
-            const goldIntensity = Math.min(1, (vel * 0.5 + d * 0.3));
-            const iridescence = Math.sin(vel * 2 + t * 0.5) * 0.5 + 0.5;
-
-            r += goldIntensity * (201 + iridescence * 30);
-            g += goldIntensity * (169 + iridescence * 20);
-            b += goldIntensity * (110 + iridescence * 40);
-
-            // Amber warm tones
-            const amberBoost = Math.sin(nx * 5 + ny * 3 + t * 0.2) * 0.1;
-            r += amberBoost * 50;
-            g += amberBoost * 30;
-
-            // Specular-like highlights
-            const specular = Math.pow(Math.max(0, Math.sin(vel * 3)), 4) * 80;
-            r += specular;
-            g += specular * 0.85;
-            b += specular * 0.5;
-
-            const px = Math.floor(Math.min(255, Math.max(0, r)));
-            const py = Math.floor(Math.min(255, Math.max(0, g)));
-            const pz = Math.floor(Math.min(255, Math.max(0, b)));
-
-            // Fill 2x2 block
-            for (let dy = 0; dy < 2 && y + dy < height; dy++) {
-              for (let dx = 0; dx < 2 && x + dx < width; dx++) {
-                const pi = ((y + dy) * width + (x + dx)) * 4;
-                data[pi] = px;
-                data[pi + 1] = py;
-                data[pi + 2] = pz;
-                data[pi + 3] = 255;
-              }
-            }
-          }
-        }
-
-        ctx.putImageData(imageData, 0, 0);
-      }
-
-      mouseActive = false;
-      animationRef.current = requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    const handleResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    };
-
-    window.addEventListener('resize', handleResize);
+    raf = requestAnimationFrame(checkLoop);
 
     return () => {
-      cancelAnimationFrame(animationRef.current);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('resize', handleResize);
+      video.removeEventListener('canplay', handleCanPlay);
+      cancelAnimationFrame(raf);
     };
-  }, []);
-
-  const scrollToEntrance = () => {
-    const el = document.getElementById('entrance');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, [videoLoaded]);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Fluid Canvas Background */}
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 1,
-        }}
+    <section className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black">
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        muted
+        autoPlay
+        playsInline
+        loop
+        preload="auto"
+        poster="/brand/ai-handle-logo.png"
+        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500"
+        style={{ opacity: videoLoaded ? 1 : 0 }}
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4"
       />
 
-      {/* Building Image Overlay */}
-      <div className="absolute inset-0 z-[2] opacity-30 mix-blend-overlay">
-        <img
-          src="/images/building/exterior.jpg"
-          alt=""
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      <div
-        className="absolute inset-0 z-[3]"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,1) 100%)',
-        }}
-      />
+      {/* Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black z-[1]" />
 
       {/* Content */}
-      <div className="relative z-10 content-max w-full px-6 lg:px-10 py-32">
-        <div className="max-w-3xl">
-          {/* Eyebrow */}
-          <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-6 animate-item uppercase">
-            UAE-Based AI Agency Serving the Gulf
-          </p>
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-32">
+        {/* Eyebrow */}
+        <p className="label-text text-purple mb-6 opacity-0 animate-fade-up" style={{ animationDelay: '0.2s' }}>
+          UAE-Based AI Agency
+        </p>
 
-          {/* Headline */}
-          <h1 className="hero-display text-[#F5F0EB] mb-4 animate-item">
-            Deploy AI Into
-            <br />
-            <span className="text-[#C9A96E]">Your Business.</span>
-          </h1>
+        {/* Headline */}
+        <h1 className="heading-display max-w-4xl mb-6 opacity-0 animate-fade-up" style={{ animationDelay: '0.4s' }}>
+          Imagine a Team That{' '}
+          <span className="serif-italic text-white/50">never sleeps</span>.
+        </h1>
 
-          {/* Subheadline */}
-          <p className="font-body text-lg text-[#8A8478] max-w-[540px] mb-10 animate-item leading-relaxed" style={{ animationDelay: '0.2s' }}>
-            AI Handle builds AI agents, automations, websites, communication systems, and growth infrastructure for businesses across the Gulf.
-          </p>
+        {/* Supporting text */}
+        <p className="body-text max-w-2xl mb-4 opacity-0 animate-fade-up" style={{ animationDelay: '0.6s' }}>
+          AI Handle deploys a coordinated team of AI agents into your business. Each agent handles a specific responsibility—from enquiries and sales to CRM, research, content, operations, and reporting.
+        </p>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-4 animate-item" style={{ animationDelay: '0.3s' }}>
-            <button onClick={scrollToEntrance} className="btn-primary">
-              Build My AI System
-            </button>
-            <a href="#demo" onClick={(e) => { e.preventDefault(); document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
-              Watch the Demo
-            </a>
-            <a href="mailto:AIHandle.cloud@gmail.com" className="btn-secondary">
-              <Mail size={16} /> Email Us
-            </a>
-          </div>
+        <p className="body-text max-w-xl mb-10 opacity-0 animate-fade-up" style={{ animationDelay: '0.7s' }}>
+          You do not receive one chatbot. You receive a digital workforce that works across the platforms your business already uses.
+        </p>
 
-          {/* Gulf Coverage */}
-          <div className="mt-10 flex flex-wrap items-center gap-3 animate-item" style={{ animationDelay: '0.4s' }}>
-            <span className="font-mono text-[10px] text-[#5A5550] uppercase tracking-wider">Serving:</span>
-            {['UAE', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'].map(country => (
-              <span key={country} className="font-body text-xs text-[#8A8478]">{country}</span>
-            ))}
-          </div>
+        {/* CTAs */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-12 opacity-0 animate-fade-up" style={{ animationDelay: '0.8s' }}>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-primary">
+            Build My AI Team <ArrowRight size={16} />
+          </a>
+          <a href="#demo" onClick={(e) => { e.preventDefault(); document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
+            <Play size={14} /> Watch the Demo
+          </a>
+          <a href="#agents" onClick={(e) => { e.preventDefault(); document.getElementById('agents')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
+            Explore the Agents
+          </a>
         </div>
+
+        {/* Gulf Coverage */}
+        <p className="text-xs text-white/20 tracking-wider opacity-0 animate-fade-up" style={{ animationDelay: '1s' }}>
+          Based in the UAE · Serving the Gulf and Global Markets
+        </p>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-bounce-subtle">
-        <span className="font-body text-xs text-[#5A5550]">Scroll to enter</span>
-        <ChevronDown size={20} className="text-[#5A5550]" />
+      <div className="relative z-10 pb-8 flex flex-col items-center gap-2 animate-bounce-subtle opacity-0 animate-fade-in" style={{ animationDelay: '1.5s' }}>
+        <ChevronDown size={18} className="text-white/20" />
       </div>
     </section>
   );

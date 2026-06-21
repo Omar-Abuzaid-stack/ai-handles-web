@@ -1,5 +1,5 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Phone, Mail, MessageCircle, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { brand } from '@/data';
 import QRCodeDisplay from '@/components/QRCode';
 
@@ -8,107 +8,54 @@ export default function RooftopCTA() {
   const { founder } = brand;
 
   return (
-    <section
-      id="rooftop"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent"
-    >
-      {/* Content */}
-      <div ref={ref} className="relative z-10 content-max text-center px-6 py-32">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#C9A96E]/10 border border-[#C9A96E]/20 rounded-full mb-8 animate-item">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80]" />
-          <span className="font-mono text-[10px] text-[#C9A96E] tracking-widest uppercase">Deploy AI Into Your Business</span>
-        </div>
-
-        <h2 className="hero-display text-[#F5F0EB] mb-8 animate-item">
-          Deploy AI Into<br />
-          <span className="text-[#C9A96E]">Your Business.</span>
+    <section id="contact" className="section-padding bg-[#070707]">
+      <div ref={ref} className="content-max text-center">
+        <h2 className="heading-section mb-6 animate-item">
+          Build the Team That <span className="serif-italic text-white/50">Never Sleeps.</span>
         </h2>
-
-        <p className="font-body text-lg text-[#8A8478] max-w-[620px] mx-auto mb-12 animate-item">
-          Start with one agent, automate one workflow, improve your website, generate demand through paid advertising, or build a complete AI infrastructure.
+        <p className="body-text max-w-xl mx-auto mb-10 animate-item">
+          Start with one AI agent, automate one workflow, or build a complete digital workforce around your business.
         </p>
 
-        {/* 4 CTA Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-16 animate-item">
-          <a
-            href={founder.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary text-base px-8 py-5 shadow-[0_0_40px_rgba(201,169,110,0.2)]"
-          >
-            <Phone size={18} /> Speak With Omar
+          <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            <MessageCircle size={16} /> Speak With Omar
           </a>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-primary text-base px-8 py-5"
-          >
-            <ArrowRight size={18} /> Build My AI System
+          <a href="#contact" onClick={(e) => { e.preventDefault(); }} className="btn-primary">
+            Build My AI Team
           </a>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-secondary text-base px-8 py-5"
-          >
-            Scan to Contact
-          </a>
-          <a
-            href="#work"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-secondary text-base px-8 py-5"
-          >
-            View Selected Work
+          <a href="#demo" onClick={(e) => { e.preventDefault(); document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
+            Watch the Demo
           </a>
         </div>
 
-        {/* Contact Details + QR */}
-        <div className="grid md:grid-cols-2 gap-12 items-center max-w-[900px] mx-auto animate-item">
-          {/* Left — Contact Details */}
-          <div className="space-y-6 text-left">
-            <div>
-              <p className="font-body font-semibold text-lg text-[#F5F0EB] mb-1">{founder.name}</p>
-              <p className="font-body text-sm text-[#C9A96E]">{founder.title}</p>
-            </div>
-
-            <div className="space-y-3">
-              <a
-                href={`tel:${founder.phoneRaw}`}
-                className="flex items-center gap-3 text-[#8A8478] hover:text-[#F5F0EB] transition-colors group"
-              >
-                <Phone size={16} className="text-[#C9A96E]" />
-                <span className="font-body text-sm">{founder.phone}</span>
-              </a>
-              <a
-                href={`mailto:${founder.email}`}
-                className="flex items-center gap-3 text-[#8A8478] hover:text-[#F5F0EB] transition-colors group"
-              >
-                <Mail size={16} className="text-[#C9A96E]" />
-                <span className="font-body text-sm">{founder.email}</span>
-              </a>
-              <a
-                href={founder.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-[#8A8478] hover:text-[#F5F0EB] transition-colors group"
-              >
-                <MessageCircle size={16} className="text-[#4ADE80]" />
-                <span className="font-body text-sm">WhatsApp</span>
-              </a>
-            </div>
+        {/* Contact Details */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto animate-item">
+          <div className="space-y-4">
+            <h3 className="font-body font-semibold text-sm text-white">Contact</h3>
+            <a href={`tel:${founder.phoneRaw}`} className="flex items-center justify-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+              <Phone size={14} className="text-purple" /> {founder.phone}
+            </a>
+            <a href={`mailto:${founder.email}`} className="flex items-center justify-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+              <Mail size={14} className="text-purple" /> {founder.email}
+            </a>
+            <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+              <MessageCircle size={14} className="text-green-400" /> WhatsApp
+            </a>
           </div>
 
-          {/* Right — QR Code */}
           <div className="flex justify-center">
-            <QRCodeDisplay size={140} showLabel showSupporting />
+            <QRCodeDisplay size={140} showLabel />
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-body font-semibold text-sm text-white">Sales</h3>
+            <a href={`tel:${brand.salesManager.phoneRaw}`} className="flex items-center justify-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+              <Phone size={14} className="text-purple" /> {brand.salesManager.phone}
+            </a>
+            <a href={`mailto:${brand.salesManager.email}`} className="flex items-center justify-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+              <Mail size={14} className="text-purple" /> {brand.salesManager.email}
+            </a>
           </div>
         </div>
       </div>

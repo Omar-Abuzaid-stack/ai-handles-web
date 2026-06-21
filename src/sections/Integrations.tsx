@@ -1,68 +1,70 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Box, Cpu, FileJson } from 'lucide-react';
 
-const integrations = [
-  { name: 'Salesforce', type: 'CRM' },
-  { name: 'HubSpot', type: 'CRM' },
-  { name: 'WhatsApp API', type: 'Communication' },
-  { name: 'Property Finder', type: 'Lead Source' },
-  { name: 'Make.com', type: 'Automation' },
-  { name: 'Telegram', type: 'Reporting' },
+const platforms = [
+  { name: 'Gmail', status: 'Supported' },
+  { name: 'Google Calendar', status: 'Supported' },
+  { name: 'Google Drive', status: 'Supported' },
+  { name: 'WhatsApp', status: 'Supported' },
+  { name: 'Telegram', status: 'Supported' },
+  { name: 'CRM Platforms', status: 'Supported' },
+  { name: 'Websites', status: 'Supported' },
+  { name: 'Databases', status: 'Available by scope' },
+  { name: 'LinkedIn', status: 'Available by scope' },
+  { name: 'Instagram', status: 'Available by scope' },
+  { name: 'Facebook', status: 'Available by scope' },
+  { name: 'YouTube', status: 'Available by scope' },
+  { name: 'Cloud Storage', status: 'Supported' },
+  { name: 'Internal Systems', status: 'Requires approval' },
+];
+
+const controls = [
+  'OAuth authentication',
+  'Official APIs',
+  'MCP integration',
+  'Limited permissions',
+  'Revocable access',
+  'Approval controls',
+  'Audit logs',
 ];
 
 export default function Integrations() {
   const ref = useScrollAnimation();
 
   return (
-    <section className="bg-[#0A0A0A] section-padding border-t border-[#2A2A2A]">
+    <section className="section-padding bg-[#070707]">
       <div ref={ref} className="content-max">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-4 animate-item uppercase">
-              AI Deployment
-            </p>
-            <h2 className="section-title text-[#F5F0EB] mb-6 animate-item">
-              Ready to Connect
-            </h2>
-            <p className="font-body text-base text-[#8A8478] animate-item leading-relaxed mb-6">
-              AI Handle can deploy AI into your existing systems. We don't force you to abandon your tools; we make them smarter.
-            </p>
-            <div className="space-y-4 animate-item">
-              <div className="flex items-start gap-3">
-                <Box size={20} className="text-[#C9A96E] mt-1" />
-                <div>
-                  <h4 className="font-body font-semibold text-sm text-[#F5F0EB]">CRM & Lead Sources</h4>
-                  <p className="font-body text-[13px] text-[#5A5550]">Direct API connections to popular real estate platforms.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Cpu size={20} className="text-[#C9A96E] mt-1" />
-                <div>
-                  <h4 className="font-body font-semibold text-sm text-[#F5F0EB]">Automation Hubs</h4>
-                  <p className="font-body text-[13px] text-[#5A5550]">Seamless integration via Make, n8n, or Zapier.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <FileJson size={20} className="text-[#C9A96E] mt-1" />
-                <div>
-                  <h4 className="font-body font-semibold text-sm text-[#F5F0EB]">Custom Endpoints</h4>
-                  <p className="font-body text-[13px] text-[#5A5550]">Support for custom webhooks and internal legacy systems.</p>
-                </div>
-              </div>
-            </div>
-            <p className="font-mono text-[10px] text-[#5A5550] mt-8 animate-item">
-              * Note: The current website is a frontend showcase. Live integrations are scoped separately during onboarding.
-            </p>
-          </div>
+        <div className="text-center mb-16">
+          <p className="label-text text-purple mb-4 animate-item">Integrations</p>
+          <h2 className="heading-section mb-4 animate-item">
+            Connected to the Tools Your Business Already Uses
+          </h2>
+        </div>
 
-          <div className="grid grid-cols-2 gap-4 animate-item">
-            {integrations.map((int, i) => (
-              <div key={i} className="bg-[#141414] border border-[#2A2A2A] rounded-xl p-6 text-center hover:border-[#C9A96E]/30 transition-colors">
-                <p className="font-body font-semibold text-sm text-[#F5F0EB]">{int.name}</p>
-                <p className="font-mono text-[10px] text-[#5A5550] mt-2 uppercase tracking-widest">{int.type}</p>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
+          {platforms.map((p, i) => (
+            <div
+              key={p.name}
+              className="card-surface px-4 py-3 flex items-center justify-between animate-item"
+              style={{ animationDelay: `${i * 0.05}s` }}
+            >
+              <span className="text-sm font-medium text-white">{p.name}</span>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full ${
+                p.status === 'Supported' ? 'bg-purple/10 text-purple' :
+                p.status === 'Available by scope' ? 'bg-white/5 text-white/40' :
+                'bg-yellow-500/10 text-yellow-500/70'
+              }`}>
+                {p.status}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-3">
+          {controls.map((c) => (
+            <span key={c} className="text-xs px-3 py-1.5 rounded-full border border-white/8 text-white/40">
+              {c}
+            </span>
+          ))}
         </div>
       </div>
     </section>
