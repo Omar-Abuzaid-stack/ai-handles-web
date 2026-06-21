@@ -38,9 +38,9 @@ export const brand = {
     tiktok: 'https://tiktok.com/@aihandle.cloud',
   },
   qr: {
-    founderDestination: 'https://wa.me/971508033084',
-    founderTitle: 'Scan to Speak With Omar',
-    founderSupporting: 'Scan the QR code to start a WhatsApp conversation with Omar Mohamed, Founder of AI Handle.',
+    founderDestination: 'https://aihandle.cloud/omar.html',
+    founderTitle: "Scan Omar's Profile",
+    founderSupporting: 'Scan the QR code to view Omar Mohamed\'s full profile and connect directly.',
     salesDestination: 'https://wa.me/971545530754',
     salesTitle: 'Scan to Speak With Sales',
     salesSupporting: 'Scan the QR code to start a WhatsApp conversation with our Sales Manager.',
