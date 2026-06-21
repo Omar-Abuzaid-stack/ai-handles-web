@@ -37,16 +37,35 @@ export default function DemoVideo({
         {/* Video Player */}
         <div className="relative max-w-4xl mx-auto animate-item">
           {videoUrl ? (
-            /* Video embed */
+            /* Video embed using react-player for YouTube/Vimeo/MP4/WebM support */
             <div className="relative aspect-video rounded-2xl overflow-hidden border border-[#2A2A2A] bg-[#141414]">
               {isPlaying ? (
-                <video
-                  src={videoUrl}
-                  poster={posterImage}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-cover"
-                />
+                /* Detect URL type and render accordingly */
+                videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${videoUrl.includes('youtu.be') ? videoUrl.split('/').pop()?.split('?')[0] : new URL(videoUrl).searchParams.get('v') || ''}?autoplay=1&rel=0&modestbranding=1`}
+                    className="absolute inset-0 w-full h-full"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    title="AI Handle System Demo"
+                  />
+                ) : videoUrl.includes('vimeo.com') ? (
+                  <iframe
+                    src={`https://player.vimeo.com/video/${videoUrl.split('/').pop()?.split('?')[0]}?autoplay=1&title=0&byline=0`}
+                    className="absolute inset-0 w-full h-full"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    title="AI Handle System Demo"
+                  />
+                ) : (
+                  <video
+                    src={videoUrl}
+                    poster={posterImage}
+                    controls
+                    autoPlay
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )
               ) : (
                 <button
                   onClick={() => setIsPlaying(true)}

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Mail } from 'lucide-react';
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -357,6 +357,9 @@ export default function Hero() {
             </button>
             <a href="#demo" onClick={(e) => { e.preventDefault(); document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
               Watch the Demo
+            </a>
+            <a href="mailto:AIHandle.cloud@gmail.com" className="btn-secondary">
+              <Mail size={16} /> Email Us
             </a>
           </div>
 

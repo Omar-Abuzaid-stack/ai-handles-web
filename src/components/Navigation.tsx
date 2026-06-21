@@ -104,16 +104,26 @@ export default function Navigation() {
           </div>
 
           {/* Desktop CTA */}
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              handleClick('#contact');
-            }}
-            className="hidden md:inline-flex btn-primary text-[13px] py-2.5 px-6"
-          >
-            Speak With Omar
-          </a>
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="mailto:AIHandle.cloud@gmail.com"
+              className="flex items-center gap-1.5 text-[#8A8478] hover:text-[#C9A96E] transition-colors font-body text-[13px]"
+              aria-label="Email AI Handle"
+              title="AIHandle.cloud@gmail.com"
+            >
+              <Mail size={15} />
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleClick('#contact');
+              }}
+              className="btn-primary text-[13px] py-2.5 px-6"
+            >
+              Speak With Omar
+            </a>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
