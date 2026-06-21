@@ -111,20 +111,28 @@ export default function Footer() {
           {/* Contact Column */}
           <div>
             <h4 className="font-body font-semibold text-xs text-[#F5F0EB] mb-4 uppercase tracking-wider">Contact</h4>
-            <div className="space-y-3 mb-8">
+            <div className="space-y-3 mb-6">
               <p className="font-body font-semibold text-sm text-[#F5F0EB]">{founder.name}</p>
               <p className="font-body text-xs text-[#C9A96E]">{founder.title}</p>
               <a href={`tel:${founder.phoneRaw}`} className="block font-body text-sm text-[#8A8478] hover:text-[#F5F0EB] transition-colors">
                 {founder.phone}
               </a>
-              <a href={`mailto:${founder.email}`} className="block font-body text-sm text-[#8A8478] hover:text-[#F5F0EB] transition-colors">
-                {founder.email}
+              <a href="mailto:AIHandle.cloud@gmail.com" className="block font-body text-sm text-[#8A8478] hover:text-[#F5F0EB] transition-colors">
+                AIHandle.cloud@gmail.com
               </a>
               <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="block font-body text-sm text-[#8A8478] hover:text-[#4ADE80] transition-colors">
                 WhatsApp
               </a>
               <a href={founder.linkedinUrl} target="_blank" rel="noopener noreferrer" className="block font-body text-sm text-[#8A8478] hover:text-[#C9A96E] transition-colors">
                 LinkedIn
+              </a>
+            </div>
+
+            <h4 className="font-body font-semibold text-xs text-[#F5F0EB] mb-3 uppercase tracking-wider">Sales</h4>
+            <div className="space-y-2 mb-6">
+              <p className="font-body text-sm text-[#8A8478]">Mohamed Rayan</p>
+              <a href={`tel:${brand.salesManager.phoneRaw}`} className="block font-body text-sm text-[#8A8478] hover:text-[#F5F0EB] transition-colors">
+                {brand.salesManager.phone}
               </a>
             </div>
 

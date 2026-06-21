@@ -5,11 +5,11 @@
 export const brand = {
   name: 'AI Handle',
   tagline: 'AI Agents, Automations and Growth Systems.',
-  mainMessage: 'We deploy intelligence into your business.',
-  supportingMessage: 'AI Handle builds coordinated AI agents and automations that communicate, research, organise, follow up, create content, manage systems, and support business growth.',
-  headline: 'Your Business, Operated by Intelligence.',
-  positioning: 'A UAE-based global AI agency deploying AI agents, automations, websites, communication systems, and growth infrastructure into businesses.',
-  supportingMessage2: 'Based in the UAE. Working with businesses globally.',
+  mainMessage: 'Deploy AI Into Your Business.',
+  supportingMessage: 'AI Handle builds AI agents, automations, websites, communication systems, and growth infrastructure for businesses across the Gulf.',
+  headline: 'Deploy AI Into Your Business.',
+  positioning: 'A UAE-based AI agency serving businesses across the Gulf and internationally.',
+  supportingMessage2: 'Based in the UAE. Supporting businesses across the Gulf.',
   domain: 'aihandle.cloud',
   founder: {
     name: 'Omar Mohamed',
@@ -41,9 +41,9 @@ export const brand = {
     founderDestination: 'https://aihandle.cloud/omar.html',
     founderTitle: "Scan Omar's Profile",
     founderSupporting: 'Scan the QR code to view Omar Mohamed\'s full profile and connect directly.',
-    salesDestination: 'https://wa.me/971545530754',
-    salesTitle: 'Scan to Speak With Sales',
-    salesSupporting: 'Scan the QR code to start a WhatsApp conversation with our Sales Manager.',
+    salesDestination: 'https://aihandle.cloud/rayan.html',
+    salesTitle: "Scan Mohamed's Profile",
+    salesSupporting: 'Scan the QR code to view Mohamed Rayan\'s full profile and connect directly.',
   },
 };
 

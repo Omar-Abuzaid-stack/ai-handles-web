@@ -31,3 +31,6 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Utility scripts
+generate_qr.py

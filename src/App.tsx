@@ -28,6 +28,7 @@ import About from '@/sections/About';
 import RooftopCTA from '@/sections/RooftopCTA';
 import DiscoveryForm from '@/sections/DiscoveryForm';
 import Footer from '@/sections/Footer';
+import DemoVideo from '@/sections/DemoVideo';
 import { useCmsData } from '@/hooks/useCmsData';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -88,6 +89,7 @@ function App() {
         <div className="agents-content pointer-events-auto opacity-0 w-full pt-[20vh] pb-[50vh]">
           <div className="space-y-[40vh] mb-[40vh]">
              <AgencyIntro />
+             <DemoVideo />
              <AIBasics />
              <BeforeAfter />
              <Capabilities />

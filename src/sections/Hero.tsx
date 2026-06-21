@@ -333,41 +333,39 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 content-max w-full px-6 lg:px-10 py-32">
         <div className="max-w-3xl">
-          {/* Label */}
+          {/* Eyebrow */}
           <p className="font-mono text-xs tracking-[0.15em] text-[#C9A96E] mb-6 animate-item uppercase">
-            AI Handle — AI Agents, Automations and Growth Systems
+            UAE-Based AI Agency Serving the Gulf
           </p>
 
           {/* Headline */}
           <h1 className="hero-display text-[#F5F0EB] mb-4 animate-item">
-            Your Business,
+            Deploy AI Into
             <br />
-            <span className="text-[#C9A96E]">Operated by Intelligence.</span>
+            <span className="text-[#C9A96E]">Your Business.</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="font-body text-lg text-[#8A8478] max-w-[540px] mb-8 animate-item" style={{ animationDelay: '0.2s' }}>
-            AI Handle deploys AI agents, automations, websites, communication systems, and growth infrastructure directly into businesses.
+          <p className="font-body text-lg text-[#8A8478] max-w-[540px] mb-10 animate-item leading-relaxed" style={{ animationDelay: '0.2s' }}>
+            AI Handle builds AI agents, automations, websites, communication systems, and growth infrastructure for businesses across the Gulf.
           </p>
 
-          {/* Signals */}
-          <div className="flex flex-wrap gap-2 mb-10 animate-item" style={{ animationDelay: '0.3s' }}>
-            {['AI Agents', 'Automations', 'Websites', 'CRM', 'Communication', 'Growth'].map(tag => (
-              <span key={tag} className="px-3 py-1 bg-[#141414] border border-[#2A2A2A] rounded-full text-xs font-mono text-[#8A8478]">{tag}</span>
-            ))}
+          {/* CTAs */}
+          <div className="flex flex-wrap items-center gap-4 animate-item" style={{ animationDelay: '0.3s' }}>
+            <button onClick={scrollToEntrance} className="btn-primary">
+              Build My AI System
+            </button>
+            <a href="#demo" onClick={(e) => { e.preventDefault(); document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
+              Watch the Demo
+            </a>
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-4 animate-item" style={{ animationDelay: '0.4s' }}>
-            <button onClick={scrollToEntrance} className="btn-primary">
-              Explore AI Handle
-            </button>
-            <a href="#work" onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
-              View Selected Work
-            </a>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="font-body text-[13px] text-[#C9A96E] hover:text-[#F5F0EB] transition-colors ml-2 border-b border-[#C9A96E]/30 hover:border-[#F5F0EB]">
-              Speak With Omar
-            </a>
+          {/* Gulf Coverage */}
+          <div className="mt-10 flex flex-wrap items-center gap-3 animate-item" style={{ animationDelay: '0.4s' }}>
+            <span className="font-mono text-[10px] text-[#5A5550] uppercase tracking-wider">Serving:</span>
+            {['UAE', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'].map(country => (
+              <span key={country} className="font-body text-xs text-[#8A8478]">{country}</span>
+            ))}
           </div>
         </div>
       </div>
