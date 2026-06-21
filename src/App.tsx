@@ -30,6 +30,7 @@ import DiscoveryForm from '@/sections/DiscoveryForm';
 import Footer from '@/sections/Footer';
 import DemoVideo from '@/sections/DemoVideo';
 import { useCmsData } from '@/hooks/useCmsData';
+import { brand } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,7 +90,7 @@ function App() {
         <div className="agents-content pointer-events-auto opacity-0 w-full pt-[20vh] pb-[50vh]">
           <div className="space-y-[40vh] mb-[40vh]">
              <AgencyIntro />
-             <DemoVideo />
+             <DemoVideo videoUrl={brand.video.src} posterImage="/brand/ai-handle-logo.png" title={brand.video.title} description={brand.video.description} />
              <AIBasics />
              <BeforeAfter />
              <Capabilities />

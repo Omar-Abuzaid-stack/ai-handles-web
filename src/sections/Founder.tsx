@@ -29,8 +29,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   );
 }
 
-function PersonCard({ name, title, nationality, phone, phoneRaw, email, whatsappUrl, linkedinUrl, variant }: {
-  name: string; title: string; nationality: string; phone: string; phoneRaw: string; email: string; whatsappUrl: string; linkedinUrl?: string; variant: 'founder' | 'sales';
+function PersonCard({ name, title, nationality, phone, phoneRaw, email, whatsappUrl, linkedinUrl, image, imageAlt, variant }: {
+  name: string; title: string; nationality: string; phone: string; phoneRaw: string; email: string; whatsappUrl: string; linkedinUrl?: string; image?: string; imageAlt?: string; variant: 'founder' | 'sales';
 }) {
   return (
     <div className="space-y-8 animate-item">
@@ -38,12 +38,20 @@ function PersonCard({ name, title, nationality, phone, phoneRaw, email, whatsapp
       <div className="space-y-6">
         <div className="relative max-w-[340px] mx-auto">
           <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-[#2A2A2A] bg-[#0A0A0A] relative group">
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-[#141414] to-[#0A0A0A]">
-              <div className="w-20 h-20 rounded-full bg-[#1E1E1E] border-2 border-[#2A2A2A] flex items-center justify-center group-hover:border-[#C9A96E]/50 transition-colors duration-500">
-                <User size={36} className="text-[#5A5550]" />
+            {image ? (
+              <img
+                src={image}
+                alt={imageAlt || name}
+                className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-[#141414] to-[#0A0A0A]">
+                <div className="w-20 h-20 rounded-full bg-[#1E1E1E] border-2 border-[#2A2A2A] flex items-center justify-center group-hover:border-[#C9A96E]/50 transition-colors duration-500">
+                  <User size={36} className="text-[#5A5550]" />
+                </div>
+                <p className="font-mono text-[10px] text-[#5A5550] tracking-[0.2em] uppercase">Replace with photograph</p>
               </div>
-              <p className="font-mono text-[10px] text-[#5A5550] tracking-[0.2em] uppercase">Replace with photograph</p>
-            </div>
+            )}
             <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#C9A96E]/30 rounded-tl-2xl z-10" />
             <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#C9A96E]/30 rounded-br-2xl z-10" />
           </div>
@@ -147,6 +155,8 @@ export default function Founder() {
             email={founder.email}
             whatsappUrl={founder.whatsappUrl}
             linkedinUrl={founder.linkedinUrl}
+            image={founder.image}
+            imageAlt={founder.imageAlt}
             variant="founder"
           />
           {/* Mohamed Rayan — Sales Manager */}
@@ -158,6 +168,8 @@ export default function Founder() {
             phoneRaw={salesManager.phoneRaw}
             email={salesManager.email}
             whatsappUrl={salesManager.whatsappUrl}
+            image={salesManager.image}
+            imageAlt={salesManager.imageAlt}
             variant="sales"
           />
         </div>

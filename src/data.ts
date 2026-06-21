@@ -21,6 +21,7 @@ export const brand = {
     whatsappUrl: 'https://wa.me/971508033084',
     linkedinUrl: 'https://www.linkedin.com/in/omar-elgar7y-69a763208',
     description: 'Omar Mohamed founded AI Handle to help businesses move beyond disconnected software and deploy coordinated AI systems directly into their real operations. His focus is building practical AI agents, automations, websites, lead-generation systems, and growth infrastructure that help teams operate more efficiently and scale.',
+    image: '/brand/omar-mohamed.png',
     imageAlt: 'Omar Mohamed — Founder of AI Handle',
   },
   salesManager: {
@@ -31,7 +32,13 @@ export const brand = {
     phoneRaw: '+971545530754',
     email: 'mrayhan2005m@gmail.com',
     whatsappUrl: 'https://wa.me/971545530754',
+    image: '/brand/mohamed-rayan.jpg',
     imageAlt: 'Mohamed Rayan — Sales Manager at AI Handle',
+  },
+  video: {
+    src: '/videos/Deploying_Intelligence.mp4',
+    title: 'Deploying Intelligence',
+    description: 'See how AI Handle deploys coordinated AI agents, automations, and growth infrastructure into real businesses.',
   },
   social: {
     instagram: 'https://instagram.com/aihandle.cloud',
