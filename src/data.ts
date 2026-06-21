@@ -14,6 +14,7 @@ export const brand = {
   founder: {
     name: 'Omar Mohamed',
     title: 'Founder of AI Handle',
+    nationality: 'Egyptian',
     phone: '+971 50 803 3084',
     phoneRaw: '+971508033084',
     email: 'AIHandle.cloud@gmail.com',
@@ -22,13 +23,18 @@ export const brand = {
     imageAlt: 'Omar Mohamed — Founder of AI Handle',
   },
   salesManager: {
-    name: 'Sales Manager',
+    name: 'Mohamed Rayan',
     title: 'Sales Manager at AI Handle',
+    nationality: 'Emirati',
     phone: '+971 54 553 0754',
     phoneRaw: '+971545530754',
     email: 'mrayhan2005m@gmail.com',
     whatsappUrl: 'https://wa.me/971545530754',
-    imageAlt: 'AI Handle Sales Manager',
+    imageAlt: 'Mohamed Rayan — Sales Manager at AI Handle',
+  },
+  social: {
+    instagram: 'https://instagram.com/aihandle.cloud',
+    tiktok: 'https://tiktok.com/@aihandle.cloud',
   },
   qr: {
     founderDestination: 'https://wa.me/971508033084',

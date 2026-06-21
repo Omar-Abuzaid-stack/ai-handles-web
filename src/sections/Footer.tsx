@@ -1,5 +1,6 @@
 import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { brand } from '@/data';
+import TikTokIcon from '@/components/TikTokIcon';
 
 const footerServices = [
   'AI Agents',
@@ -22,7 +23,7 @@ const footerIndustries = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { founder } = brand;
+  const { founder, social } = brand;
 
   return (
     <footer id="footer" className="bg-[#0A0A0A] border-t border-[#2A2A2A]">
@@ -39,7 +40,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="font-body text-sm text-[#8A8478] mb-6 leading-relaxed">
-              AI Handle — AI Agents, Automations and Growth Systems. We deploy intelligence into your business.
+              AI Agents, Automations and Growth Systems. We deploy intelligence into your business.
             </p>
             <div className="space-y-2">
               <a href={`tel:${founder.phoneRaw}`} className="flex items-center gap-2 text-[#8A8478] hover:text-[#F5F0EB] transition-colors">
@@ -53,6 +54,18 @@ export default function Footer() {
               <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[#8A8478] hover:text-[#F5F0EB] transition-colors">
                 <MessageCircle size={14} className="text-[#4ADE80]" />
                 <span className="font-body text-xs">WhatsApp</span>
+              </a>
+            </div>
+            {/* Social Links */}
+            <div className="flex gap-3 mt-6">
+              <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-[#2A2A2A] flex items-center justify-center text-[#8A8478] hover:text-[#C9A96E] hover:border-[#C9A96E]/50 transition-all" aria-label="Instagram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+              <a href={social.tiktok} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-[#2A2A2A] flex items-center justify-center text-[#8A8478] hover:text-[#C9A96E] hover:border-[#C9A96E]/50 transition-all" aria-label="TikTok">
+                <TikTokIcon size={15} />
+              </a>
+              <a href={founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-[#2A2A2A] flex items-center justify-center text-[#8A8478] hover:text-[#4ADE80] hover:border-[#4ADE80]/50 transition-all" aria-label="WhatsApp">
+                <MessageCircle size={15} />
               </a>
             </div>
           </div>
@@ -85,7 +98,7 @@ export default function Footer() {
             </ul>
             <h4 className="font-body font-semibold text-xs text-[#F5F0EB] mb-4 mt-6 uppercase tracking-wider">Company</h4>
             <ul className="space-y-2">
-              <li><a href="#founder" className="font-body text-[13px] text-[#8A8478] hover:text-[#C9A96E] transition-colors">Founder</a></li>
+              <li><a href="#founder" className="font-body text-[13px] text-[#8A8478] hover:text-[#C9A96E] transition-colors">Team</a></li>
               <li><a href="#work" className="font-body text-[13px] text-[#8A8478] hover:text-[#C9A96E] transition-colors">Selected Work</a></li>
               <li><a href="#safety" className="font-body text-[13px] text-[#8A8478] hover:text-[#C9A96E] transition-colors">Human Control</a></li>
             </ul>
@@ -116,6 +129,9 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#2A2A2A] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-body text-xs text-[#5A5550]">
+            {currentYear} AI Handle. All rights reserved.
+          </p>
           <div className="flex flex-wrap justify-center gap-6">
             <span className="font-body text-[13px] text-[#8A8478] hover:text-[#F5F0EB] transition-colors cursor-pointer">
               Privacy Policy
@@ -127,18 +143,6 @@ export default function Footer() {
               Cookie Policy
             </span>
           </div>
-          <p className="font-body text-xs text-[#5A5550]">
-            {currentYear} AI Handle. All rights reserved.
-          </p>
-        </div>
-
-        {/* Social Placeholders */}
-        <div className="flex justify-center gap-4 mt-6">
-          {['LinkedIn', 'Twitter', 'Instagram'].map((social) => (
-            <span key={social} className="px-3 py-1 bg-[#141414] border border-[#2A2A2A] rounded-full font-mono text-[10px] text-[#5A5550] hover:border-[#C9A96E]/30 hover:text-[#8A8478] transition-all cursor-pointer">
-              {social}
-            </span>
-          ))}
         </div>
       </div>
     </footer>
