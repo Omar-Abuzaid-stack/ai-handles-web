@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon, Monitor } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const navLinks = [
   { label: 'Services', href: '#services' },
@@ -10,7 +11,14 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
+const themeOptions = [
+  { value: 'dark' as const, icon: Moon, label: 'Dark' },
+  { value: 'light' as const, icon: Sun, label: 'Light' },
+  { value: 'system' as const, icon: Monitor, label: 'System' },
+];
+
 export default function Navigation() {
+  const { theme, setTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -45,6 +53,12 @@ export default function Navigation() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const cycleTheme = () => {
+    const order: typeof theme[] = ['dark', 'light', 'system'];
+    const next = order[(order.indexOf(theme) + 1) % 3];
+    setTheme(next);
+  };
+
   return (
     <>
       <nav
@@ -53,7 +67,7 @@ export default function Navigation() {
         }`}
       >
         {/* Desktop: Liquid Glass Pill */}
-        <div className="hidden md:block liquid-glass rounded-full px-6 py-3 flex items-center justify-between">
+        <div className="hidden md:flex liquid-glass rounded-full px-6 py-3 items-center justify-between">
           <a href="#hero" onClick={(e) => { e.preventDefault(); handleClick('#hero'); }} className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10">
               <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
@@ -78,13 +92,27 @@ export default function Navigation() {
             ))}
           </div>
 
-          <a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); handleClick('#contact'); }}
-            className="btn-primary text-[13px] py-2 px-5"
-          >
-            Speak With Omar
-          </a>
+          <div className="flex items-center gap-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={cycleTheme}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 hover:bg-white/5 transition-all duration-300"
+              aria-label={`Theme: ${theme}. Click to cycle.`}
+              title={`Current: ${theme}`}
+            >
+              {theme === 'dark' && <Moon size={14} />}
+              {theme === 'light' && <Sun size={14} />}
+              {theme === 'system' && <Monitor size={14} />}
+            </button>
+
+            <a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); handleClick('#contact'); }}
+              className="btn-primary text-[13px] py-2 px-5"
+            >
+              Speak With Omar
+            </a>
+          </div>
         </div>
 
         {/* Mobile: Simple bar */}
@@ -95,9 +123,20 @@ export default function Navigation() {
             </div>
             <span className="font-body font-semibold text-xs tracking-wider text-white">AI HANDLE</span>
           </a>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1" aria-label="Toggle menu">
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={cycleTheme}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 transition-all"
+              aria-label={`Theme: ${theme}`}
+            >
+              {theme === 'dark' && <Moon size={16} />}
+              {theme === 'light' && <Sun size={16} />}
+              {theme === 'system' && <Monitor size={16} />}
+            </button>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1" aria-label="Toggle menu">
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -114,6 +153,26 @@ export default function Navigation() {
               {link.label}
             </a>
           ))}
+
+          {/* Theme Options in Mobile Drawer */}
+          <div className="flex items-center gap-4 mt-4">
+            {themeOptions.map(({ value, icon: Icon, label }) => (
+              <button
+                key={value}
+                onClick={() => { setTheme(value); }}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  theme === value
+                    ? 'bg-purple/20 text-purple border border-purple/30'
+                    : 'text-white/30 hover:text-white/60 border border-white/10'
+                }`}
+                aria-label={`Switch to ${label} mode`}
+                title={label}
+              >
+                <Icon size={16} />
+              </button>
+            ))}
+          </div>
+
           <a href="#contact" onClick={(e) => { e.preventDefault(); handleClick('#contact'); }} className="btn-primary mt-4">
             Speak With Omar
           </a>

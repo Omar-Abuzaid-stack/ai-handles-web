@@ -270,4 +270,16 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .animate-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* No-JS fallback */
+@media (scripting: none) {
+  .animate-item {
+    opacity: 1;
+    transform: none;
+  }
 }
