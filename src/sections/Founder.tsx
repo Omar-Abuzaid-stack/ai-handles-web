@@ -1,32 +1,7 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { brand } from '@/data';
-import { Phone, Mail, MessageCircle, Linkedin } from 'lucide-react';
 import QRCodeDisplay from '@/components/QRCode';
-
-
-
-function SocialIconRow({ whatsappUrl, phoneRaw, email, linkedinUrl }: {
-  whatsappUrl: string; phoneRaw: string; email: string; linkedinUrl?: string;
-}) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 hover:bg-green-500/20 transition-all" aria-label="WhatsApp">
-        <MessageCircle size={13} />
-      </a>
-      <a href={`tel:${phoneRaw}`} className="w-8 h-8 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center text-purple hover:bg-purple/20 transition-all" aria-label="Call">
-        <Phone size={13} />
-      </a>
-      <a href={`mailto:${email}`} className="w-8 h-8 rounded-full bg-red-400/10 border border-red-400/20 flex items-center justify-center text-red-400 hover:bg-red-400/20 transition-all" aria-label="Email">
-        <Mail size={13} />
-      </a>
-      {linkedinUrl && (
-        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-blue-400/10 border border-blue-400/20 flex items-center justify-center text-blue-400 hover:bg-blue-400/20 transition-all" aria-label="LinkedIn">
-          <Linkedin size={13} />
-        </a>
-      )}
-    </div>
-  );
-}
+import { SocialIconRow } from '@/components/SocialIcons';
 
 export default function Founder() {
   const ref = useScrollAnimation();

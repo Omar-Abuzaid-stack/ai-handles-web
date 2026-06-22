@@ -1,24 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { useCmsData } from '@/hooks/useCmsData';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import Navigation from '@/components/Navigation';
 import Hero from '@/sections/Hero';
 import AgencyIntro from '@/sections/AgencyIntro';
-import DemoVideo from '@/sections/DemoVideo';
-import Philosophy from '@/sections/Philosophy';
-import Capabilities from '@/sections/Capabilities';
-import AIWorkforce from '@/sections/AIWorkforce';
-import AgentCollaboration from '@/sections/AgentCollaboration';
-import Integrations from '@/sections/Integrations';
-import WhoWeWorkWith from '@/sections/WhoWeWorkWith';
-import WorkShowcase from '@/sections/WorkShowcase';
-import SafetyCentre from '@/sections/SafetyCentre';
-import Founder from '@/sections/Founder';
-import About from '@/sections/About';
-import RooftopCTA from '@/sections/RooftopCTA';
-import Footer from '@/sections/Footer';
 import ChatBot from '@/components/ChatBot';
 import { brand } from '@/data';
+
+// Lazy-load below-the-fold sections for code splitting
+const DemoVideo = lazy(() => import('@/sections/DemoVideo'));
+const Philosophy = lazy(() => import('@/sections/Philosophy'));
+const Capabilities = lazy(() => import('@/sections/Capabilities'));
+const AIWorkforce = lazy(() => import('@/sections/AIWorkforce'));
+const AgentCollaboration = lazy(() => import('@/sections/AgentCollaboration'));
+const Integrations = lazy(() => import('@/sections/Integrations'));
+const WhoWeWorkWith = lazy(() => import('@/sections/WhoWeWorkWith'));
+const WorkShowcase = lazy(() => import('@/sections/WorkShowcase'));
+const SafetyCentre = lazy(() => import('@/sections/SafetyCentre'));
+const Founder = lazy(() => import('@/sections/Founder'));
+const About = lazy(() => import('@/sections/About'));
+const RooftopCTA = lazy(() => import('@/sections/RooftopCTA'));
+const Footer = lazy(() => import('@/sections/Footer'));
 
 function AppContent() {
   const { robots, loading } = useCmsData();
@@ -68,6 +70,7 @@ function AppContent() {
       {/* 2. Agency Introduction */}
       <AgencyIntro />
 
+      <Suspense fallback={null}>
       {/* 3. Featured Demo Video */}
       <DemoVideo
         videoUrl={brand.video.src}
@@ -111,6 +114,7 @@ function AppContent() {
 
       {/* Footer */}
       <Footer />
+      </Suspense>
       <ChatBot />
     </div>
   );
