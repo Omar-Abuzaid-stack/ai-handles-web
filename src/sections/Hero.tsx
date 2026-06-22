@@ -60,16 +60,16 @@ export default function Hero() {
         {/* Headline */}
         <h1 className="heading-display max-w-4xl mb-6 opacity-0 animate-fade-up" style={{ animationDelay: '0.4s' }}>
           Imagine a Team That{' '}
-          <span className="serif-italic text-white/50">never sleeps</span>.
+          <span className="serif-italic text-white/50">Never Sleeps</span>.
         </h1>
 
         {/* Supporting text */}
         <p className="body-text max-w-2xl mb-4 opacity-0 animate-fade-up" style={{ animationDelay: '0.6s' }}>
-          AI Handle deploys a coordinated team of AI agents into your business. Each agent handles a specific responsibility—from enquiries and sales to CRM, research, content, operations, and reporting.
+          AI Handle deploys a coordinated digital workforce into your business. Each AI agent handles a specific responsibility across enquiries, sales, CRM, research, content, operations, and reporting.
         </p>
 
         <p className="body-text max-w-xl mb-10 opacity-0 animate-fade-up" style={{ animationDelay: '0.7s' }}>
-          You do not receive one chatbot. You receive a digital workforce that works across the platforms your business already uses.
+          You do not receive one chatbot. You receive a team of specialised AI agents working across the platforms your business already uses.
         </p>
 
         {/* CTAs */}

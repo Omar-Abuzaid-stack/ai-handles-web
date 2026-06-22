@@ -13,7 +13,7 @@ const DEMO_VIDEO_DEFAULT = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKVi
 export default function DemoVideo({
   videoUrl,
   posterImage,
-  title = 'See How the AI Handle System Works',
+  title = 'See the AI Handle System in Action',
 }: DemoVideoProps) {
   const ref = useScrollAnimation();
 

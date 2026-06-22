@@ -13,7 +13,10 @@ const platforms = [
   { name: 'Instagram', status: 'Available by scope' },
   { name: 'Facebook', status: 'Available by scope' },
   { name: 'YouTube', status: 'Available by scope' },
+  { name: 'TikTok', status: 'Available by scope' },
   { name: 'Cloud Storage', status: 'Supported' },
+  { name: 'Composio', status: 'Supported' },
+  { name: 'Custom APIs', status: 'Requires approval' },
   { name: 'Internal Systems', status: 'Requires approval' },
 ];
 
@@ -21,6 +24,7 @@ const controls = [
   'OAuth authentication',
   'Official APIs',
   'MCP integration',
+  'Composio',
   'Limited permissions',
   'Revocable access',
   'Approval controls',

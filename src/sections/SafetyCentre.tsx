@@ -8,7 +8,7 @@ const modes = [
 
 const controls = [
   'Pause Agent', 'Pause Workflow', 'Emergency Stop', 'Activity History',
-  'Permission Limits', 'Human Escalation',
+  'Permission Limits', 'Human Escalation', 'Approved Knowledge Base',
 ];
 
 export default function SafetyCentre() {
@@ -40,9 +40,15 @@ export default function SafetyCentre() {
         </div>
 
         <div className="max-w-2xl mx-auto text-center animate-item">
+          <p className="body-text italic text-white/60 mb-6">
+            "AI should increase control, not remove it."
+          </p>
           <h3 className="font-body font-semibold text-lg text-white mb-3">AI Handle Aegis</h3>
-          <p className="body-text">
-            AI Handle Aegis is the security and coordination layer that manages permissions, approvals, duplicate-action protection, agent activity, and audit history.
+          <p className="body-text mb-4">
+            AI Handle Aegis is the security and coordination layer that manages agent permissions, approvals, request checks, duplicate-action protection, activity monitoring, and audit history.
+          </p>
+          <p className="text-sm text-white/40">
+            External applications only receive the information needed for the authorised action through their official connection.
           </p>
         </div>
       </div>

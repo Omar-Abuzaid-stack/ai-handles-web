@@ -15,6 +15,12 @@ export default function Philosophy() {
             </h2>
             <div className="space-y-8">
               <div className="animate-item">
+                <h3 className="heading-sub mb-2">AI Agent vs Automation</h3>
+                <p className="body-text">
+                  An automation follows a fixed sequence. An AI agent understands context, makes decisions, and adapts. We deploy both — agents where judgement is needed, automations where consistency is key.
+                </p>
+              </div>
+              <div className="animate-item">
                 <h3 className="heading-sub mb-2">Specialised Roles</h3>
                 <p className="body-text">
                   Every AI agent has one clear responsibility, approved tools, limits, and escalation rules.

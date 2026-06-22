@@ -9,13 +9,20 @@ export default function AgentCollaboration() {
         <div className="text-center mb-12">
           <h2 className="heading-section mb-4 animate-item">A Team That Works Together</h2>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-2 max-w-4xl mx-auto animate-item">
-          {['Enquiry', 'Reception', 'Sales', 'CRM', 'Automation', 'Reporting', 'Management'].map((step, i) => (
-            <div key={step} className="flex items-center gap-2">
-              <div className="card-surface px-5 py-3 text-center">
-                <p className="text-sm font-medium text-white">{step}</p>
+        <div className="flex flex-wrap justify-center items-center gap-3 md:gap-2 max-w-5xl mx-auto animate-item">
+          {[
+            { name: 'Research Agent', desc: 'verifies a lead' },
+            { name: 'Sales Agent', desc: 'prepares outreach' },
+            { name: 'Reply Agent', desc: 'analyses response' },
+            { name: 'CRM Agent', desc: 'updates record' },
+            { name: 'Reporting Agent', desc: 'informs management' },
+          ].map((step, i) => (
+            <div key={step.name} className="flex items-center gap-2">
+              <div className="card-surface px-4 py-3 text-center">
+                <p className="text-sm font-medium text-white">{step.name}</p>
+                <p className="text-[10px] text-white/40 mt-1">{step.desc}</p>
               </div>
-              {i < 6 && <span className="text-purple text-lg">→</span>}
+              {i < 4 && <span className="text-purple text-lg">→</span>}
             </div>
           ))}
         </div>
