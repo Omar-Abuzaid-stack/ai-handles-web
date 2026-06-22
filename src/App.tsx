@@ -9,10 +9,10 @@ import { brand } from '@/data';
 
 // Lazy-load below-the-fold sections for code splitting
 const DemoVideo = lazy(() => import('@/sections/DemoVideo'));
-const Philosophy = lazy(() => import('@/sections/Philosophy'));
 const Capabilities = lazy(() => import('@/sections/Capabilities'));
 const AIWorkforce = lazy(() => import('@/sections/AIWorkforce'));
 const AgentCollaboration = lazy(() => import('@/sections/AgentCollaboration'));
+const Philosophy = lazy(() => import('@/sections/Philosophy'));
 const Integrations = lazy(() => import('@/sections/Integrations'));
 const WhoWeWorkWith = lazy(() => import('@/sections/WhoWeWorkWith'));
 const WorkShowcase = lazy(() => import('@/sections/WorkShowcase'));
@@ -67,11 +67,11 @@ function AppContent() {
       {/* 1. Hero */}
       <Hero />
 
-      {/* 2. Agency Introduction */}
+      {/* 2. About AI Handle */}
       <AgencyIntro />
 
       <Suspense fallback={null}>
-      {/* 3. Featured Demo Video */}
+      {/* 3. System demonstration video */}
       <DemoVideo
         videoUrl={brand.video.src}
         posterImage="/brand/ai-handle-logo.png"
@@ -79,40 +79,40 @@ function AppContent() {
         description={brand.video.description}
       />
 
-      {/* 4. Main AI Philosophy */}
-      <Philosophy />
-
-      {/* 5. Services */}
+      {/* 4. What AI Handle builds */}
       <Capabilities />
 
-      {/* 6. AI Workforce */}
+      {/* 5. AI Workforce */}
       <AIWorkforce robots={robots} />
 
-      {/* 7. Agent Collaboration */}
+      {/* 6. How agents collaborate */}
       <AgentCollaboration />
 
-      {/* 8. Connected Platforms */}
+      {/* 7. AI agent versus automation */}
+      <Philosophy />
+
+      {/* 8. Connected platforms */}
       <Integrations />
 
       {/* 9. Industries */}
       <WhoWeWorkWith />
 
-      {/* 10. Client Showcase */}
+      {/* 10. Selected client work */}
       <WorkShowcase />
 
-      {/* 11. Human Control and Security */}
+      {/* 11. Human control and security + 12. AI Handle Aegis */}
       <SafetyCentre />
 
-      {/* 12. Team */}
+      {/* 13. Team */}
       <Founder />
 
-      {/* 13. Gulf Coverage */}
+      {/* 14. UAE, Gulf, and global coverage */}
       <About />
 
-      {/* 14. Final CTA */}
+      {/* 15. Contact and QR codes */}
       <RooftopCTA />
 
-      {/* Footer */}
+      {/* 16. Footer */}
       <Footer />
       </Suspense>
       <ChatBot />

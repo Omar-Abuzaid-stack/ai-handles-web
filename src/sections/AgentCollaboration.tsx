@@ -12,7 +12,7 @@ export default function AgentCollaboration() {
         <div className="flex flex-wrap justify-center items-center gap-3 md:gap-2 max-w-5xl mx-auto animate-item">
           {[
             { name: 'Research Agent', desc: 'verifies a lead' },
-            { name: 'Sales Agent', desc: 'prepares outreach' },
+            { name: 'Sales Agent', desc: 'prepares approved outreach' },
             { name: 'Reply Agent', desc: 'analyses response' },
             { name: 'CRM Agent', desc: 'updates record' },
             { name: 'Reporting Agent', desc: 'informs management' },

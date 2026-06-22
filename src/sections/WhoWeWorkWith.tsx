@@ -58,6 +58,10 @@ export default function WhoWeWorkWith() {
             </span>
           ))}
         </div>
+
+        <p className="body-text text-center mt-12 max-w-xl mx-auto animate-item">
+          Based in the UAE. Supporting businesses across the Gulf and globally.
+        </p>
       </div>
     </section>
   );
