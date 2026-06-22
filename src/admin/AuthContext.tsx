@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return !!data.user;
     } else {
-      if (email === 'admin@aihandle.com' && pass === 'admin') {
+      if (email === 'admin@aihandle.cloud' && pass === 'AIHandle123456666') {
         const dummyUser = { id: 'local-admin', email };
         localStorage.setItem('aihandle_local_admin', JSON.stringify(dummyUser));
         setUser(dummyUser);

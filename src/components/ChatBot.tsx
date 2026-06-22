@@ -274,11 +274,11 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-gradient-to-br from-[#C9A96E] to-[#A8884E] text-[#0A0A0A] shadow-[0_4px_30px_rgba(201,169,110,0.3)] hover:shadow-[0_4px_40px_rgba(201,169,110,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center group"
+          className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white shadow-[0_4px_30px_rgba(139,92,246,0.3)] hover:shadow-[0_4px_40px_rgba(139,92,246,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center group"
           aria-label="Open AI chat assistant"
         >
           <MessageCircle size={22} className="group-hover:rotate-12 transition-transform" />
-          <span className="absolute inset-0 rounded-full border-2 border-[#C9A96E]/40 animate-ping opacity-30" />
+          <span className="absolute inset-0 rounded-full border-2 border-[#8B5CF6]/40 animate-ping opacity-30" />
         </button>
       )}
 
@@ -293,7 +293,7 @@ export default function ChatBot() {
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/8 bg-[#141414]/80">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#C9A96E] to-[#A8884E] flex items-center justify-center shadow-[0_0_20px_rgba(201,169,110,0.2)]">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.2)]">
                 <Bot size={18} className="text-[#0A0A0A]" />
               </div>
               <div>
@@ -324,14 +324,14 @@ export default function ChatBot() {
                 className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-msg-in`}
               >
                 {msg.role === 'assistant' && (
-                  <div className="w-7 h-7 rounded-full bg-[#C9A96E]/10 border border-[#C9A96E]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Sparkles size={12} className="text-[#C9A96E]" />
+                  <div className="w-7 h-7 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Sparkles size={12} className="text-[#8B5CF6]" />
                   </div>
                 )}
                 <div
                   className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed font-body ${
                     msg.role === 'user'
-                      ? 'bg-[#C9A96E] text-[#0A0A0A] rounded-br-md'
+                      ? 'bg-[#8B5CF6] text-white rounded-br-md'
                       : 'bg-white/5 text-[#F5F0EB] border border-white/5 rounded-bl-md'
                   }`}
                 >
@@ -355,13 +355,12 @@ export default function ChatBot() {
             ))}
 
             {isLoading && (
-              <div className="flex gap-2.5 justify-start animate-msg-in">
-                <div className="w-7 h-7 rounded-full bg-[#C9A96E]/10 border border-[#C9A96E]/20 flex items-center justify-center flex-shrink-0">
-                  <Sparkles size={12} className="text-[#C9A96E]" />
+              <div className="flex gap-2.5 justify-start animate-msg-in">                  <div className="w-7 h-7 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles size={12} className="text-[#8B5CF6]" />
                 </div>
                 <div className="bg-white/5 border border-white/5 rounded-2xl rounded-bl-md px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <Loader2 size={14} className="text-[#C9A96E] animate-spin" />
+                    <Loader2 size={14} className="text-[#8B5CF6] animate-spin" />
                     <span className="text-xs text-[#5A5550] font-body animate-pulse">Thinking...</span>
                   </div>
                 </div>
@@ -379,7 +378,7 @@ export default function ChatBot() {
                   key={qa.label}
                   onClick={() => sendText(qa.text, messages)}
                   disabled={isLoading}
-                  className="text-[11px] font-body px-2.5 py-1.5 rounded-full border border-[#C9A96E]/20 text-[#C9A96E] hover:bg-[#C9A96E]/10 transition-colors disabled:opacity-40"
+                  className="text-[11px] font-body px-2.5 py-1.5 rounded-full border border-[#8B5CF6]/20 text-[#8B5CF6] hover:bg-[#8B5CF6]/10 transition-colors disabled:opacity-40"
                 >
                   {qa.label}
                 </button>
@@ -412,7 +411,7 @@ export default function ChatBot() {
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading || isRateLimited}
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#C9A96E] to-[#A8884E] text-[#0A0A0A] flex items-center justify-center hover:opacity-90 active:scale-95 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label="Send message"
               >
                 {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}

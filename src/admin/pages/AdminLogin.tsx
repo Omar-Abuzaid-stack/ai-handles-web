@@ -31,7 +31,7 @@ const AdminLogin: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#0A0A0A] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center text-[#C9A96E]">
+        <div className="flex justify-center text-[#8B5CF6]">
           <Lock size={40} strokeWidth={1} />
         </div>
         <h2 className="mt-6 text-center text-3xl font-mono tracking-widest text-[#F5F0EB]">
@@ -45,8 +45,8 @@ const AdminLogin: React.FC = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-[#111111] py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-white/5">
           {isLocalMode && (
-            <div className="mb-6 p-4 bg-[#C9A96E]/10 border border-[#C9A96E]/20 rounded-md text-sm text-[#C9A96E] text-center">
-              Running in Local Mode.<br/>Use <strong>admin@aihandle.com / admin</strong>
+            <div className="mb-6 p-4 bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 rounded-md text-sm text-[#8B5CF6] text-center">
+              Running in Local Mode.<br/>Use <strong>admin@aihandle.cloud / AIHandle123456666</strong>
             </div>
           )}
 
@@ -59,7 +59,7 @@ const AdminLogin: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-white/10 rounded-md shadow-sm placeholder-white/30 focus:outline-none focus:ring-[#C9A96E] focus:border-[#C9A96E] sm:text-sm bg-black text-white"
+                  className="appearance-none block w-full px-3 py-2 border border-white/10 rounded-md shadow-sm placeholder-white/30 focus:outline-none focus:ring-[#8B5CF6] focus:border-[#8B5CF6] sm:text-sm bg-black text-white"
                 />
               </div>
             </div>
@@ -72,7 +72,7 @@ const AdminLogin: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-white/10 rounded-md shadow-sm placeholder-white/30 focus:outline-none focus:ring-[#C9A96E] focus:border-[#C9A96E] sm:text-sm bg-black text-white"
+                  className="appearance-none block w-full px-3 py-2 border border-white/10 rounded-md shadow-sm placeholder-white/30 focus:outline-none focus:ring-[#8B5CF6] focus:border-[#8B5CF6] sm:text-sm bg-black text-white"
                 />
               </div>
             </div>
@@ -83,7 +83,7 @@ const AdminLogin: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-[#C9A96E] hover:bg-[#D4B881] focus:outline-none transition-colors"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#8B5CF6] hover:bg-[#7C3AED] focus:outline-none transition-colors"
               >
                 {loading ? 'Authenticating...' : 'Access Command Center'}
               </button>
