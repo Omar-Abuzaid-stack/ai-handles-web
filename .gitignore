@@ -34,3 +34,4 @@ dist-ssr
 
 # Utility scripts
 generate_qr.py
+supabase-setup.sql
