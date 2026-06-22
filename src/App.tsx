@@ -152,6 +152,7 @@ function AppContent() {
       </Suspense>
 
       <ChatBot />
+      </ErrorBoundary>
       <ScrollToTop />
       <PrivacyBanner />
     </div>

@@ -56,7 +56,7 @@ export default function WorkShowcase() {
 
   const filtered = activeFilter === 'All'
     ? projects
-    : projects.filter(p => p.category === activeFilter || p.tags.some(t => activeFilter.includes(t)));
+    : projects.filter(p => p.category === activeFilter);
 
   return (
     <section id="work" className="section-padding bg-[#070707]">

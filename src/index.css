@@ -285,39 +285,32 @@
 }
 
 /* ─── Light Mode ─── */
-html.light,
-html.light body {
-  background: #FAFAF8;
-  color: #1A1A1A;
+html.light {
+  --bg: #FAFAF8;
+  --bg-near: #F0F0EE;
+  --bg-surface: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-muted: rgba(0,0,0,0.6);
+  --text-dim: rgba(0,0,0,0.35);
+  --border: rgba(0,0,0,0.06);
+  --border-hover: rgba(0,0,0,0.12);
 }
 
-html.light .bg-black { background: #FAFAF8; }
-html.light .bg-\[\#070707\] { background: #F0F0EE; }
-html.light .bg-\[\#111111\] { background: #FFFFFF; }
-html.light .bg-\[\#141414\] { background: #FFFFFF; }
+html.light body {
+  background: var(--bg);
+  color: var(--text-primary);
+}
 
-html.light .text-white { color: #1A1A1A; }
-html.light .text-white\/50 { color: rgba(0,0,0,0.55); }
-html.light .text-white\/40 { color: rgba(0,0,0,0.45); }
-html.light .text-white\/30 { color: rgba(0,0,0,0.35); }
-html.light .text-white\/20 { color: rgba(0,0,0,0.25); }
-html.light .text-white\/60 { color: rgba(0,0,0,0.6); }
-html.light .text-white\/70 { color: rgba(0,0,0,0.7); }
-html.light .text-white\/15 { color: rgba(0,0,0,0.15); }
-html.light .text-white\/8 { color: rgba(0,0,0,0.08); }
-
-html.light .border-white\/5 { border-color: rgba(0,0,0,0.06); }
-html.light .border-white\/8 { border-color: rgba(0,0,0,0.08); }
-html.light .border-white\/10 { border-color: rgba(0,0,0,0.1); }
-html.light .border-white\/12 { border-color: rgba(0,0,0,0.12); }
-
-html.light .from-black\/60 { --tw-gradient-from: rgba(0,0,0,0.3); }
-html.light .via-black\/40 { --tw-gradient-via: rgba(0,0,0,0.15); }
-html.light .to-black { --tw-gradient-to: #FAFAF8; }
+html.light .heading-display,
+html.light .heading-section,
+html.light .heading-sub { color: var(--text-primary); }
+html.light .body-text { color: var(--text-muted); }
+html.light .label-text { color: var(--text-dim); }
+html.light .serif-italic { color: rgba(0,0,0,0.3); }
 
 html.light .card-surface {
   background: rgba(0,0,0,0.02);
-  border-color: rgba(0,0,0,0.06);
+  border-color: var(--border);
 }
 html.light .card-surface:hover {
   border-color: rgba(139, 92, 246, 0.25);
@@ -332,25 +325,15 @@ html.light .liquid-glass {
 
 html.light .btn-secondary {
   border-color: rgba(0,0,0,0.12);
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 html.light .btn-secondary:hover {
   border-color: rgba(0,0,0,0.25);
   background: rgba(0,0,0,0.03);
 }
 
-html.light .bg-white\/5 { background-color: rgba(0,0,0,0.04); }
-html.light .bg-white\/2 { background-color: rgba(0,0,0,0.015); }
-
-html.light ::-webkit-scrollbar-track { background: #F0F0EE; }
+html.light ::-webkit-scrollbar-track { background: var(--bg-near); }
 html.light ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); }
-html.light ::selection { background-color: rgba(139, 92, 246, 0.2); color: #1A1A1A; }
+html.light ::selection { background-color: rgba(139, 92, 246, 0.2); color: var(--text-primary); }
 
-html.light .heading-display,
-html.light .heading-section,
-html.light .heading-sub { color: #1A1A1A; }
-html.light .body-text { color: rgba(0,0,0,0.6); }
-html.light .label-text { color: rgba(0,0,0,0.45); }
-
-html.light .serif-italic { color: rgba(0,0,0,0.35); }
-html.light .section-divider { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent); }
+html.light .section-divider { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent); }
