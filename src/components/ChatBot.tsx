@@ -87,7 +87,7 @@ function ChatMessageContent({ content }: { content: string }) {
         const lines = part.split(/\u2022/g);
         return lines.map((line, j) => {
           if (j > 0) {
-            return <span key={`${i}-${j}`}><span className="text-[#C9A96E]">{'\u2022'}</span> {line}</span>;
+            return <span key={`${i}-${j}`}><span className="text-[#8B5CF6]">{'\u2022'}</span> {line}</span>;
           }
           return <span key={`${i}-${j}`}>{line}</span>;
         });
@@ -316,7 +316,7 @@ export default function ChatBot() {
           {/* Messages */}
           <div
             className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth"
-            style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(201,169,110,0.2) transparent' }}
+            style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(139,92,246,0.2) transparent' }}
           >
             {messages.map((msg) => (
               <div
@@ -339,9 +339,9 @@ export default function ChatBot() {
                   {msg.action?.type === 'navigate' && (
                     <button
                       onClick={() => executeAction(msg.action)}
-                      className="mt-3 flex items-center gap-1.5 text-xs font-medium text-[#C9A96E] hover:text-[#F5F0EB] transition-colors"
+                      className="mt-3 flex items-center gap-1.5 text-xs font-medium text-[#8B5CF6] hover:text-[#F5F0EB] transition-colors"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
                       Take me there →
                     </button>
                   )}
@@ -388,8 +388,8 @@ export default function ChatBot() {
 
           {/* Rate limit banner */}
           {isRateLimited && (
-            <div className="px-4 py-3 bg-[#C9A96E]/10 border-t border-[#C9A96E]/20">
-              <p className="text-xs font-body text-[#C9A96E] text-center font-medium">
+            <div className="px-4 py-3 bg-[#8B5CF6]/10 border-t border-[#8B5CF6]/20">
+              <p className="text-xs font-body text-[#8B5CF6] text-center font-medium">
                 {rateLimitMessage}
               </p>
             </div>
@@ -406,7 +406,7 @@ export default function ChatBot() {
                 onKeyDown={handleKeyDown}
                 placeholder={isRateLimited ? 'Come back tomorrow...' : 'Ask about AI Handle...'}
                 disabled={isLoading || isRateLimited}
-                className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm font-body text-[#F5F0EB] placeholder:text-[#3A3A3A] focus:border-[#C9A96E]/40 focus:outline-none transition-colors disabled:opacity-50"
+                className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm font-body text-[#F5F0EB] placeholder:text-[#3A3A3A] focus:border-[#8B5CF6]/40 focus:outline-none transition-colors disabled:opacity-50"
               />
               <button
                 onClick={sendMessage}

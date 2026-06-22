@@ -32,6 +32,7 @@ export const brand = {
     phoneRaw: '+971545530754',
     email: 'mrayhan2005m@gmail.com',
     whatsappUrl: 'https://wa.me/971545530754',
+    linkedinUrl: '',
     image: '/brand/mohamed-rayan.jpg',
     imageAlt: 'Mohamed Rayan — Sales Manager at AI Handle',
   },

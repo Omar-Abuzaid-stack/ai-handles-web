@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Phone, Mail, MessageCircle, Send, CheckCircle, Linkedin, Instagram } from 'lucide-react';
 import { brand } from '@/data';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import QRCodeDisplay from '@/components/QRCode';
 
 const TikTokIcon = ({ size = 14 }: { size?: number }) => (
@@ -15,14 +16,36 @@ export default function RooftopCTA() {
   const { founder } = brand;
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+
+    // Save to Supabase if configured
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('contact_submissions').insert({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          message: form.message,
+          source: 'website',
+          status: 'new',
+        });
+      } catch (err) {
+        console.error('Supabase insert failed:', err);
+      }
+    }
+
+    // Also open email client
     const subject = encodeURIComponent(`AI Handle Inquiry from ${form.name}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`
     );
     window.open(`mailto:${founder.email}?subject=${subject}&body=${body}`, '_self');
+
+    setSubmitting(false);
     setSubmitted(true);
   };
 
@@ -97,10 +120,9 @@ export default function RooftopCTA() {
               <CheckCircle size={40} className="text-green-400 mx-auto mb-4" />
               <h3 className="heading-sub mb-2">Thank You</h3>
               <p className="body-text mb-6">
-                Your email client should open with the inquiry pre-filled. If not, send us an email directly at{' '}
-                <a href={`mailto:${founder.email}`} className="text-purple hover:underline">{founder.email}</a>
+                Your inquiry has been received. We will get back to you within 24 hours.
               </p>
-              <button onClick={() => setSubmitted(false)} className="btn-secondary text-sm">
+              <button onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', message: '' }); }} className="btn-secondary text-sm">
                 Send Another Inquiry
               </button>
             </div>
@@ -157,8 +179,8 @@ export default function RooftopCTA() {
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-purple/40 transition-colors font-body resize-none"
                   />
                 </div>
-                <button type="submit" className="btn-primary w-full justify-center">
-                  <Send size={14} /> Send Inquiry
+                <button type="submit" disabled={submitting} className="btn-primary w-full justify-center disabled:opacity-50">
+                  {submitting ? 'Sending...' : <><Send size={14} /> Send Inquiry</>}
                 </button>
               </div>
             </form>

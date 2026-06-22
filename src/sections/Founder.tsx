@@ -86,7 +86,7 @@ export default function Founder() {
               whatsappUrl={salesManager.whatsappUrl}
               phoneRaw={salesManager.phoneRaw}
               email={salesManager.email}
-              linkedinUrl={(salesManager as any).linkedinUrl || ''}
+              linkedinUrl={salesManager.linkedinUrl}
             />
           </div>
         </div>
