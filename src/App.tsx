@@ -2,6 +2,9 @@ import { useEffect, lazy, Suspense } from 'react';
 import { useCmsData } from '@/hooks/useCmsData';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import Navigation from '@/components/Navigation';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import ScrollToTop from '@/components/ScrollToTop';
+import PrivacyBanner from '@/components/PrivacyBanner';
 import Hero from '@/sections/Hero';
 import AgencyIntro from '@/sections/AgencyIntro';
 import ChatBot from '@/components/ChatBot';
@@ -22,11 +25,17 @@ const About = lazy(() => import('@/sections/About'));
 const RooftopCTA = lazy(() => import('@/sections/RooftopCTA'));
 const Footer = lazy(() => import('@/sections/Footer'));
 
+/** Subtle gradient divider between sections */
+function SectionDivider() {
+  return (
+    <div className="w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+  );
+}
+
 function AppContent() {
   const { robots, loading } = useCmsData();
 
   useEffect(() => {
-    // Reveal animations on scroll
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
@@ -67,10 +76,14 @@ function AppContent() {
       {/* 1. Hero */}
       <Hero />
 
+      <SectionDivider />
+
       {/* 2. About AI Handle */}
       <AgencyIntro />
 
       <Suspense fallback={null}>
+      <SectionDivider />
+
       {/* 3. System demonstration video */}
       <DemoVideo
         videoUrl={brand.video.src}
@@ -79,35 +92,57 @@ function AppContent() {
         description={brand.video.description}
       />
 
+      <SectionDivider />
+
       {/* 4. What AI Handle builds */}
       <Capabilities />
+
+      <SectionDivider />
 
       {/* 5. AI Workforce */}
       <AIWorkforce robots={robots} />
 
+      <SectionDivider />
+
       {/* 6. How agents collaborate */}
       <AgentCollaboration />
+
+      <SectionDivider />
 
       {/* 7. AI agent versus automation */}
       <Philosophy />
 
+      <SectionDivider />
+
       {/* 8. Connected platforms */}
       <Integrations />
+
+      <SectionDivider />
 
       {/* 9. Industries */}
       <WhoWeWorkWith />
 
+      <SectionDivider />
+
       {/* 10. Selected client work */}
       <WorkShowcase />
+
+      <SectionDivider />
 
       {/* 11. Human control and security + 12. AI Handle Aegis */}
       <SafetyCentre />
 
+      <SectionDivider />
+
       {/* 13. Team */}
       <Founder />
 
+      <SectionDivider />
+
       {/* 14. UAE, Gulf, and global coverage */}
       <About />
+
+      <SectionDivider />
 
       {/* 15. Contact and QR codes */}
       <RooftopCTA />
@@ -115,7 +150,10 @@ function AppContent() {
       {/* 16. Footer */}
       <Footer />
       </Suspense>
+
       <ChatBot />
+      <ScrollToTop />
+      <PrivacyBanner />
     </div>
   );
 }
@@ -123,7 +161,9 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <ErrorBoundary>
+        <AppContent />
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }

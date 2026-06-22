@@ -62,6 +62,9 @@ export default function WhoWeWorkWith() {
         <p className="body-text text-center mt-12 max-w-xl mx-auto animate-item">
           Based in the UAE. Supporting businesses across the Gulf and globally.
         </p>
+        <p className="text-xs text-white/20 text-center mt-4 animate-item">
+          We work with responsible businesses where AI can improve communication, operations, lead handling, content, reporting, or customer experience.
+        </p>
       </div>
     </section>
   );

@@ -17,19 +17,19 @@ export default function Philosophy() {
               <div className="animate-item">
                 <h3 className="heading-sub mb-2">AI Agent vs Automation</h3>
                 <p className="body-text">
-                  An automation follows a fixed sequence. An AI agent understands context, makes decisions, and adapts. We deploy both — agents where judgement is needed, automations where consistency is key.
+                  An automation follows a fixed sequence — reliable but rigid. An AI agent understands context, reasons through situations, makes decisions, and adapts in real time. We deploy both: agents where judgement matters, automations where consistency is everything.
                 </p>
               </div>
               <div className="animate-item">
                 <h3 className="heading-sub mb-2">Specialised Roles</h3>
                 <p className="body-text">
-                  Every AI agent has one clear responsibility, approved tools, limits, and escalation rules.
+                  Every AI agent has one clear responsibility, a defined set of approved tools, operational limits, and explicit escalation rules. No agent does everything. Each does one thing exceptionally well.
                 </p>
               </div>
               <div className="animate-item">
                 <h3 className="heading-sub mb-2">Coordinated Work</h3>
                 <p className="body-text">
-                  Agents pass verified tasks and structured information to one another, creating a controlled digital workforce rather than isolated tools.
+                  Agents pass verified tasks and structured information to one another — creating a controlled digital workforce that operates with precision, not isolated tools working in silos.
                 </p>
               </div>
             </div>
