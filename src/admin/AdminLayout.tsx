@@ -47,6 +47,13 @@ const AdminLayout: React.FC = () => {
           <Link to="/admin/clients" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/clients') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
             <Globe size={18} /> Clients & Projects
           </Link>
+          <div className="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">Settings</div>
+          <Link to="/admin/business-cards" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/business-cards') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <ImageIcon size={18} /> Business Cards
+          </Link>
+          <Link to="/admin/settings/integrations" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/settings') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
+            <Globe size={18} /> Integrations
+          </Link>
           <div className="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">System</div>
           <Link to="/admin/theme" className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${location.pathname.startsWith('/admin/theme') ? 'bg-white/10 text-[#C9A96E]' : 'hover:bg-white/5 text-white/70'}`}>
             <Palette size={18} /> Theme

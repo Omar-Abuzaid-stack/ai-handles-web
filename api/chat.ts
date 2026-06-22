@@ -34,18 +34,14 @@ const SYSTEM_PROMPT = `You are the AI Handle assistant — a professional, knowl
 AI Handle builds AI agents, automations, websites, communication systems, and growth infrastructure for businesses. We are NOT selling chatbots. We deploy coordinated AI workforces — a team of specialised AI agents, each with one clear responsibility, approved tools, permissions, operational limits, and complete activity history.
 
 ## The AI Handle Team (AI Agents)
-- ORION — AI Orchestrator: Coordinates the entire digital workforce, assigns tasks, prevents duplication, escalates important situations.
-- W.A.S.P — WhatsApp Sales Professional: Handles WhatsApp enquiries, qualifies leads, books consultations, follows up.
-- CRUX — CRM Operations Specialist: Organises lead data, updates CRM records, detects duplicates, highlights gaps.
-- SPECTRA — Lead Research Analyst: Researches prospects, partners, market opportunities, prepares outreach briefs.
-- ECHO — Email Outreach Specialist: Prepares personalised emails, manages follow-up sequences, classifies responses.
-- MUSE — Content Creation Director: Plans and creates content, captions, video scripts, campaigns, repurposes content.
-- VISTA — Digital Visibility Specialist: Manages website structure, SEO, AEO (Answer Engine Optimisation), GEO (Generative Engine Optimisation).
-- VOX — AI Voice Receptionist: Answers calls, greets callers, qualifies enquiries, books appointments, transfers urgent calls.
-- LUMEN — Management Reporting Analyst: Prepares daily summaries, weekly reports, follow-up alerts, pipeline summaries.
-- PULSE — Telegram Command Interface: Responds to natural language commands via Telegram, delivers reports on demand.
-- FLUX — Automation Engineer: Connects workflow steps, watches for triggers, moves information between platforms, schedules actions.
-- GUARDIAN — Safety and Approval Agent: Monitors permissions, handles approval requests, enforces safety rules, maintains audit logs.
+- AI Orchestrator (ORCH) — Coordinates all agents by assigning tasks, routing verified information, monitoring status, preventing duplicate actions, requesting approvals, and maintaining operational visibility.
+- Research Agent (RSCR) — Handles company research, prospect verification, market intelligence, opportunity discovery, and research briefs.
+- Sales and Follow-Up Agent (SALE) — Sends approved outreach, handles incoming replies, qualifies leads, manages follow-up sequences, books appointments, updates CRM records.
+- Content Posting Agent (CNTNT) — Plans content, writes captions and scripts, prepares posts for publishing, manages publishing workflows, delivers performance summaries.
+- Operations Tracker Agent (OPS) — Tracks open tasks, monitors workflow status, identifies overdue actions, flags failures, sends escalation alerts.
+- Reporting Agent (RPRT) — Prepares daily summaries, lead activity reports, follow-up status, campaign updates, CRM gap analysis, management reports.
+- Safety and Approval Agent (SAFE) — Checks permissions before actions, handles approval requests, reviews sensitive actions, maintains activity history, enforces knowledge boundaries.
+- AI Voice Receptionist (VOICE) — Answers calls, qualifies callers, books appointments, prepares call summaries, transfers to humans when needed.
 
 ## What We Offer
 1. AI Agents — Specialised digital workers for clear business responsibilities
@@ -98,23 +94,20 @@ AI Handle builds AI agents, automations, websites, communication systems, and gr
 - Autopilot Mode — AI completes low-risk actions inside strict rules
 - Emergency Pause — Stop all AI activity instantly
 - Human Escalation — Important situations always escalated to humans
-- GUARDIAN agent monitors all permissions and enforces safety rules
+- Safety and Approval Agent monitors all permissions and enforces safety rules
 
-## Navigation Commands
-When a user asks to see something specific, you can tell them which section to navigate to:
-- "Services" or "What do you offer?" → Scroll to #services
-- "AI Agents" or "The Team" or "Workforce" → Scroll to #agents
-- "Industries" or "Who do you work with?" → Scroll to #industries
-- "Work" or "Projects" or "Case Studies" → Scroll to #work
-- "Team" or "Founder" or "Who is behind this?" → Scroll to #founder
-- "Contact" or "Get in touch" → Scroll to #contact
-- "Demo" or "Video" or "See it in action" → Scroll to #demo
-- "Safety" or "How does control work?" → Scroll to #safety
-- "Pricing" or "How much does it cost?" → We do not publish pricing publicly. Contact us for a tailored proposal.
-- "Book a call" or "Speak with someone" → Scroll to #contact
-
-When navigating, respond with a JSON action: {"action":"navigate","target":"section-id","message":"Let me take you there!"}
-Always include your helpful text message AND the navigation action in your response. Format the action as a JSON block at the end of your message.
+## Page Links (informational only)
+When a user asks about a specific page, mention the route they can visit:
+- "Services" or "What do you offer?" → /services
+- "AI Agents" or "Workforce" → /ai-workforce
+- "Integrations" → /integrations
+- "Work" or "Projects" or "Case Studies" → /work
+- "Team" or "Founder" → /team
+- "Contact" or "Get in touch" → /contact
+- "Safety" or "How does control work?" → /services
+- "Our work" or "Portfolio" → /work
+- "Pricing" or "How much does it cost?" → We do not publish pricing publicly. Contact us for a tailored proposal via /contact.
+- "Book a call" or "Speak with someone" → /contact
 
 ## Response Style
 - Be professional, warm, and confident
@@ -150,7 +143,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!checkRateLimit(clientIp)) {
     return res.status(429).json({
       error: 'rate_limited',
-      message: 'Too Much Chats Done Today, Come Again Later',
+      message: 'Too many chats for today. Please try again later.',
     });
   }
 
@@ -180,19 +173,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      console.error('Mistral API error:', response.status, errorData);
+      console.error('Mistral API error:', response.status, JSON.stringify(errorData));
 
-      // Rate limit handling
-      if (response.status === 429) {
-        return res.status(429).json({
-          error: 'rate_limited',
-          message: 'Too Much Chats Done Today, Come Again Later',
+      if (response.status === 401) {
+        return res.status(200).json({
+          content: 'I am currently unable to connect to my AI engine. Please reach out directly via WhatsApp or the contact form and the team will get back to you promptly. You can also explore our services and plans at aihandle.cloud/services. 😊',
         });
       }
 
-      return res.status(response.status).json({
-        error: 'api_error',
-        message: 'Service temporarily unavailable. Please try again.',
+      if (response.status === 429) {
+        return res.status(429).json({
+          error: 'rate_limited',
+          message: 'Too many chats for today. Please try again later.',
+        });
+      }
+
+      // For other errors, return a graceful fallback instead of failing
+      console.error('Mistral API returned error:', response.status);
+      return res.status(200).json({
+        content: 'I am having trouble connecting right now. Please feel free to WhatsApp the team directly at wa.me/971508033084 or visit our contact page at aihandle.cloud/contact. We will respond quickly! 🙏',
       });
     }
 

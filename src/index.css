@@ -323,6 +323,11 @@ html.light .liquid-glass {
   box-shadow: 0 1px 3px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
 }
 
+html.light .btn-primary {
+  background: var(--accent-purple);
+  color: white;
+}
+
 html.light .btn-secondary {
   border-color: rgba(0,0,0,0.12);
   color: var(--text-primary);
@@ -337,3 +342,65 @@ html.light ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); }
 html.light ::selection { background-color: rgba(139, 92, 246, 0.2); color: var(--text-primary); }
 
 html.light .section-divider { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent); }
+
+/* ─── Light Mode: Override Tailwind utilities used throughout JSX ─── */
+html.light .bg-black { background-color: #FAFAF8 !important; }
+html.light .bg-black\/60 { background-color: rgba(250,250,248,0.6) !important; }
+html.light .bg-black\/95 { background-color: rgba(250,250,248,0.95) !important; }
+html.light .bg-\[\#070707\] { background-color: #F0F0EE !important; }
+html.light .bg-\[\#0A0A0A\] { background-color: #EDEDEB !important; }
+html.light .bg-\[\#111111\] { background-color: #FFFFFF !important; }
+html.light .bg-\[\#141414\] { background-color: #FFFFFF !important; }
+
+html.light .text-white { color: #1A1A1A !important; }
+html.light .text-white\/20 { color: rgba(0,0,0,0.3) !important; }
+html.light .text-white\/25 { color: rgba(0,0,0,0.35) !important; }
+html.light .text-white\/30 { color: rgba(0,0,0,0.35) !important; }
+html.light .text-white\/40 { color: rgba(0,0,0,0.4) !important; }
+html.light .text-white\/50 { color: rgba(0,0,0,0.5) !important; }
+html.light .text-white\/60 { color: rgba(0,0,0,0.55) !important; }
+html.light .text-white\/70 { color: rgba(0,0,0,0.6) !important; }
+html.light .text-white\/80 { color: rgba(0,0,0,0.7) !important; }
+
+html.light .bg-white\/5 { background-color: rgba(0,0,0,0.04) !important; }
+html.light .bg-white\/10 { background-color: rgba(0,0,0,0.06) !important; }
+
+html.light .border-white\/5 { border-color: rgba(0,0,0,0.06) !important; }
+html.light .border-white\/8 { border-color: rgba(0,0,0,0.08) !important; }
+html.light .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
+html.light .border-white\/\[0\.06\] { border-color: rgba(0,0,0,0.06) !important; }
+
+html.light .bg-purple\/5 { background-color: rgba(139,92,246,0.06) !important; }
+html.light .bg-purple\/10 { background-color: rgba(139,92,246,0.08) !important; }
+html.light .border-purple\/20 { border-color: rgba(139,92,246,0.2) !important; }
+html.light .border-purple\/30 { border-color: rgba(139,92,246,0.3) !important; }
+
+html.light .text-purple { color: #7C3AED !important; }
+html.light .text-purple\/60 { color: rgba(124,58,237,0.6) !important; }
+
+html.light #hero video { filter: brightness(0.7); }
+html.light section[id] { background-color: inherit; }
+html.light section.bg-\[\#070707\] { background-color: #F0F0EE !important; }
+
+html.light .bg-green-500\/10 { background-color: rgba(34,197,94,0.08) !important; }
+html.light .text-green-400 { color: #16a34a !important; }
+html.light .text-green-500 { color: #16a34a !important; }
+html.light .bg-green-500 { background-color: #22c55e !important; }
+
+html.light .bg-red-400\/10 { background-color: rgba(248,113,113,0.08) !important; }
+html.light .text-red-400 { color: #dc2626 !important; }
+
+html.light .bg-blue-400\/10 { background-color: rgba(96,165,250,0.08) !important; }
+html.light .text-blue-400 { color: #2563eb !important; }
+
+html.light .bg-pink-400\/10 { background-color: rgba(244,114,182,0.08) !important; }
+html.light .text-pink-400 { color: #db2777 !important; }
+
+html.light .bg-amber-500\/10 { background-color: rgba(245,158,11,0.08) !important; }
+html.light .text-amber-400 { color: #d97706 !important; }
+
+html.light .shadow-\[0_8px_60px_rgba\(0\,0\,0\,0\.6\)\] { box-shadow: 0 8px 60px rgba(0,0,0,0.12) !important; }
+html.light .shadow-\[0_4px_30px_rgba\(139\,92\,246\,0\.3\)\] { box-shadow: 0 4px 30px rgba(139,92,246,0.15) !important; }
+
+/* Prevent FOUC */
+html:not(.light):not(.dark) body { background: #000; }

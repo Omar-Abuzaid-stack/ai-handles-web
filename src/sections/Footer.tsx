@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { brand } from '@/data';
 import { Phone, Mail, MessageCircle, Instagram, Linkedin } from 'lucide-react';
 import { TikTokIcon } from '@/components/SocialIcons';
@@ -30,16 +31,16 @@ export default function Footer() {
             <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-4">Services</h4>
             <ul className="space-y-2">
               {[
-                { label: 'AI Agents', href: '#services' },
-                { label: 'Automations', href: '#services' },
-                { label: 'Websites', href: '#services' },
-                { label: 'Voice AI', href: '#services' },
-                { label: 'Growth Systems', href: '#services' },
-                { label: 'B2B Solutions', href: '#industries' },
-                { label: 'B2Agent Systems', href: '#agents' },
+                { label: 'AI Agents', to: '/services' },
+                { label: 'Automations', to: '/services' },
+                { label: 'Websites', to: '/services' },
+                { label: 'Voice AI', to: '/services' },
+                { label: 'Growth Systems', to: '/services' },
+                { label: 'Industries', to: '/services' },
+                { label: 'AI Workforce', to: '/ai-workforce' },
               ].map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} className="text-sm text-white/30 hover:text-white/60 transition-colors">{s.label}</a>
+                  <Link to={s.to} className="text-sm text-white/30 hover:text-white/60 transition-colors">{s.label}</Link>
                 </li>
               ))}
             </ul>
@@ -50,15 +51,13 @@ export default function Footer() {
             <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-4">Company</h4>
             <ul className="space-y-2">
               {[
-                { label: 'Industries', href: '#industries' },
-                { label: 'Selected Work', href: '#work' },
-                { label: 'Our Team', href: '#team' },
-                { label: 'Contact Us', href: '#contact' },
-                { label: 'Privacy Policy', href: '#' },
-                { label: 'Terms of Service', href: '#' },
+                { label: 'Integrations', to: '/integrations' },
+                { label: 'Selected Work', to: '/work' },
+                { label: 'Our Team', to: '/team' },
+                { label: 'Contact Us', to: '/contact' },
               ].map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} className="text-sm text-white/30 hover:text-white/60 transition-colors">{s.label}</a>
+                  <Link to={s.to} className="text-sm text-white/30 hover:text-white/60 transition-colors">{s.label}</Link>
                 </li>
               ))}
             </ul>

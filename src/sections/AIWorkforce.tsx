@@ -8,10 +8,6 @@ interface AIWorkforceProps {
 export default function AIWorkforce({ robots }: AIWorkforceProps) {
   const ref = useScrollAnimation();
 
-  const standardRobots = robots.filter(
-    (r) => !['lumen', 'pulse', 'flux'].includes(r.id)
-  );
-
   return (
     <section id="agents" className="section-padding">
       <div ref={ref} className="content-max">
@@ -23,7 +19,7 @@ export default function AIWorkforce({ robots }: AIWorkforceProps) {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {standardRobots.slice(0, 9).map((robot) => (
+          {robots.slice(0, 8).map((robot) => (
             <div key={robot.id} className="card-surface p-6 group hover:border-purple/20 transition-colors duration-300">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center">

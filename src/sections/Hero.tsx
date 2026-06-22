@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router';
 import { ArrowRight, Play, ChevronDown } from 'lucide-react';
 
 export default function Hero() {
@@ -12,7 +13,6 @@ export default function Hero() {
     const handleCanPlay = () => setVideoLoaded(true);
     video.addEventListener('canplay', handleCanPlay);
 
-    // Smooth loop: fade to black near end, then restart
     let raf: number;
     const checkLoop = () => {
       if (video && video.duration && video.currentTime > video.duration - 0.6) {
@@ -63,26 +63,27 @@ export default function Hero() {
           <span className="serif-italic text-white/50">Never Sleeps</span>.
         </h1>
 
-        {/* Supporting text */}
+        {/* Primary supporting text */}
         <p className="body-text max-w-2xl mb-4 opacity-0 animate-fade-up" style={{ animationDelay: '0.6s' }}>
-          AI Handle deploys a coordinated digital workforce into your business. Each AI agent handles a specific responsibility across enquiries, sales, CRM, research, content, operations, and reporting.
+          AI Handle deploys specialised AI agents into your business. Each agent owns a defined responsibility, while an AI Orchestrator coordinates the complete system.
         </p>
 
+        {/* Agent roles description */}
         <p className="body-text max-w-xl mb-10 opacity-0 animate-fade-up" style={{ animationDelay: '0.7s' }}>
-          You do not receive one chatbot. You receive a team of specialised AI agents working across the platforms your business already uses.
+          One agent researches. One handles sales and follow-up. One manages content. One monitors operations. One prepares reports. You control them through approved dashboards and communication platforms.
         </p>
 
         {/* CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 opacity-0 animate-fade-up" style={{ animationDelay: '0.8s' }}>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-primary">
+          <Link to="/contact" className="btn-primary">
             Build My AI Team <ArrowRight size={16} />
-          </a>
-          <a href="#demo" onClick={(e) => { e.preventDefault(); document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
-            <Play size={14} /> Watch the Demo
-          </a>
-          <a href="#agents" onClick={(e) => { e.preventDefault(); document.getElementById('agents')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-secondary">
-            Explore the Agents
-          </a>
+          </Link>
+          <Link to="/ai-workforce" className="btn-secondary">
+            <Play size={14} /> Explore the AI Team
+          </Link>
+          <Link to="/services" className="btn-secondary">
+            Our Services
+          </Link>
         </div>
 
         {/* Gulf Coverage */}
