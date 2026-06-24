@@ -38,26 +38,42 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="section-padding pt-0">
         <div ref={ref} className="content-max">
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
-              <div key={service.id} className="card-surface p-8 animate-item" style={{ animationDelay: `${i * 0.05}s` }}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center text-purple">
-                    {iconMap[service.icon] || <Bot size={20} />}
+              <div key={service.id} className="card-surface p-8 animate-item flex flex-col justify-between border border-white/5 hover:border-purple/30 transition-colors bg-gradient-to-b from-white/[0.02] to-transparent" style={{ animationDelay: `${i * 0.05}s` }}>
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] border border-[#2D1B4E] flex items-center justify-center text-[#7E22CE] shadow-[0_0_15px_rgba(157,78,221,0.15)]">
+                      {iconMap[service.icon] || <Bot size={24} />}
+                    </div>
+                    <div>
+                      <h3 className="font-body font-semibold text-lg text-white">{service.title}</h3>
+                      <p className="text-xs text-[#7E22CE] uppercase tracking-wider font-medium">{service.label}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-body font-semibold text-lg text-white">{service.title}</h3>
-                    <p className="text-xs text-purple/60 uppercase tracking-wider">{service.label}</p>
+                  <p className="body-text text-sm mb-6 text-white/70">{service.description}</p>
+                  
+                  <div className="mb-6">
+                    <p className="text-[10px] font-semibold text-white/30 uppercase tracking-wider mb-3">Capabilities</p>
+                    <ul className="space-y-2">
+                      {service.features.map((f, j) => (
+                        <li key={j} className="text-xs text-white/50 flex items-start gap-2">
+                          <CheckCircle size={14} className="text-[#7E22CE] mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="p-4 rounded-lg bg-[#1A0B2E]/50 border border-[#2D1B4E]/50 mb-8">
+                    <p className="text-xs text-[#7E22CE] font-medium mb-1">Business Benefit</p>
+                    <p className="text-sm text-white/80">{service.businessBenefit}</p>
                   </div>
                 </div>
-                <p className="body-text text-sm mb-4">{service.description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {service.features.map((f, j) => (
-                    <span key={j} className="text-[10px] px-2 py-1 rounded-full bg-white/5 text-white/40 border border-white/5">
-                      {f}
-                    </span>
-                  ))}
-                </div>
+
+                <Link to={service.link} className="inline-flex items-center justify-center gap-2 w-full px-5 py-2.5 rounded-lg bg-white/5 hover:bg-[#7E22CE] text-white hover:text-black font-medium text-sm transition-all group">
+                  Explore {service.title} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             ))}
           </div>
@@ -138,8 +154,12 @@ export default function ServicesPage() {
       <section className="section-padding bg-[#070707]">
         <div className="content-max">
           <div className="text-center mb-12">
-            <p className="label-text text-purple mb-4 animate-item">Our Process</p>
+            <p className="label-text text-[#7E22CE] mb-4 animate-item">Our Process</p>
             <h2 className="heading-section mb-4 animate-item">How We Deploy AI</h2>
+            <div className="max-w-2xl mx-auto animate-item">
+              <p className="body-text text-white/80 font-medium mb-2">Most projects require approximately <span className="text-white">5–14 days</span>.</p>
+              <p className="text-xs text-white/50 italic">Delivery time depends on the requested agents, integrations, business complexity, approvals, data readiness, and testing requirements.</p>
+            </div>
           </div>
           <div className="space-y-4">
             {timeline.map((phase, i) => (

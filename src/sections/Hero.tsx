@@ -25,23 +25,15 @@ export default function Hero() {
     const handleCanPlay = () => setVideoLoaded(true);
     video.addEventListener('canplay', handleCanPlay);
 
-    let raf: number;
-    const checkLoop = () => {
-      if (video && video.duration && video.currentTime > video.duration - 0.6) {
-        video.style.opacity = '0';
-      }
-      if (video && video.currentTime < 0.3) {
-        video.style.opacity = videoLoaded ? '1' : '0';
-      }
-      raf = requestAnimationFrame(checkLoop);
-    };
-    raf = requestAnimationFrame(checkLoop);
+    // If it's already able to play
+    if (video.readyState >= 3) {
+      setVideoLoaded(true);
+    }
 
     return () => {
       video.removeEventListener('canplay', handleCanPlay);
-      cancelAnimationFrame(raf);
     };
-  }, [videoLoaded]);
+  }, []);
 
   // Desktop: scrub video position based on mouse X — uses refs to avoid re-renders
   const handleMouseMove = useCallback((e: React.MouseEvent) => {

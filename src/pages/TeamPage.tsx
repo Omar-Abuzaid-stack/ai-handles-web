@@ -81,6 +81,46 @@ export default function TeamPage() {
         </div>
       </section>
 
+      {/* Extended Delivery Network Marquee */}
+      <section className="py-16 overflow-hidden border-t border-white/5 bg-[#050505]">
+        <div className="content-max mb-8 text-center px-4">
+          <p className="label-text text-[#7E22CE] mb-2 animate-item">Our Extended Delivery Network</p>
+          <h2 className="heading-sub text-white/80 animate-item">Specialists Supporting Our Projects</h2>
+        </div>
+        
+        <div className="relative w-full flex overflow-hidden group">
+          {/* Fading Edges */}
+          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
+          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
+          
+          {/* Scrolling Content */}
+          <div className="flex animate-marquee group-hover:[animation-play-state:paused]">
+            {[...Array(2)].map((_, arrayIndex) => (
+              <div key={arrayIndex} className="flex gap-4 px-2 w-max">
+                {[
+                  { role: "Frontend Developer", skill: "React & Next.js" },
+                  { role: "Backend Engineer", skill: "Node & Python" },
+                  { role: "AI Researcher", skill: "LLM Fine-tuning" },
+                  { role: "Automation Expert", skill: "Make & Zapier" },
+                  { role: "UI/UX Designer", skill: "Figma" },
+                  { role: "CRM Specialist", skill: "HubSpot & Salesforce" },
+                  { role: "Voice AI Engineer", skill: "VAPI & Retell" },
+                  { role: "Prompt Engineer", skill: "System Prompts" }
+                ].map((specialist, i) => (
+                  <div key={`${arrayIndex}-${i}`} className="flex items-center gap-4 bg-white/5 border border-white/5 rounded-full px-6 py-3 min-w-max">
+                    <div className="w-2 h-2 rounded-full bg-[#7E22CE]"></div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{specialist.role}</p>
+                      <p className="text-[10px] text-white/40 uppercase tracking-wider">{specialist.skill}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section-padding bg-[#070707]">
         <div className="content-max text-center">
           <h2 className="heading-section mb-4">Want to Work With Us?</h2>

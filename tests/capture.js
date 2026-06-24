@@ -17,8 +17,9 @@ import { chromium } from 'playwright';
   ];
 
   for (const route of routes) {
-    console.log(`Navigating to https://app-mu-puce-54.vercel.app${route}...`);
-    await page.goto(`https://app-mu-puce-54.vercel.app${route}`, { waitUntil: 'domcontentloaded' });
+    const url = `https://www.aihandle.cloud${route}`;
+    console.log(`Navigating to ${url}...`);
+    await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1000); // Wait for rendering
     
     const content = await page.content();
@@ -33,6 +34,10 @@ import { chromium } from 'playwright';
     } else {
       console.log(`Route ${route} loaded fine.`);
     }
+    
+    // Take a screenshot
+    const filename = route === '/' ? 'home' : route.replace(/\//g, '_').substring(1);
+    await page.screenshot({ path: `tests/screenshots/${filename}.png`, fullPage: true });
   }
 
   await browser.close();

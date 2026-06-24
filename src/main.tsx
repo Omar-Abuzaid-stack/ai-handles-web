@@ -23,6 +23,12 @@ import WorkPage from './pages/WorkPage.tsx'
 import TeamPage from './pages/TeamPage.tsx'
 import TeamProfilePage from './pages/TeamProfilePage.tsx'
 import ContactPage from './pages/ContactPage.tsx'
+import AIAgentsPage from './pages/services/AIAgentsPage.tsx'
+import AutomationsPage from './pages/services/AutomationsPage.tsx'
+import AIDeploymentPage from './pages/services/AIDeploymentPage.tsx'
+import WebsitesPage from './pages/services/WebsitesPage.tsx'
+import GrowthPage from './pages/services/GrowthPage.tsx'
+import VoiceAIPage from './pages/services/VoiceAIPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
@@ -30,6 +36,12 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/ai-agents" element={<AIAgentsPage />} />
+        <Route path="/services/automations" element={<AutomationsPage />} />
+        <Route path="/services/ai-deployment" element={<AIDeploymentPage />} />
+        <Route path="/services/websites" element={<WebsitesPage />} />
+        <Route path="/services/growth" element={<GrowthPage />} />
+        <Route path="/services/voice-ai" element={<VoiceAIPage />} />
         <Route path="/ai-workforce" element={<AIWorkforcePage />} />
         <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="/work" element={<WorkPage />} />

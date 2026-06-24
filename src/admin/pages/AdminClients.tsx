@@ -32,18 +32,24 @@ const AdminClients: React.FC = () => {
   const handleSaveClient = async () => {
     if (!editingClient || !editingClient.name) return;
     setSaving(true);
-    editingClient.updatedAt = new Date().toISOString();
-    if (isCreating) editingClient.createdAt = new Date().toISOString();
-    await CmsStore.saveClient(editingClient);
+    const updatedClient = {
+      ...editingClient,
+      updatedAt: new Date().toISOString(),
+      ...(isCreating && { createdAt: new Date().toISOString() })
+    };
+    await CmsStore.saveClient(updatedClient);
     setEditingClient(null); setIsCreating(false); load(); setSaving(false);
   };
 
   const handleSaveProject = async () => {
     if (!editingProject || !editingProject.title) return;
     setSaving(true);
-    editingProject.updatedAt = new Date().toISOString();
-    if (isCreating) editingProject.createdAt = new Date().toISOString();
-    await CmsStore.saveProject(editingProject);
+    const updatedProject = {
+      ...editingProject,
+      updatedAt: new Date().toISOString(),
+      ...(isCreating && { createdAt: new Date().toISOString() })
+    };
+    await CmsStore.saveProject(updatedProject);
     setEditingProject(null); setIsCreating(false); load(); setSaving(false);
   };
 
