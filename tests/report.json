@@ -1,0 +1,38 @@
+{
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()",
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "networkErrors": [
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED",
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED",
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED",
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED",
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED",
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED",
+    "https://www.aihandle.cloud/videos/Deploying_Intelligence.mp4 net::ERR_ABORTED"
+  ],
+  "routesTested": [
+    "/",
+    "/services",
+    "/services/ai-agents",
+    "/services/automations",
+    "/services/ai-deployment",
+    "/services/websites",
+    "/services/growth",
+    "/services/voice-ai",
+    "/work",
+    "/team",
+    "/team/omar-mohamed",
+    "/team/mohamed-rayan",
+    "/integrations",
+    "/contact",
+    "/admin/login"
+  ]
+}

@@ -14,6 +14,7 @@ const agentHighlights = [
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const lastMouseX = useRef(0.5);
@@ -46,6 +47,9 @@ export default function Hero() {
     if (videoRef.current) {
       videoRef.current.style.objectPosition = `${x * 100}% 50%`;
     }
+    if (videoRef2.current) {
+      videoRef2.current.style.objectPosition = `${x * 100}% 50%`;
+    }
   }, []);
 
   return (
@@ -55,18 +59,53 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black"
     >
-      {/* Background Video */}
+      {/* Background Videos for Seamless Looping */}
       <video
         ref={videoRef}
         muted
         autoPlay
         playsInline
-        loop
         preload="auto"
         poster="/media/system-demo-thumbnail.png"
+        onEnded={() => {
+          if (videoRef2.current) {
+            videoRef2.current.style.opacity = '1';
+            videoRef2.current.play();
+            videoRef.current!.style.opacity = '0';
+            setTimeout(() => {
+              if (videoRef.current) {
+                videoRef.current.currentTime = 0;
+              }
+            }, 500); // Wait for crossfade to finish before resetting
+          }
+        }}
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
         style={{
           opacity: videoLoaded ? 1 : 0,
+          filter: 'brightness(1.2) contrast(1.05) saturate(1.1)',
+        }}
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4"
+      />
+      <video
+        ref={videoRef2}
+        muted
+        playsInline
+        preload="auto"
+        onEnded={() => {
+          if (videoRef.current) {
+            videoRef.current.style.opacity = '1';
+            videoRef.current.play();
+            videoRef2.current!.style.opacity = '0';
+            setTimeout(() => {
+              if (videoRef2.current) {
+                videoRef2.current.currentTime = 0;
+              }
+            }, 500);
+          }
+        }}
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+        style={{
+          opacity: 0,
           filter: 'brightness(1.2) contrast(1.05) saturate(1.1)',
         }}
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4"
