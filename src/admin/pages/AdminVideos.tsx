@@ -37,9 +37,9 @@ const AdminVideos: React.FC = () => {
   const handleSave = async () => {
     if (!editing || !editing.title) return;
     setSaving(true);
-    editing.updatedAt = new Date().toISOString();
-    if (isCreating) editing.createdAt = new Date().toISOString();
-    await CmsStore.saveVideo(editing);
+    const updatedEditing = { ...editing, updatedAt: new Date().toISOString() };
+    if (isCreating) updatedEditing.createdAt = new Date().toISOString();
+    await CmsStore.saveVideo(updatedEditing);
     handleCancel();
     load();
     setSaving(false);

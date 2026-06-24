@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Play, Pause, Volume2, VolumeX, Loader2, AlertCircle } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Loader2, AlertCircle } from 'lucide-react';
 
 interface DemoVideoProps {
   videoUrl?: string;
@@ -141,6 +141,10 @@ export default function DemoVideo({
 
                 <button onClick={toggleMute} className="text-white/50 hover:text-white transition-colors" aria-label={isMuted ? 'Unmute' : 'Mute'}>
                   {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                </button>
+
+                <button onClick={() => videoRef.current?.requestFullscreen?.()} className="text-white/50 hover:text-white transition-colors" aria-label="Fullscreen">
+                  <Maximize size={14} />
                 </button>
               </div>
             </div>

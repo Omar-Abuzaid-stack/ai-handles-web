@@ -36,8 +36,12 @@ export default function AIWorkforcePage() {
                 <div key={robot.id} className={`card-surface overflow-hidden animate-item transition-all duration-300 ${isExpanded ? 'border-purple/30' : ''}`} style={{ animationDelay: `${i * 0.03}s` }}>
                   <button onClick={() => toggle(robot.id)} className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/[0.01] transition-colors">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm font-bold text-purple">{robot.acronym.slice(0, 3)}</span>
+                      <div className="w-12 h-12 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        {robot.image ? (
+                          <img src={robot.image} alt={robot.name} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                        ) : (
+                          <span className="text-sm font-bold text-purple">{robot.acronym.slice(0, 3)}</span>
+                        )}
                       </div>
                       <div>
                         <h3 className="font-body font-semibold text-white">{robot.name}</h3>

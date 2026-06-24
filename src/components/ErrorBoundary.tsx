@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from 'react';
+import { tracker } from '@/lib/tracking';
 
 interface Props {
   children: ReactNode;
@@ -9,30 +10,46 @@ interface State {
   hasError: boolean;
 }
 
-export default class ErrorBoundary extends Component<Props, State> {
+export default class ErrorBoundary extends Component<Props, State & { error?: Error | null }> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(): State {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Section load error:', error, errorInfo);
+    // Send to configured logging system
+    tracker.error(`React Error: ${error.message}`);
   }
 
   render() {
     if (this.state.hasError) {
+      // Handle chunk loading errors (new deployment while user is active)
+      const isChunkError = this.state.error?.message?.toLowerCase().includes('failed to fetch dynamically imported module') ||
+                           this.state.error?.message?.toLowerCase().includes('importing a module script failed');
+
       return this.props.fallback || (
-        <div className="section-padding text-center">
-          <p className="body-text text-white/40">Something went wrong. Please refresh the page.</p>
+        <div className="section-padding text-center min-h-[50vh] flex flex-col items-center justify-center">
+          <p className="body-text text-white/60 mb-2">
+            {isChunkError 
+              ? "A new version of the website is available." 
+              : "Something went wrong. Please refresh the page."}
+          </p>
           <button
-            onClick={() => this.setState({ hasError: false })}
+            onClick={() => {
+              if (isChunkError) {
+                window.location.reload();
+              } else {
+                this.setState({ hasError: false, error: null });
+              }
+            }}
             className="btn-primary mt-4 text-sm"
           >
-            Try Again
+            {isChunkError ? "Update Now" : "Try Again"}
           </button>
         </div>
       );

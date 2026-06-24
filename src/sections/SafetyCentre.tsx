@@ -18,10 +18,13 @@ export default function SafetyCentre() {
     <section id="safety" className="section-padding">
       <div ref={ref} className="content-max">
         <div className="text-center mb-16">
-          <p className="label-text text-purple mb-4 animate-item">Security & Control</p>
+          <p className="label-text text-purple mb-4 animate-item">Security & Human Control</p>
           <h2 className="heading-section mb-4 animate-item">
             Powerful Automation. <span className="serif-italic text-white/50">Human Authority.</span>
           </h2>
+          <p className="body-text max-w-xl mx-auto animate-item">
+            Every AI agent works within approved boundaries. You control what it can access, what it can do, and when it stops.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -40,16 +43,22 @@ export default function SafetyCentre() {
         </div>
 
         <div className="max-w-2xl mx-auto text-center animate-item">
-          <p className="body-text italic text-white/60 mb-6">
-            "AI should increase control, not remove it."
-          </p>
-          <h3 className="font-body font-semibold text-lg text-white mb-3">AI Handle Aegis</h3>
-          <p className="body-text mb-4">
-            AI Handle Aegis is the security and coordination layer that manages agent permissions, approvals, request checks, duplicate-action protection, activity monitoring, and audit history.
-          </p>
-          <p className="text-sm text-white/40">
-            External applications only receive the information needed for the authorised action through their official connection.
-          </p>
+          <h3 className="font-body font-semibold text-lg text-white mb-4">Security and Human Control</h3>
+          <div className="grid md:grid-cols-2 gap-4 text-left">
+            {[
+              'Agents only access approved systems',
+              'Sensitive actions require approval',
+              'All activity is recorded',
+              'Agents can be paused at any time',
+              'Permissions can be revoked instantly',
+              'Human managers retain final control',
+            ].map((point, i) => (
+              <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02]">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple/40 mt-2 flex-shrink-0" />
+                <span className="text-sm text-white/60">{point}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

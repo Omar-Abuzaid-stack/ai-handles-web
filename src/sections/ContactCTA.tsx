@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { ArrowRight, Building2, User, CheckCircle } from 'lucide-react';
-import { plans } from '@/data';
+import { plans, brand } from '@/data';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const planIcons: Record<string, React.ReactNode> = {
@@ -70,7 +70,7 @@ export default function PlansCTA() {
           ))}
         </div>
 
-        {/* Quick contact with team profiles */}
+        {/* Team Profiles */}
         <div className="text-center animate-item">
           <p className="text-xs text-white/30 mb-6">Or reach our team directly</p>
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -80,14 +80,14 @@ export default function PlansCTA() {
             >
               <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10">
                 <img
-                  src="/brand/omar-mohamed.png"
+                  src={brand.founder.image}
                   alt="Omar Mohamed"
                   className="w-full h-full object-cover"
                   onError={(e) => { (e.target as HTMLImageElement).src = '/brand/ai-handle-logo.png'; }}
                 />
               </div>
               <div className="text-left">
-                <p className="text-sm font-medium text-white group-hover:text-purple transition-colors">Omar Mohamed</p>
+                <p className="text-sm font-medium text-white group-hover:text-purple transition-colors">{brand.founder.name}</p>
                 <p className="text-[10px] text-white/30">Founder · View Portfolio</p>
               </div>
             </Link>
@@ -97,14 +97,14 @@ export default function PlansCTA() {
             >
               <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10">
                 <img
-                  src="/brand/mohamed-rayan.jpg"
+                  src={brand.salesManager.image}
                   alt="Mohamed Rayan"
                   className="w-full h-full object-cover"
                   onError={(e) => { (e.target as HTMLImageElement).src = '/brand/ai-handle-logo.png'; }}
                 />
               </div>
               <div className="text-left">
-                <p className="text-sm font-medium text-white group-hover:text-purple transition-colors">Mohamed Rayan</p>
+                <p className="text-sm font-medium text-white group-hover:text-purple transition-colors">{brand.salesManager.name}</p>
                 <p className="text-[10px] text-white/30">Sales Manager · View Portfolio</p>
               </div>
             </Link>

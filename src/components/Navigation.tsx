@@ -36,78 +36,85 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-full max-w-6xl px-4`}>
-        {/* Desktop: Liquid Glass Pill */}
-        <div className="hidden md:flex liquid-glass rounded-full px-6 py-3 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10">
-              <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-body font-semibold text-xs tracking-[0.12em] text-white">AI HANDLE</span>
-          </Link>
-
-          <div className="flex items-center gap-7">
-            {routeLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`font-body text-[13px] transition-colors duration-300 ${
-                  location.pathname === link.to
-                    ? 'text-white font-medium'
-                    : 'text-white/40 hover:text-white/70'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={cycleTheme}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 hover:bg-white/5 transition-all duration-300"
-              aria-label={`Theme: ${theme}. Click to cycle.`}
-              title={`Current: ${theme}`}
-            >
-              {theme === 'dark' && <Moon size={14} />}
-              {theme === 'light' && <Sun size={14} />}
-              {theme === 'system' && <Monitor size={14} />}
-            </button>
-
-            <Link to="/contact" className="btn-primary text-[13px] py-2 px-5">
-              Speak With Us
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
+        <div className="max-w-6xl mx-auto px-4 pt-4 pb-2">
+          {/* Desktop: Liquid Glass Pill */}
+          <div className="hidden md:flex liquid-glass rounded-full px-6 py-3 items-center justify-between">
+            <Link to="/" className="flex items-center gap-2.5 group">
+              <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10">
+                <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
+              </div>
+              <span className="font-body font-semibold text-xs tracking-[0.12em] text-white">AI HANDLE</span>
             </Link>
-          </div>
-        </div>
 
-        {/* Mobile: Simple bar */}
-        <div className="md:hidden flex items-center justify-between px-4 py-3 bg-black/60 backdrop-blur-xl rounded-full border border-white/10">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10">
-              <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
+            <div className="flex items-center gap-7">
+              {routeLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`font-body text-[13px] transition-colors duration-300 ${
+                    location.pathname === link.to
+                      ? 'text-white font-medium'
+                      : 'text-white/40 hover:text-white/70'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
-            <span className="font-body font-semibold text-xs tracking-wider text-white">AI HANDLE</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={cycleTheme}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 transition-all"
-              aria-label={`Theme: ${theme}`}
-            >
-              {theme === 'dark' && <Moon size={16} />}
-              {theme === 'light' && <Sun size={16} />}
-              {theme === 'system' && <Monitor size={16} />}
-            </button>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1" aria-label="Toggle menu">
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={cycleTheme}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 hover:bg-white/5 transition-all duration-300"
+                aria-label={`Theme: ${theme}. Click to cycle.`}
+                title={`Current: ${theme}`}
+              >
+                {theme === 'dark' && <Moon size={14} />}
+                {theme === 'light' && <Sun size={14} />}
+                {theme === 'system' && <Monitor size={14} />}
+              </button>
+
+              <Link to="/contact" className="btn-primary text-[13px] py-2 px-5">
+                Speak With Us
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile: Simple bar */}
+          <div className="md:hidden flex items-center justify-between px-4 py-3 bg-black/60 backdrop-blur-xl rounded-full border border-white/10">
+            <Link to="/" className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10">
+                <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
+              </div>
+              <span className="font-body font-semibold text-xs tracking-wider text-white">AI HANDLE</span>
+            </Link>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={cycleTheme}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 transition-all"
+                aria-label={`Theme: ${theme}`}
+              >
+                {theme === 'dark' && <Moon size={16} />}
+                {theme === 'light' && <Sun size={16} />}
+                {theme === 'system' && <Monitor size={16} />}
+              </button>
+              <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1" aria-label="Toggle menu">
+                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden">
+        <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
+          style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
           {routeLinks.map((link) => (
             <Link
               key={link.to}

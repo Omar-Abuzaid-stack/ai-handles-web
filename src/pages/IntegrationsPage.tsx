@@ -1,24 +1,24 @@
 import { Link } from 'react-router';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Mail, Calendar, FolderOpen, MessageCircle, Send, Database, Globe, Briefcase, Camera, Users, Video, Music, Cloud, Plug, Settings } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const platforms = [
-  { name: 'Gmail', icon: '✉️', status: 'Supported' },
-  { name: 'Google Calendar', icon: '📅', status: 'Supported' },
-  { name: 'Google Drive', icon: '📁', status: 'Supported' },
-  { name: 'WhatsApp', icon: '💬', status: 'Supported' },
-  { name: 'Telegram', icon: '✈️', status: 'Supported' },
-  { name: 'CRM Platforms', icon: '📊', status: 'Supported' },
-  { name: 'Websites', icon: '🌐', status: 'Supported' },
-  { name: 'Databases', icon: '🗄️', status: 'Supported' },
-  { name: 'Cloud Storage', icon: '☁️', status: 'Supported' },
-  { name: 'LinkedIn', icon: '💼', status: 'Supported' },
-  { name: 'Instagram', icon: '📷', status: 'Supported' },
-  { name: 'Facebook', icon: '👥', status: 'Supported' },
-  { name: 'YouTube', icon: '▶️', status: 'Supported' },
-  { name: 'TikTok', icon: '🎵', status: 'Supported' },
-  { name: 'Custom APIs', icon: '🔌', status: 'Supported — access required' },
-  { name: 'Internal Systems', icon: '⚙️', status: 'Requires approval' },
+  { name: 'Gmail', icon: Mail, color: 'text-red-400', status: 'Supported' },
+  { name: 'Google Calendar', icon: Calendar, color: 'text-blue-400', status: 'Supported' },
+  { name: 'Google Drive', icon: FolderOpen, color: 'text-green-400', status: 'Supported' },
+  { name: 'WhatsApp', icon: MessageCircle, color: 'text-green-400', status: 'Supported' },
+  { name: 'Telegram', icon: Send, color: 'text-blue-400', status: 'Supported' },
+  { name: 'CRM Platforms', icon: Database, color: 'text-purple', status: 'Supported' },
+  { name: 'Websites', icon: Globe, color: 'text-cyan-400', status: 'Supported' },
+  { name: 'Databases', icon: Database, color: 'text-amber-400', status: 'Supported' },
+  { name: 'Cloud Storage', icon: Cloud, color: 'text-cyan-400', status: 'Supported' },
+  { name: 'LinkedIn', icon: Briefcase, color: 'text-blue-400', status: 'Supported' },
+  { name: 'Instagram', icon: Camera, color: 'text-pink-400', status: 'Supported' },
+  { name: 'Facebook', icon: Users, color: 'text-blue-400', status: 'Supported' },
+  { name: 'YouTube', icon: Video, color: 'text-red-400', status: 'Supported' },
+  { name: 'TikTok', icon: Music, color: 'text-pink-400', status: 'Supported' },
+  { name: 'Custom APIs', icon: Plug, color: 'text-purple', status: 'Supported — access required' },
+  { name: 'Internal Systems', icon: Settings, color: 'text-yellow-500/70', status: 'Requires approval' },
 ];
 
 const controls = [
@@ -44,7 +44,7 @@ export default function IntegrationsPage() {
             <p className="label-text text-purple mb-4 animate-item">Integrations</p>
             <h1 className="heading-display mb-6 animate-item">Connected to the Tools Your Business Already Uses</h1>
             <p className="body-text max-w-2xl animate-item">
-              Connections are configured only after the business authorises the account and required permissions.
+              Connections are configured after the business authorises the required accounts and permissions.
             </p>
           </div>
         </div>
@@ -54,14 +54,16 @@ export default function IntegrationsPage() {
         <div ref={ref} className="content-max">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
             {platforms.map((p, i) => (
-              <div key={p.name} className="card-surface px-4 py-4 flex flex-col gap-2 animate-item" style={{ animationDelay: `${i * 0.03}s` }}>
-                <div className="flex items-center gap-3">
-                  <span className="text-lg">{p.icon}</span>
-                  <span className="text-sm font-medium text-white">{p.name}</span>
+              <div key={p.name} className="card-surface px-4 py-4 flex items-center gap-3 animate-item" style={{ animationDelay: `${i * 0.03}s` }}>
+                <div className={`w-9 h-9 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 ${p.color}`}>
+                  <p.icon size={16} />
                 </div>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full w-fit ${p.status === 'Supported' ? 'bg-purple/10 text-purple' : p.status === 'Requires approval' ? 'bg-yellow-500/10 text-yellow-500/70' : 'bg-white/5 text-white/40'}`}>
-                  {p.status}
-                </span>
+                <div className="min-w-0">
+                  <span className="text-sm font-medium text-white block truncate">{p.name}</span>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap ${p.status === 'Supported' ? 'bg-purple/10 text-purple' : p.status === 'Requires approval' ? 'bg-yellow-500/10 text-yellow-500/70' : 'bg-white/5 text-white/40'}`}>
+                    {p.status}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -76,13 +78,10 @@ export default function IntegrationsPage() {
 
           <div className="text-center animate-item max-w-2xl mx-auto">
             <p className="text-sm text-white/40 leading-relaxed">
-              AI Handle systems can run in AI Handle-controlled private cloud infrastructure, so the client's personal computer does not need to remain switched on.
+              Connections are configured after the business authorises the required accounts and permissions. No credentials are stored on user devices.
             </p>
             <p className="text-sm text-white/30 mt-3 leading-relaxed">
-              For businesses that require stronger infrastructure, AI Handle can provide or connect a dedicated CRM platform and private operational environment.
-            </p>
-            <p className="text-xs text-white/20 mt-4">
-              Private cloud environment · AI Handle-controlled infrastructure · Encrypted cloud storage · Isolated client workspace · Continuous hosted operation
+              AI Handle systems can run in AI Handle-controlled private cloud infrastructure, so the client's personal computer does not need to remain switched on.
             </p>
           </div>
         </div>

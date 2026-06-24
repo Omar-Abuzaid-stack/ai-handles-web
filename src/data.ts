@@ -46,10 +46,10 @@ export const brand = {
     tiktok: 'https://tiktok.com/@aihandle.cloud',
   },
   qr: {
-    founderDestination: 'https://aihandle.cloud/omar.html',
+    founderDestination: 'https://www.aihandle.cloud/team/omar-mohamed',
     founderTitle: "Scan Omar's Profile",
     founderSupporting: 'Scan the QR code to view Omar Mohamed\'s full profile and connect directly.',
-    salesDestination: 'https://aihandle.cloud/rayan.html',
+    salesDestination: 'https://www.aihandle.cloud/team/mohamed-rayan',
     salesTitle: "Scan Mohamed's Profile",
     salesSupporting: 'Scan the QR code to view Mohamed Rayan\'s full profile and connect directly.',
   },

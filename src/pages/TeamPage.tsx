@@ -3,10 +3,7 @@ import { Link } from 'react-router';
 import { ArrowLeft, Phone, Mail, ExternalLink } from 'lucide-react';
 import { CmsStore } from '@/lib/store';
 import type { TeamMember } from '@/lib/types';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-
 export default function TeamPage() {
-  const ref = useScrollAnimation();
   const [members, setMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
@@ -21,9 +18,9 @@ export default function TeamPage() {
             <ArrowLeft size={14} /> Back to Home
           </Link>
           <div className="mb-16">
-            <p className="label-text text-purple mb-4 animate-item">Our Team</p>
-            <h1 className="heading-display mb-6 animate-item">The People Behind AI Handle</h1>
-            <p className="body-text max-w-2xl animate-item">
+            <p className="label-text text-purple mb-4">Our Team</p>
+            <h1 className="heading-display mb-6">The People Behind AI Handle</h1>
+            <p className="body-text max-w-2xl">
               AI Handle is led by a small team focused on deploying practical AI systems for businesses across the UAE and Gulf.
             </p>
           </div>
@@ -31,17 +28,17 @@ export default function TeamPage() {
       </div>
 
       <section className="section-padding pt-0">
-        <div ref={ref} className="content-max">
+        <div className="content-max">
           <div className="grid md:grid-cols-2 gap-6">
             {members.map((member, i) => (
               <Link
                 key={member.id}
                 to={`/team/${member.id}`}
-                className="card-surface p-6 group hover:border-purple/20 transition-all duration-300 animate-item block"
+                className="card-surface p-6 group hover:border-purple/20 transition-all duration-300 block"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden border border-white/10 flex-shrink-0">
                     <img
                       src={member.image}
                       alt={member.imageAlt}

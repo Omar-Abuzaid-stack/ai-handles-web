@@ -65,7 +65,7 @@ export default function WorkShowcase() {
           <p className="label-text text-purple mb-4 animate-item">Portfolio</p>
           <h2 className="heading-section animate-item">Selected AI Handle Work</h2>
           <p className="body-text mt-4 max-w-xl mx-auto animate-item">
-            Every project is tailored to the client's specific business, market, and operational needs.
+            Every system is designed for a specific business, market, and operational challenge.
           </p>
         </div>
 
@@ -86,35 +86,44 @@ export default function WorkShowcase() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {filtered.map((project, i) => (
-            <div key={project.title} className="card-surface p-8 animate-item" style={{ animationDelay: `${i * 0.1}s` }}>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple/10 text-purple border border-purple/20">
-                  {project.type}
-                </span>
-                <span className="text-[10px] text-white/30">{project.market}</span>
+        {/* Projects Grid */}
+        {filtered.length > 0 ? (
+          <div className="grid md:grid-cols-2 gap-6">
+            {filtered.map((project, i) => (
+              <div key={project.title} className="card-surface p-8 animate-item" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple/10 text-purple border border-purple/20">
+                    {project.type}
+                  </span>
+                  <span className="text-[10px] text-white/30">{project.market}</span>
+                </div>
+                <h3 className="font-body font-semibold text-lg text-white mb-1">{project.title}</h3>
+                <p className="text-xs text-white/30 mb-4">{project.client}</p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {project.tags.map((t) => (
+                    <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/40 border border-white/5">{t}</span>
+                  ))}
+                </div>
+                <p className="text-sm text-white/50 mb-2"><strong className="text-white/60">Challenge:</strong> {project.challenge}</p>
+                <p className="text-sm text-white/50 mb-3"><strong className="text-white/60">Solution:</strong> {project.solution}</p>
+                <div className="flex items-center gap-2 pt-3 border-t border-white/5">
+                  <span className="text-[10px] text-white/25">Agents:</span>
+                  <span className="text-[10px] text-purple/60">{project.agents}</span>
+                </div>
               </div>
-              <h3 className="font-body font-semibold text-lg text-white mb-1">{project.title}</h3>
-              <p className="text-xs text-white/30 mb-4">{project.client}</p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {project.tags.map((t) => (
-                  <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/40 border border-white/5">{t}</span>
-                ))}
-              </div>
-              <p className="text-sm text-white/50 mb-2"><strong className="text-white/60">Challenge:</strong> {project.challenge}</p>
-              <p className="text-sm text-white/50 mb-3"><strong className="text-white/60">Solution:</strong> {project.solution}</p>
-              <div className="flex items-center gap-2 pt-3 border-t border-white/5">
-                <span className="text-[10px] text-white/25">Agents:</span>
-                <span className="text-[10px] text-purple/60">{project.agents}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-sm text-white/30">No projects match this filter yet.</p>
+            ))}
+          </div>
+        ) : (
+          /* Compact empty state */
+          <div className="text-center py-8 px-6 rounded-xl border border-white/5 bg-white/[0.01] max-w-md mx-auto">
+            <p className="text-sm text-white/40 mb-3">No projects match this filter yet.</p>
+            <p className="text-xs text-white/25 mb-4">New work is added after publication approval.</p>
+            <button
+              onClick={() => setActiveFilter('All')}
+              className="text-xs px-4 py-2 rounded-full bg-purple/10 text-purple border border-purple/20 hover:bg-purple/20 transition-colors"
+            >
+              View All Projects
+            </button>
           </div>
         )}
       </div>

@@ -49,9 +49,9 @@ const AdminTeam: React.FC = () => {
   const handleSave = async () => {
     if (!form.name || !form.title) return;
     setSaving(true);
-    form.updatedAt = new Date().toISOString();
-    if (isCreating) form.createdAt = new Date().toISOString();
-    const ok = await CmsStore.saveTeamMember(form);
+    const updatedForm = { ...form, updatedAt: new Date().toISOString() };
+    if (isCreating) updatedForm.createdAt = new Date().toISOString();
+    const ok = await CmsStore.saveTeamMember(updatedForm);
     if (ok) { handleCancel(); load(); }
     setSaving(false);
   };

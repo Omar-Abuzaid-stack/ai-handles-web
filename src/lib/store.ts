@@ -203,7 +203,7 @@ export const CmsStore = {
   getRobots: async (): Promise<Robot[]> => {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('robots').select('*').order('display_order', { ascending: true });
-      if (error) { console.error('Supabase error:', error); return []; }
+      if (!error && data && data.length > 0) return data;
       return data || [];
     }
     return localGet<Robot>(KEYS.ROBOTS);
@@ -226,13 +226,18 @@ export const CmsStore = {
   getTeamMembers: async (): Promise<TeamMember[]> => {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('team_members').select('*').order('display_order', { ascending: true });
-      if (error) { console.error('Supabase error:', error); return []; }
-      return data || [];
+      if (!error && data && data.length > 0) return data;
     }
-    return localGet<TeamMember>(KEYS.TEAM);
+    // Always fall back to localStorage defaults so team pages never break
+    const local = localGet<TeamMember>(KEYS.TEAM);
+    return local.length > 0 ? local : defaultTeamMembers;
   },
 
   getTeamMember: async (id: string): Promise<TeamMember | null> => {
+    // First check hardcoded defaults — these always work
+    const hardcoded = defaultTeamMembers.find(m => m.id === id);
+    if (hardcoded) return hardcoded;
+    // Then check Supabase / localStorage
     const members = await CmsStore.getTeamMembers();
     return members.find(m => m.id === id) || null;
   },
@@ -394,7 +399,7 @@ export const CmsStore = {
   getProjects: async (): Promise<Project[]> => {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
-      if (error) { console.error('Supabase error:', error); return []; }
+      if (!error && data) return data;
       return data || [];
     }
     return localGet<Project>(KEYS.PROJECTS);

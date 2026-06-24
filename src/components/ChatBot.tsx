@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { MessageCircle, X, Send, Loader2, Bot, User, Sparkles } from 'lucide-react';
+import { tracker } from '@/lib/tracking';
 
 interface ChatMessage {
   id: string;
@@ -129,7 +130,7 @@ export default function ChatBot() {
     const count = getChatCount();
     if (count >= DAILY_LIMIT) {
       setIsRateLimited(true);
-      setRateLimitMessage('Too Much Chats Done Today, Come Again Later');
+      setRateLimitMessage('Too many chats for today. Please try again later.');
     }
   }, []);
 
@@ -163,8 +164,8 @@ export default function ChatBot() {
           "Here's what I can help with:\n" +
           '- **Services** — AI agents, automations, websites, growth systems\n' +
           '- **Industries** — Real estate, clinics, B2B, agencies, and more\n' +
-          '- **The AI Team** — Meet our 12 specialised AI agents\n' +
-          '- **How It Works** — Our 9-step implementation process\n' +
+          '- **The AI Team** — Meet our specialised AI agents\n' +
+          '- **How It Works** — Our implementation process\n' +
           '- **Getting Started** — Book a discovery session\n' +
           '\n' +
           'What would you like to know?',
@@ -176,6 +177,7 @@ export default function ChatBot() {
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
+    tracker.chatbotOpen();
     if (!hasGreeted) greetUser();
   }, [hasGreeted, greetUser]);
 
@@ -197,7 +199,7 @@ export default function ChatBot() {
       const newCount = incrementChatCount();
       if (newCount >= DAILY_LIMIT) {
         setIsRateLimited(true);
-        setRateLimitMessage('Too Much Chats Done Today, Come Again Later');
+        setRateLimitMessage('Too many chats for today. Please try again later.');
       }
 
       try {
@@ -214,13 +216,13 @@ export default function ChatBot() {
 
         if (response.status === 429) {
           setIsRateLimited(true);
-          setRateLimitMessage('Too Much Chats Done Today, Come Again Later');
+          setRateLimitMessage('Too many chats for today. Please try again later.');
           setMessages((prev) => [
             ...prev,
             {
               id: 'msg-system-' + Date.now(),
               role: 'assistant',
-              content: 'Too Much Chats Done Today, Come Again Later',
+              content: 'Too many chats for today. Please try again later.',
               timestamp: Date.now(),
             },
           ]);
@@ -235,7 +237,7 @@ export default function ChatBot() {
             {
               id: 'msg-error-' + Date.now(),
               role: 'assistant',
-              content: data.message || 'Sorry, something went wrong. Please try again.',
+              content: data.message || 'Sorry, something went wrong. Please try again or contact us via WhatsApp.',
               timestamp: Date.now(),
             },
           ]);
@@ -243,6 +245,7 @@ export default function ChatBot() {
         }
 
         const parsed = parseNavigationLinks(data.content);
+        tracker.chatbotMessage(text);
         setMessages((prev) => [
           ...prev,
           {
@@ -259,7 +262,7 @@ export default function ChatBot() {
           {
             id: 'msg-error-' + Date.now(),
             role: 'assistant',
-            content: 'Connection error. Please check your internet and try again.',
+            content: 'Connection error. Please check your internet and try again, or contact us via WhatsApp.',
             timestamp: Date.now(),
           },
         ]);
@@ -295,18 +298,26 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white shadow-[0_4px_30px_rgba(139,92,246,0.3)] hover:shadow-[0_4px_40px_rgba(139,92,246,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center group"
+          className="fixed z-[9999] w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white shadow-[0_4px_30px_rgba(139,92,246,0.3)] hover:shadow-[0_4px_40px_rgba(139,92,246,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center group"
+          style={{
+            bottom: 'max(1rem, env(safe-area-inset-bottom, 16px))',
+            right: '1rem',
+          }}
           aria-label="Open AI chat assistant"
         >
-          <MessageCircle size={22} className="group-hover:rotate-12 transition-transform" />
+          <MessageCircle size={20} className="group-hover:rotate-12 transition-transform" />
           <span className="absolute inset-0 rounded-full border-2 border-[#8B5CF6]/40 animate-ping opacity-30" />
         </button>
       )}
 
       {isOpen && (
         <div
-          className="fixed bottom-6 right-6 z-[9999] w-[380px] max-w-[calc(100vw-2rem)] h-[560px] max-h-[calc(100vh-3rem)] flex flex-col rounded-2xl overflow-hidden border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.6)] animate-chat-in"
+          className="fixed z-[9999] flex flex-col rounded-2xl overflow-hidden border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.6)] animate-chat-in"
           style={{
+            bottom: 'max(1rem, env(safe-area-inset-bottom, 16px))',
+            right: '1rem',
+            width: 'min(380px, calc(100vw - 2rem))',
+            height: 'min(520px, calc(100vh - 7rem))',
             background: 'linear-gradient(180deg, rgba(20,20,20,0.98) 0%, rgba(10,10,10,0.99) 100%)',
             backdropFilter: 'blur(40px)',
           }}
