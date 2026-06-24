@@ -31,9 +31,11 @@ dist-ssr
 *.sw?
 
 .vercel
+.env*
 
 # Utility scripts
 generate_qr.py
 supabase-setup.sql
 
-.env*
+# Supabase
+supabase/.temp/
