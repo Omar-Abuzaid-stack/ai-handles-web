@@ -9,10 +9,10 @@ export default function VoiceAIPage() {
     <div className="min-h-screen bg-black text-white">
       <div className="section-padding pb-0">
         <div className="content-max">
-          <Link to="/services" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-8">
+          <Link to="/services" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-6">
             <ArrowLeft size={14} /> Back to Services
           </Link>
-          <div className="mb-16">
+          <div className="mb-12">
             <p className="label-text text-purple mb-4 animate-item">Service Detail</p>
             <h1 className="heading-display mb-6 animate-item">Voice AI</h1>
             <p className="body-text max-w-2xl animate-item">
@@ -24,45 +24,73 @@ export default function VoiceAIPage() {
 
       <section className="section-padding pt-0">
         <div ref={ref} className="content-max">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="card-surface p-8 animate-item flex flex-col border border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent">
-              <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] border border-[#2D1B4E] flex items-center justify-center text-[#7E22CE] shadow-[0_0_15px_rgba(157,78,221,0.15)] mb-6">
-                <PhoneIncoming size={24} />
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-body font-semibold text-white mb-6">Conversational Intelligence at Scale</h2>
+            <p className="body-text text-white/70 mb-12">
+              Voice interactions are the most natural way customers want to engage. We build conversational AI voice systems that handle inbound reception and compliant outbound communication—sounding indistinguishable from a top-tier human representative.
+            </p>
+
+            <div className="space-y-12">
+              <div className="flex flex-col md:flex-row gap-6 items-start border-l-2 border-[#7E22CE]/30 pl-6 hover:border-[#7E22CE] transition-colors">
+                <div className="w-12 h-12 flex-shrink-0 bg-[#050505] border border-white/10 rounded-full flex items-center justify-center text-[#7E22CE]">
+                  <PhoneIncoming size={20} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-body font-semibold text-white mb-2">Inbound Reception & Support</h3>
+                  <p className="text-white/60 leading-relaxed">
+                    Never miss a lead or leave a customer on hold. Our Voice AI handles incoming calls 24/7, answering FAQs, booking appointments, routing complex issues to the right human department, and automatically logging detailed call summaries directly into your CRM.
+                  </p>
+                </div>
               </div>
-              <h3 className="font-body font-semibold text-xl text-white mb-4">Inbound Calls</h3>
-              <p className="body-text text-white/70 mb-6">
-                Never miss a lead. Our Voice AI handles incoming calls 24/7, answering FAQs, booking appointments, routing calls to the right human department, and logging call summaries directly into your CRM.
-              </p>
-            </div>
-            <div className="card-surface p-8 animate-item flex flex-col border border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent" style={{ animationDelay: '0.1s' }}>
-              <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] border border-[#2D1B4E] flex items-center justify-center text-[#7E22CE] shadow-[0_0_15px_rgba(157,78,221,0.15)] mb-6">
-                <PhoneOutgoing size={24} />
+
+              <div className="flex flex-col md:flex-row gap-6 items-start border-l-2 border-[#7E22CE]/30 pl-6 hover:border-[#7E22CE] transition-colors">
+                <div className="w-12 h-12 flex-shrink-0 bg-[#050505] border border-white/10 rounded-full flex items-center justify-center text-[#7E22CE]">
+                  <PhoneOutgoing size={20} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-body font-semibold text-white mb-2">Outbound Campaigns & Follow-ups</h3>
+                  <p className="text-white/60 leading-relaxed">
+                    Execute follow-ups, lead qualification calls, and appointment reminders at scale. The AI uses natural inflection, strategic pauses, and contextual understanding, making conversations feel highly human, authentic, and persuasive.
+                  </p>
+                </div>
               </div>
-              <h3 className="font-body font-semibold text-xl text-white mb-4">Outbound Calls</h3>
-              <p className="body-text text-white/70 mb-6">
-                Execute follow-ups, qualification calls, and reminders at scale. The AI uses natural inflection and pauses, making conversations feel highly human and authentic.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-[#070707]">
+      <section className="section-padding bg-[#050505] border-t border-white/5">
         <div className="content-max">
-          <div className="card-surface p-8 border-purple/30 relative">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center text-purple">
-                <ShieldCheck size={24} />
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-10 h-10 rounded-full bg-[#7E22CE]/10 border border-[#7E22CE]/20 flex items-center justify-center text-[#7E22CE]">
+                <ShieldCheck size={20} />
               </div>
-              <h3 className="font-body font-semibold text-xl text-white">Outbound Compliance & Ethics</h3>
+              <h2 className="font-body font-semibold text-2xl text-white">Outbound Compliance & Ethics</h2>
             </div>
-            <p className="body-text mb-6">We prioritize legality and user trust. All outbound calling campaigns must strictly follow these rules:</p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-sm text-white/70"><CheckCircle size={18} className="text-purple flex-shrink-0" /> Prior explicit consent must be obtained from all contacts.</li>
-              <li className="flex items-start gap-3 text-sm text-white/70"><CheckCircle size={18} className="text-purple flex-shrink-0" /> Strict adherence to local telemarketing and data protection regulations.</li>
-              <li className="flex items-start gap-3 text-sm text-white/70"><CheckCircle size={18} className="text-purple flex-shrink-0" /> Immediate compliance with Do-Not-Call (DNC) lists and opt-out requests.</li>
-              <li className="flex items-start gap-3 text-sm text-white/70"><CheckCircle size={18} className="text-purple flex-shrink-0" /> The use of client-approved scripts and honest representations.</li>
-            </ul>
+            
+            <p className="body-text text-white/70 mb-8">
+              We prioritize legality, brand reputation, and user trust. All outbound calling campaigns must strictly follow these non-negotiable rules:
+            </p>
+            
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="flex items-start gap-3">
+                <CheckCircle size={18} className="text-[#7E22CE] flex-shrink-0 mt-1" />
+                <p className="text-sm text-white/60">Prior explicit consent must be obtained from all contacts.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle size={18} className="text-[#7E22CE] flex-shrink-0 mt-1" />
+                <p className="text-sm text-white/60">Strict adherence to local telemarketing and data protection regulations.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle size={18} className="text-[#7E22CE] flex-shrink-0 mt-1" />
+                <p className="text-sm text-white/60">Immediate compliance with Do-Not-Call (DNC) lists and opt-out requests.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle size={18} className="text-[#7E22CE] flex-shrink-0 mt-1" />
+                <p className="text-sm text-white/60">The use of client-approved scripts and honest representations.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

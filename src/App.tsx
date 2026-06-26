@@ -15,11 +15,8 @@ import { tracker } from '@/lib/tracking';
 // Lazy-load below-the-fold sections for code splitting
 const DemoVideo = lazy(() => import('@/sections/DemoVideo'));
 const AIWorkforce = lazy(() => import('@/sections/AIWorkforce'));
-const Integrations = lazy(() => import('@/sections/Integrations'));
 const WorkShowcase = lazy(() => import('@/sections/WorkShowcase'));
-const SafetyCentre = lazy(() => import('@/sections/SafetyCentre'));
 const TeamPreview = lazy(() => import('@/sections/TeamPreview'));
-const PlansCTA = lazy(() => import('@/sections/ContactCTA'));
 const Footer = lazy(() => import('@/sections/Footer'));
 
 function SectionDivider() {
@@ -30,8 +27,9 @@ function AppContent() {
   const { robots, loading } = useCmsData();
   const location = useLocation();
 
-  // Track page views
+  // Track page views and reset scroll
   useEffect(() => {
+    window.scrollTo(0, 0);
     tracker.pageView(location.pathname + location.search);
   }, [location.pathname, location.search]);
 
@@ -75,13 +73,13 @@ function AppContent() {
 
       <SectionDivider />
 
-      {/* 2. What AI Handle deploys */}
+      {/* 2. What AI Handle deploys (Clouds) */}
       <WhatWeDeploy />
 
       <Suspense fallback={null}>
       <SectionDivider />
 
-      {/* 3. AI Workforce preview */}
+      {/* 3. AI Workforce preview (Robot Carousel) */}
       <AIWorkforce robots={robots} />
 
       <SectionDivider />
@@ -96,38 +94,18 @@ function AppContent() {
 
       <SectionDivider />
 
-      {/* 5. Integrations */}
-      <Integrations />
-
-      <SectionDivider />
-
-      {/* 6. Selected work */}
+      {/* 5. Selected work */}
       <WorkShowcase />
 
       <SectionDivider />
 
-      {/* 7. Who we work with */}
-      <WhoWeWorkWith />
-
-      <SectionDivider />
-
-      {/* 8. Human control */}
-      <SafetyCentre />
-
-      <SectionDivider />
-
-      {/* 9. Team preview */}
+      {/* 6. Team preview (Redesigned) */}
       <TeamPreview />
 
       <SectionDivider />
 
-      {/* 10. Final CTA */}
+      {/* 7. Final CTA */}
       <FinalCTA />
-
-      <SectionDivider />
-
-      {/* 11. Plans */}
-      <PlansCTA />
 
       {/* Footer */}
       <Footer />
@@ -143,90 +121,57 @@ function AppContent() {
 /** Concise "What AI Handle Deploys" section with Explore links */
 function WhatWeDeploy() {
   const items = [
-    { title: 'AI Agents', desc: 'Specialised digital workers handling enquiries, sales, CRM, research, content, operations, and reporting.', to: '/ai-workforce' },
-    { title: 'Automations', desc: 'Structured workflows that move information, trigger actions, and reduce repetitive work.', to: '/services' },
-    { title: 'Websites', desc: 'Premium websites that explain, capture, showcase, and support your business.', to: '/services' },
-    { title: 'Integrations', desc: 'Connected to Gmail, WhatsApp, Telegram, CRM, LinkedIn, and the tools you already use.', to: '/integrations' },
-    { title: 'Voice AI', desc: 'Professional AI reception handling calls, FAQs, appointments, and human transfer.', to: '/services' },
-    { title: 'Growth Systems', desc: 'Paid advertising, lead qualification, and campaign infrastructure.', to: '/services' },
+    { title: 'AI Agents', desc: 'Specialised digital workers handling enquiries, sales, and operations.', to: '/services/ai-agents' },
+    { title: 'Business Automations', desc: 'Structured workflows that move data and reduce repetitive work.', to: '/services/automations' },
+    { title: 'AI Deployment', desc: 'Seamlessly integrating AI into your existing company infrastructure.', to: '/services/ai-deployment' },
+    { title: 'Premium Websites', desc: 'High-end platforms that explain, capture, and convert visitors.', to: '/services/websites' },
+    { title: 'Paid Advertising & Growth', desc: 'Targeted campaigns to accelerate customer acquisition.', to: '/services/growth' },
+    { title: 'AI Voice Reception', desc: 'Professional AI reception handling inbound and outbound calls.', to: '/services/voice-ai' },
   ];
 
   return (
-    <section className="section-padding bg-[#070707]">
-      <div className="content-max">
-        <div className="text-center mb-12">
-          <p className="label-text text-purple mb-4">What AI Handle Deploys</p>
-          <h2 className="heading-section mb-4">AI Agents, Automations, and Growth Infrastructure</h2>
-          <p className="body-text max-w-xl mx-auto">
-            Specialised AI agents, structured automations, premium websites, connected integrations, and growth systems — all coordinated by a central AI Orchestrator.
+    <section className="section-padding bg-[#050505] relative overflow-hidden" id="what-we-deploy">
+      {/* Background glow for the cloud effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#7E22CE]/10 blur-[120px] rounded-[100%] pointer-events-none"></div>
+
+      <div className="content-max relative z-10">
+        <div className="text-center mb-16">
+          <p className="label-text text-[#7E22CE] mb-4">Core Capabilities</p>
+          <h2 className="heading-section mb-4">What We Deploy</h2>
+          <p className="body-text max-w-xl mx-auto text-white/60">
+            A comprehensive suite of digital infrastructure designed to scale your business.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {items.map((item) => (
-            <div key={item.title} className="card-surface p-6">
-              <h3 className="font-body font-semibold text-white mb-2">{item.title}</h3>
-              <p className="body-text text-sm mb-4">{item.desc}</p>
-              <Link to={item.to} className="inline-flex items-center gap-1.5 text-xs font-medium text-purple hover:text-purple/80 transition-colors">
-                Explore <ArrowRight size={12} />
-              </Link>
-            </div>
+        <div className="flex flex-wrap justify-center gap-6 mb-12">
+          {items.map((item, index) => (
+            <Link 
+              key={item.title} 
+              to={item.to} 
+              onClick={() => window.scrollTo(0, 0)}
+              className="group relative flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#7E22CE]/20 to-transparent rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative h-full bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/[0.03] group-hover:border-[#7E22CE]/30 rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#7E22CE]/5 rounded-full blur-3xl group-hover:bg-[#7E22CE]/15 transition-colors duration-500"></div>
+                <div>
+                  <h3 className="font-body text-xl font-medium text-white mb-3 group-hover:text-[#7E22CE] transition-colors">{item.title}</h3>
+                  <p className="text-sm text-white/50 leading-relaxed mb-6">{item.desc}</p>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#7E22CE] tracking-wider uppercase">
+                  <span>Explore</span>
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
           ))}
-        </div>
-
-        <div className="text-center">
-          <p className="text-xs text-white/20 max-w-lg mx-auto">
-            One agent researches. One handles sales and follow-up. One manages content. One monitors operations. One prepares reports. You control them through approved dashboards and communication platforms.
-          </p>
         </div>
       </div>
     </section>
   );
 }
 
-/** "Who We Work With" section — industries and business types */
-function WhoWeWorkWith() {
-  const categories = [
-    'Real estate developers',
-    'Real estate agencies',
-    'Individual property agents',
-    'Clinics',
-    'B2B companies',
-    'Marketing agencies',
-    'Technology partners',
-    'Hospitality businesses',
-    'E-commerce companies',
-    'Professional service businesses',
-  ];
-
-  return (
-    <section className="section-padding">
-      <div className="content-max">
-        <div className="text-center mb-12">
-          <p className="label-text text-purple mb-4">Industries</p>
-          <h2 className="heading-section mb-4">Businesses and Teams We Support</h2>
-          <p className="body-text max-w-xl mx-auto">
-            We work with responsible businesses where AI can improve communication, operations, customer experience, or growth.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-12">
-          {categories.map((cat) => (
-            <div key={cat} className="card-surface px-4 py-3 text-center">
-              <span className="text-sm text-white/60">{cat}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <p className="text-xs text-white/20 max-w-lg mx-auto">
-            Client logos and names are shown only with explicit permission. Where permission is unavailable, we display: Private Client, Confidential Engagement, or Demonstration Project.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /** Final focused CTA */
 function FinalCTA() {

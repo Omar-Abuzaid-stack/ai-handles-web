@@ -5,20 +5,14 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 export default function AutomationsPage() {
   const ref = useScrollAnimation();
 
-  const features = [
-    { title: 'Workflow Optimization', description: 'Map and automate your most time-consuming business processes.', icon: <Workflow size={24} /> },
-    { title: 'Instant Triggers', description: 'React immediately to customer actions, form submissions, and data updates.', icon: <Zap size={24} /> },
-    { title: 'Repetitive Task Elimination', description: 'Free up your team by handing over routine tasks to reliable automated systems.', icon: <Repeat size={24} /> },
-  ];
-
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="section-padding pb-0">
         <div className="content-max">
-          <Link to="/services" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-8">
+          <Link to="/services" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-6">
             <ArrowLeft size={14} /> Back to Services
           </Link>
-          <div className="mb-16">
+          <div className="mb-12">
             <p className="label-text text-purple mb-4 animate-item">Service Detail</p>
             <h1 className="heading-display mb-6 animate-item">Automations</h1>
             <p className="body-text max-w-2xl animate-item">
@@ -30,29 +24,66 @@ export default function AutomationsPage() {
 
       <section className="section-padding pt-0">
         <div ref={ref} className="content-max">
-          <div className="grid md:grid-cols-3 gap-6">
-            {features.map((feature, i) => (
-              <div key={i} className="card-surface p-8 animate-item flex flex-col border border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent" style={{ animationDelay: `${i * 0.05}s` }}>
-                <div className="w-12 h-12 rounded-xl bg-[#1A0B2E] border border-[#2D1B4E] flex items-center justify-center text-[#7E22CE] shadow-[0_0_15px_rgba(157,78,221,0.15)] mb-6">
-                  {feature.icon}
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-body font-semibold text-white mb-6">Eliminate the Busywork</h2>
+            <p className="body-text text-white/70 mb-12">
+              Human capital is too expensive to spend on copy-pasting data, sending routine emails, or updating CRM statuses. We build structured workflows that connect your tools, move information instantly, and trigger actions based on precise business logic.
+            </p>
+
+            <div className="space-y-12">
+              <div className="flex flex-col md:flex-row gap-6 items-start border-l-2 border-[#7E22CE]/30 pl-6 hover:border-[#7E22CE] transition-colors">
+                <div className="w-12 h-12 flex-shrink-0 bg-[#050505] border border-white/10 rounded-full flex items-center justify-center text-[#7E22CE]">
+                  <Workflow size={20} />
                 </div>
-                <h3 className="font-body font-semibold text-lg text-white mb-2">{feature.title}</h3>
-                <p className="body-text text-sm text-white/70">{feature.description}</p>
+                <div>
+                  <h3 className="text-xl font-body font-semibold text-white mb-2">Workflow Optimization</h3>
+                  <p className="text-white/60 leading-relaxed">
+                    We map out your most time-consuming business processes and replace them with bulletproof automated sequences. No dropped leads, no missed follow-ups.
+                  </p>
+                </div>
               </div>
-            ))}
+
+              <div className="flex flex-col md:flex-row gap-6 items-start border-l-2 border-[#7E22CE]/30 pl-6 hover:border-[#7E22CE] transition-colors">
+                <div className="w-12 h-12 flex-shrink-0 bg-[#050505] border border-white/10 rounded-full flex items-center justify-center text-[#7E22CE]">
+                  <Zap size={20} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-body font-semibold text-white mb-2">Instant Triggers</h3>
+                  <p className="text-white/60 leading-relaxed">
+                    React immediately when a customer submits a form, opens an email, or updates their profile. Immediate responses increase conversion rates exponentially.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-6 items-start border-l-2 border-[#7E22CE]/30 pl-6 hover:border-[#7E22CE] transition-colors">
+                <div className="w-12 h-12 flex-shrink-0 bg-[#050505] border border-white/10 rounded-full flex items-center justify-center text-[#7E22CE]">
+                  <Repeat size={20} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-body font-semibold text-white mb-2">Repetitive Task Elimination</h3>
+                  <p className="text-white/60 leading-relaxed">
+                    Free up your team by handing over routine, mundane tasks to reliable automated systems. Let your humans do what humans do best: build relationships and strategize.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
       
-      <section className="section-padding bg-[#070707]">
-        <div className="content-max text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple/10 border border-purple/20 text-purple mb-6">
-            <Cog size={32} />
+      <section className="section-padding bg-[#050505] border-t border-white/5">
+        <div className="content-max">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-10 h-10 rounded-full bg-[#7E22CE]/10 border border-[#7E22CE]/20 flex items-center justify-center text-[#7E22CE]">
+                <Cog size={20} />
+              </div>
+              <h2 className="font-body font-semibold text-2xl text-white">Custom Built for Your Stack</h2>
+            </div>
+            <p className="body-text text-white/70">
+              Whether you use standard SaaS products like Salesforce, HubSpot, or custom legacy systems, we integrate and automate across platforms seamlessly. We don't force you into a new ecosystem; we make your current ecosystem work flawlessly.
+            </p>
           </div>
-          <h2 className="heading-section mb-6">Custom Built for Your Stack</h2>
-          <p className="body-text max-w-2xl mx-auto">
-            Whether you use standard SaaS products or custom legacy systems, we integrate and automate across platforms seamlessly.
-          </p>
         </div>
       </section>
     </div>

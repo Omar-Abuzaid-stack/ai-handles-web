@@ -81,40 +81,38 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Extended Delivery Network Marquee */}
-      <section className="py-16 overflow-hidden border-t border-white/5 bg-[#050505]">
-        <div className="content-max mb-8 text-center px-4">
-          <p className="label-text text-[#7E22CE] mb-2 animate-item">Our Extended Delivery Network</p>
-          <h2 className="heading-sub text-white/80 animate-item">Specialists Supporting Our Projects</h2>
+      {/* Extended Delivery Network - Silhouette Grid */}
+      <section className="py-24 overflow-hidden border-t border-white/5 bg-[#050505]">
+        <div className="content-max mb-12 text-center px-4">
+          <p className="label-text text-[#7E22CE] mb-2">Our Extended Delivery Network</p>
+          <h2 className="heading-sub text-white/80 max-w-2xl mx-auto">Specialists Supporting Our Projects Behind the Scenes</h2>
         </div>
         
-        <div className="relative w-full flex overflow-hidden group">
-          {/* Fading Edges */}
-          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
-          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
-          
-          {/* Scrolling Content */}
-          <div className="flex animate-marquee group-hover:[animation-play-state:paused]">
-            {[...Array(2)].map((_, arrayIndex) => (
-              <div key={arrayIndex} className="flex gap-4 px-2 w-max">
-                {[
-                  { role: "Frontend Developer", skill: "React & Next.js" },
-                  { role: "Backend Engineer", skill: "Node & Python" },
-                  { role: "AI Researcher", skill: "LLM Fine-tuning" },
-                  { role: "Automation Expert", skill: "Make & Zapier" },
-                  { role: "UI/UX Designer", skill: "Figma" },
-                  { role: "CRM Specialist", skill: "HubSpot & Salesforce" },
-                  { role: "Voice AI Engineer", skill: "VAPI & Retell" },
-                  { role: "Prompt Engineer", skill: "System Prompts" }
-                ].map((specialist, i) => (
-                  <div key={`${arrayIndex}-${i}`} className="flex items-center gap-4 bg-white/5 border border-white/5 rounded-full px-6 py-3 min-w-max">
-                    <div className="w-2 h-2 rounded-full bg-[#7E22CE]"></div>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{specialist.role}</p>
-                      <p className="text-[10px] text-white/40 uppercase tracking-wider">{specialist.skill}</p>
-                    </div>
+        <div className="content-max">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[
+              { role: "Frontend Developer", skill: "React & Next.js", gender: "male" },
+              { role: "Backend Engineer", skill: "Node & Python", gender: "female" },
+              { role: "AI Researcher", skill: "LLM Fine-tuning", gender: "male" },
+              { role: "Automation Expert", skill: "Make & Zapier", gender: "female" },
+              { role: "UI/UX Designer", skill: "Figma", gender: "female" },
+              { role: "CRM Specialist", skill: "HubSpot", gender: "male" },
+              { role: "Voice AI Engineer", skill: "VAPI & Retell", gender: "male" },
+              { role: "Prompt Engineer", skill: "System Prompts", gender: "female" }
+            ].map((specialist, i) => (
+              <div key={i} className="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-[#7E22CE]/30 transition-colors duration-300">
+                <div className="aspect-[4/5] relative">
+                  <img
+                    src={`/images/team/silhouette_${specialist.gender}.jpg`}
+                    alt={`${specialist.role} Silhouette`}
+                    className="w-full h-full object-cover opacity-80 mix-blend-screen grayscale-[50%] hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <p className="text-sm font-semibold text-white mb-1">{specialist.role}</p>
+                    <p className="text-[10px] text-[#7E22CE] uppercase tracking-widest font-medium">{specialist.skill}</p>
                   </div>
-                ))}
+                </div>
               </div>
             ))}
           </div>
