@@ -9,8 +9,8 @@ export default function AutomationsPage() {
     <div className="min-h-screen bg-black text-white">
       <div className="section-padding pb-0">
         <div className="content-max">
-          <Link to="/services" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-6">
-            <ArrowLeft size={14} /> Back to Services
+          <Link to="/#what-we-deploy" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-4">
+            <ArrowLeft size={14} /> Back to Home
           </Link>
           <div className="mb-12">
             <p className="label-text text-purple mb-4 animate-item">Service Detail</p>

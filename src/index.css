@@ -28,7 +28,7 @@
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #000000;
+    background: radial-gradient(ellipse at top, #0d0518 0%, #000000 60%);
     color: #F5F5F2;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -172,7 +172,7 @@
     font-size: 0.875rem;
     padding: 12px 28px;
     border-radius: 9999px;
-    background: var(--accent-purple);
+    background: linear-gradient(135deg, #7E22CE, #9333EA);
     color: white;
     display: inline-flex;
     align-items: center;
@@ -210,7 +210,7 @@
   /* ─── Cards ─── */
   .card-surface {
     background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(126, 34, 206, 0.1);
     border-radius: 1rem;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }

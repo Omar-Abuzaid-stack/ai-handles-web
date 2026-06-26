@@ -28,9 +28,12 @@ function AppContent() {
 
   // Track page views and reset scroll
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Don't override hash-based scroll
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
     tracker.pageView(location.pathname + location.search);
-  }, [location.pathname, location.search]);
+  }, [location.pathname, location.search, location.hash]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
