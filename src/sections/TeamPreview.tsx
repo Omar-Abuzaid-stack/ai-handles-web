@@ -18,12 +18,9 @@ export default function TeamPreview() {
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#7E22CE]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div ref={ref} className="content-max relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <p className="label-text text-[#7E22CE] mb-4 animate-item">Meet the Team</p>
-          <h2 className="heading-section mb-4 animate-item">Human Strategy. Digital Execution.</h2>
-          <p className="body-text max-w-lg mx-auto animate-item text-white/60">
-            A small human team directing a large digital workforce to deploy practical AI systems.
-          </p>
+          <h2 className="heading-section mb-4 animate-item">The Humans Behind the System</h2>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 mb-12">

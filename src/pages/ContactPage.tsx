@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router';
-import { ArrowLeft, Phone, Mail, MessageCircle, Send, CheckCircle, Loader2 } from 'lucide-react';
+import { ArrowLeft, Phone, Mail, MessageCircle, Send, CheckCircle, Loader2, Calendar, MapPin, Video, Users } from 'lucide-react';
 import { brand } from '@/data';
 import { isSupabaseConfigured, supabase } from '@/lib/supabase';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
@@ -10,6 +10,53 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+
+  // Booking state
+  const [bookingStep, setBookingStep] = useState<'idle'|'selecting'|'confirmed'>('idle');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+  const [meetingType, setMeetingType] = useState<'online'|'face-to-face'|''>('');
+  const [clientLocation, setClientLocation] = useState('');
+  const [bookingName, setBookingName] = useState('');
+  const [bookingEmail, setBookingEmail] = useState('');
+  const [bookingPhone, setBookingPhone] = useState('');
+  const [bookingLoading, setBookingLoading] = useState(false);
+
+  const availableDates = useMemo(() => {
+    const dates: string[] = [];
+    const now = new Date();
+    for (let i = 1; i <= 14; i++) {
+      const d = new Date(now);
+      d.setDate(now.getDate() + i);
+      if (d.getDay() !== 0 && d.getDay() !== 6) { // Skip weekends
+        dates.push(d.toISOString().split('T')[0]);
+      }
+    }
+    return dates;
+  }, []);
+
+  const timeSlots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'];
+
+  const handleBooking = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBookingLoading(true);
+    try {
+      if (isSupabaseConfigured && supabase) {
+        await supabase.from('bookings').insert({
+          name: bookingName,
+          email: bookingEmail,
+          phone: bookingPhone,
+          date: selectedDate,
+          time: selectedTime,
+          meeting_type: meetingType,
+          location: meetingType === 'face-to-face' ? clientLocation : 'Online',
+          status: 'pending',
+        });
+      }
+    } catch { /* continue */ }
+    setBookingLoading(false);
+    setBookingStep('confirmed');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,10 +89,10 @@ export default function ContactPage() {
     <div className="min-h-screen bg-black text-white">
       <div className="section-padding pb-0">
         <div className="content-max">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-4">
             <ArrowLeft size={14} /> Back to Home
           </Link>
-          <div className="mb-16">
+          <div className="mb-10">
             <p className="label-text text-purple mb-4 animate-item">Contact</p>
             <h1 className="heading-display mb-6 animate-item">Get in Touch</h1>
             <p className="body-text max-w-2xl animate-item">
@@ -57,6 +104,112 @@ export default function ContactPage() {
 
       <section className="section-padding pt-0">
         <div ref={ref} className="content-max">
+
+          {/* ── Booking System ── */}
+          <div className="mb-14">
+            {bookingStep === 'confirmed' ? (
+              <div className="card-surface p-8 text-center max-w-lg mx-auto">
+                <CheckCircle size={40} className="text-green-400 mx-auto mb-4" />
+                <h3 className="font-body font-semibold text-lg text-white mb-2">Meeting Booked</h3>
+                <p className="text-sm text-white/50 mb-2">{selectedDate} at {selectedTime}</p>
+                <p className="text-sm text-white/50 mb-6">{meetingType === 'online' ? 'Online meeting — we will send the link.' : `Face-to-face at: ${clientLocation}`}</p>
+                <button onClick={() => { setBookingStep('idle'); setSelectedDate(''); setSelectedTime(''); setMeetingType(''); setClientLocation(''); }} className="text-xs text-purple hover:text-purple/70 transition-colors">Book another time</button>
+              </div>
+            ) : bookingStep === 'selecting' ? (
+              <div className="card-surface p-8 max-w-3xl mx-auto">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 rounded-full bg-[#7E22CE]/10 border border-[#7E22CE]/20 flex items-center justify-center text-[#7E22CE]"><Calendar size={15} /></div>
+                  <h3 className="font-body font-semibold text-white">Book a Discovery Session</h3>
+                  <span className="ml-auto text-[10px] text-white/30 border border-white/10 rounded-full px-2 py-0.5">Mon–Fri · 8:00am–3:30pm GST</span>
+                </div>
+                <form onSubmit={handleBooking} className="space-y-6">
+                  {/* Personal details */}
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="text-xs text-white/40 mb-1.5 block">Your Name *</label>
+                      <input required value={bookingName} onChange={e => setBookingName(e.target.value)} className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none" placeholder="Name" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-white/40 mb-1.5 block">Email *</label>
+                      <input required type="email" value={bookingEmail} onChange={e => setBookingEmail(e.target.value)} className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none" placeholder="email@company.com" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-white/40 mb-1.5 block">Phone</label>
+                      <input value={bookingPhone} onChange={e => setBookingPhone(e.target.value)} className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none" placeholder="+971 ..." />
+                    </div>
+                  </div>
+                  {/* Date */}
+                  <div>
+                    <label className="text-xs text-white/40 mb-2 block">Select a Date *</label>
+                    <div className="flex flex-wrap gap-2">
+                      {availableDates.map(d => (
+                        <button key={d} type="button" onClick={() => setSelectedDate(d)} className={`text-xs px-3 py-1.5 rounded-lg border transition-all duration-200 ${ selectedDate === d ? 'bg-[#7E22CE] border-[#7E22CE] text-white' : 'border-white/10 text-white/40 hover:border-[#7E22CE]/40 hover:text-white/70 bg-white/[0.02]' }`}>
+                          {new Date(d + 'T12:00:00').toLocaleDateString('en-AE', { weekday: 'short', month: 'short', day: 'numeric' })}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Time */}
+                  {selectedDate && (
+                    <div>
+                      <label className="text-xs text-white/40 mb-2 block">Select a Time *</label>
+                      <div className="flex flex-wrap gap-2">
+                        {timeSlots.map(t => (
+                          <button key={t} type="button" onClick={() => setSelectedTime(t)} className={`text-xs px-3 py-1.5 rounded-lg border transition-all duration-200 ${ selectedTime === t ? 'bg-[#7E22CE] border-[#7E22CE] text-white' : 'border-white/10 text-white/40 hover:border-[#7E22CE]/40 hover:text-white/70 bg-white/[0.02]' }`}>
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* Meeting type */}
+                  {selectedTime && (
+                    <div>
+                      <label className="text-xs text-white/40 mb-2 block">Meeting Format *</label>
+                      <div className="flex gap-3">
+                        <button type="button" onClick={() => setMeetingType('online')} className={`flex items-center gap-2 text-xs px-4 py-2 rounded-lg border transition-all duration-200 ${ meetingType === 'online' ? 'bg-[#7E22CE] border-[#7E22CE] text-white' : 'border-white/10 text-white/40 hover:border-[#7E22CE]/40 bg-white/[0.02]' }`}>
+                          <Video size={13} /> Online
+                        </button>
+                        <button type="button" onClick={() => setMeetingType('face-to-face')} className={`flex items-center gap-2 text-xs px-4 py-2 rounded-lg border transition-all duration-200 ${ meetingType === 'face-to-face' ? 'bg-[#7E22CE] border-[#7E22CE] text-white' : 'border-white/10 text-white/40 hover:border-[#7E22CE]/40 bg-white/[0.02]' }`}>
+                          <Users size={13} /> Face-to-Face
+                        </button>
+                      </div>
+                      {meetingType === 'face-to-face' && (
+                        <div className="mt-3">
+                          <label className="text-xs text-white/40 mb-1.5 block">Your Location / Area *</label>
+                          <div className="relative">
+                            <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20" />
+                            <input required={meetingType === 'face-to-face'} value={clientLocation} onChange={e => setClientLocation(e.target.value)} className="w-full bg-white/5 border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none" placeholder="e.g. Dubai Marina, Business Bay..." />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {/* Submit */}
+                  {meetingType && (meetingType === 'online' || clientLocation) && selectedDate && selectedTime && (
+                    <button type="submit" disabled={bookingLoading} className="btn-primary w-full justify-center disabled:opacity-50">
+                      {bookingLoading ? <Loader2 size={15} className="animate-spin" /> : <><Calendar size={14} /> Confirm Booking</>}
+                    </button>
+                  )}
+                </form>
+              </div>
+            ) : (
+              <div className="text-center">
+                <button
+                  onClick={() => setBookingStep('selecting')}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#7E22CE]/10 border border-[#7E22CE]/30 text-[#7E22CE] hover:bg-[#7E22CE]/20 hover:border-[#7E22CE]/50 transition-all duration-300 group"
+                >
+                  <Calendar size={20} />
+                  <div className="text-left">
+                    <p className="font-body font-semibold text-sm">Book a Discovery Session</p>
+                    <p className="text-xs text-white/40">Available Mon–Fri · 8:00am–3:30pm GST</p>
+                  </div>
+                </button>
+                <p className="text-xs text-white/20 mt-4">Or send us a message below</p>
+              </div>
+            )}
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
             {/* Contact Form */}
             <div className="md:col-span-2">
@@ -107,10 +260,22 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-white/40 mb-1.5 block">Message *</label>
+                      <label className="text-xs text-white/40 mb-1.5 block">What do you need? *</label>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {['AI Agents', 'Business Automations', 'AI Deployment', 'Premium Website', 'Paid Advertising & Growth', 'AI Voice Reception', 'Full AI Infrastructure', 'Not sure — just exploring'].map((s) => (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, message: formData.message ? `${formData.message}, ${s}` : `I'm interested in: ${s}` })}
+                            className="text-[11px] px-3 py-1 rounded-full border border-white/10 text-white/40 hover:border-[#7E22CE]/50 hover:text-[#7E22CE] transition-all duration-200 bg-white/[0.02]"
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
                       <textarea
                         required
-                        rows={5}
+                        rows={4}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none transition-colors resize-none"

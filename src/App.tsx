@@ -15,7 +15,6 @@ import { tracker } from '@/lib/tracking';
 // Lazy-load below-the-fold sections for code splitting
 const DemoVideo = lazy(() => import('@/sections/DemoVideo'));
 const AIWorkforce = lazy(() => import('@/sections/AIWorkforce'));
-const WorkShowcase = lazy(() => import('@/sections/WorkShowcase'));
 const TeamPreview = lazy(() => import('@/sections/TeamPreview'));
 const Footer = lazy(() => import('@/sections/Footer'));
 
@@ -91,11 +90,6 @@ function AppContent() {
         title={brand.video.title}
         description={brand.video.description}
       />
-
-      <SectionDivider />
-
-      {/* 5. Selected work */}
-      <WorkShowcase />
 
       <SectionDivider />
 
