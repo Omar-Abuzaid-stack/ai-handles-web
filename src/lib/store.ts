@@ -204,9 +204,10 @@ export const CmsStore = {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('robots').select('*').order('display_order', { ascending: true });
       if (!error && data && data.length > 0) return data;
-      return data || [];
+      // Fall through to local/defaults if Supabase table is empty or errors
     }
-    return localGet<Robot>(KEYS.ROBOTS);
+    const local = localGet<Robot>(KEYS.ROBOTS);
+    return local.length > 0 ? local : defaultRobots;
   },
 
   saveRobot: async (robot: Robot): Promise<boolean> => {
