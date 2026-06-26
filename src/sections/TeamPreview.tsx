@@ -1,17 +1,11 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { Calendar } from 'lucide-react';
+import { Calendar, Phone, Mail, ExternalLink } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { CmsStore } from '@/lib/store';
-import type { TeamMember } from '@/lib/types';
+import { brand } from '@/data';
 
 export default function TeamPreview() {
   const ref = useScrollAnimation();
-  const [members, setMembers] = useState<TeamMember[]>([]);
-
-  useEffect(() => {
-    CmsStore.getTeamMembers().then((m) => setMembers(m.filter((t) => t.visible).slice(0, 2)));
-  }, []);
+  const founder = brand.founder;
 
   return (
     <section id="team" className="section-padding bg-[#070707] relative overflow-hidden">
@@ -23,31 +17,47 @@ export default function TeamPreview() {
           <h2 className="heading-section mb-4 animate-item">The Humans Behind the System</h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          {members.map((member, i) => (
-            <Link
-              key={member.id}
-              to={`/team/${member.id}`}
-              onClick={() => window.scrollTo(0, 0)}
-              className="group relative card-surface p-0 overflow-hidden hover:border-[#7E22CE]/30 transition-all duration-500 animate-item block"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="aspect-[4/3] relative overflow-hidden bg-[#050505]">
+        <div className="flex justify-center mb-12">
+          <div 
+            className="group relative card-surface overflow-hidden hover:border-[#7E22CE]/40 transition-all duration-500 animate-item w-full max-w-2xl bg-[#0a0a0a]"
+            style={{ boxShadow: '0 0 40px rgba(126, 34, 206, 0.15)' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#7E22CE]/10 to-transparent opacity-50"></div>
+            
+            <div className="relative p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
                 <img
-                  src={member.image}
-                  alt={member.imageAlt}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  src={founder.image}
+                  alt={founder.imageAlt}
+                  className="w-full h-full object-cover"
                   onError={(e) => { (e.target as HTMLImageElement).src = '/brand/ai-handle-logo.png'; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="font-body text-xl font-semibold text-white mb-1 group-hover:text-[#7E22CE] transition-colors">{member.name}</h3>
-                  <p className="text-sm text-[#7E22CE] font-medium mb-2">{member.title}</p>
-                  <p className="text-xs text-white/50 line-clamp-2">{member.shortBio}</p>
+              </div>
+              
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="font-body text-2xl font-semibold text-[#7E22CE]">{founder.name}</h3>
+                  <a href={founder.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[#7E22CE]/60 hover:text-[#7E22CE] transition-colors">
+                    <ExternalLink size={16} />
+                  </a>
+                </div>
+                <p className="text-[#7E22CE]/70 font-medium mb-3">{founder.title}</p>
+                
+                <p className="text-sm text-white/50 leading-relaxed mb-4 line-clamp-2 sm:line-clamp-none">
+                  {founder.description}
+                </p>
+                
+                <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-white/40">
+                  <a href={`tel:${founder.phoneRaw}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
+                    <Phone size={14} /> {founder.phone}
+                  </a>
+                  <a href={`mailto:${founder.email}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
+                    <Mail size={14} /> Email
+                  </a>
                 </div>
               </div>
-            </Link>
-          ))}
+            </div>
+          </div>
         </div>
 
         <div className="text-center animate-item flex flex-col sm:flex-row justify-center items-center gap-4">
