@@ -61,12 +61,11 @@ export default function TeamPreview() {
         </div>
 
         <div className="text-center animate-item flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Link to="/team" onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-colors">
+          <Link to="/team" className="inline-flex items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-colors">
             View Full Team →
           </Link>
           <Link
             to="/contact"
-            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#7E22CE]/10 border border-[#7E22CE]/30 text-[#7E22CE] hover:bg-[#7E22CE]/20 hover:border-[#7E22CE]/50 transition-all duration-300 text-sm font-semibold"
           >
             <Calendar size={15} />

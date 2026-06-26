@@ -30,9 +30,12 @@ import WebsitesPage from './pages/services/WebsitesPage.tsx'
 import GrowthPage from './pages/services/GrowthPage.tsx'
 import VoiceAIPage from './pages/services/VoiceAIPage.tsx'
 
+import RouterListener from './components/RouterListener.tsx'
+
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <BrowserRouter>
+      <RouterListener />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/services" element={<ServicesPage />} />

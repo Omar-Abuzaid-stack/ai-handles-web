@@ -1,5 +1,5 @@
 import { useEffect, lazy, Suspense } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { useCmsData } from '@/hooks/useCmsData';
 import { ThemeProvider } from '@/contexts/ThemeContext';
@@ -10,7 +10,6 @@ import PrivacyBanner from '@/components/PrivacyBanner';
 import Hero from '@/sections/Hero';
 import ChatBot from '@/components/ChatBot';
 import { brand } from '@/data';
-import { tracker } from '@/lib/tracking';
 
 // Lazy-load below-the-fold sections for code splitting
 const DemoVideo = lazy(() => import('@/sections/DemoVideo'));
@@ -24,16 +23,6 @@ function SectionDivider() {
 
 function AppContent() {
   const { robots, loading } = useCmsData();
-  const location = useLocation();
-
-  // Track page views and reset scroll
-  useEffect(() => {
-    // Don't override hash-based scroll
-    if (!location.hash) {
-      window.scrollTo(0, 0);
-    }
-    tracker.pageView(location.pathname + location.search);
-  }, [location.pathname, location.search, location.hash]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -145,7 +134,6 @@ function WhatWeDeploy() {
             <Link 
               key={item.title} 
               to={item.to} 
-              onClick={() => window.scrollTo(0, 0)}
               className="group relative flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
