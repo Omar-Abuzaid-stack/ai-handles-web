@@ -123,11 +123,11 @@ export default function Footer() {
               © {new Date().getFullYear()} {t('footer.copyright')}
             </p>
             <div className="flex items-center gap-4 text-[10px] text-white/15">
-              {(Array.isArray(t('footer.features')) ? (t('footer.features') as string[]) : ['Secure & Private', '24/7 Availability', 'Seamless Integration']).map((feature, i) => (
+              {['Secure & Private', '24/7 Availability', 'Seamless Integration'].map((feature, i) => (
                 <span key={feature}>
                   {i > 0 && <span className="mx-2" />}
                   {feature}
-                  {i < (Array.isArray(t('footer.features')) ? (t('footer.features') as string[]).length : 3) - 1 && <span className="w-1 h-1 rounded-full bg-white/10 inline-block mx-2" />}
+                  {i < 2 && <span className="w-1 h-1 rounded-full bg-white/10 inline-block mx-2" />}
                 </span>
               ))}
             </div>
