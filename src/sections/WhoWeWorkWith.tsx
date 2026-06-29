@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/I18nContext';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const industries = [
@@ -22,14 +23,15 @@ const industries = [
 const others = ['Hospitality', 'E-commerce', 'Education', 'Recruitment', 'Automotive', 'Fitness', 'Professional services'];
 
 export default function WhoWeWorkWith() {
+  const { t } = useTranslation();
   const ref = useScrollAnimation();
 
   return (
     <section id="industries" className="section-padding">
       <div ref={ref} className="content-max">
         <div className="text-center mb-16">
-          <p className="label-text text-purple mb-4 animate-item">Industries</p>
-          <h2 className="heading-section animate-item">Built for Businesses Across the Gulf</h2>
+          <p className="label-text text-purple mb-4 animate-item">{t('industries.label')}</p>
+          <h2 className="heading-section animate-item">{t('industries.title')}</h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -60,10 +62,10 @@ export default function WhoWeWorkWith() {
         </div>
 
         <p className="body-text text-center mt-12 max-w-xl mx-auto animate-item">
-          Based in the UAE. Supporting businesses across the Gulf and globally.
+          {t('industries.tagline')}
         </p>
         <p className="text-xs text-white/20 text-center mt-4 animate-item">
-          We work with responsible businesses where AI can improve communication, operations, lead handling, content, reporting, or customer experience.
+          {t('industries.description')}
         </p>
       </div>
     </section>

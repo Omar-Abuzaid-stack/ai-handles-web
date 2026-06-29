@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Shield } from 'lucide-react';
+import { useTranslation } from '@/i18n/I18nContext';
 
 const BANNER_KEY = 'aihandle_privacy_accepted';
 
 export default function PrivacyBanner() {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,14 +26,14 @@ export default function PrivacyBanner() {
         <div className="flex items-center gap-3 flex-1">
           <Shield size={18} className="text-purple flex-shrink-0" />
           <p className="text-xs text-white/50 leading-relaxed font-body">
-            We respect your privacy. This site uses essential cookies to ensure functionality. No tracking, no third-party ads, no data selling. Your data stays private.
+            {t('privacy.message')}
           </p>
         </div>
         <button
           onClick={accept}
           className="btn-primary text-xs py-2 px-5 flex-shrink-0"
         >
-          Got It
+          {t('privacy.accept')}
         </button>
       </div>
     </div>

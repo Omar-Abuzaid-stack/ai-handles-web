@@ -18,7 +18,7 @@ export default function ServicesPage() {
   const ref = useScrollAnimation();
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen">
       {/* Header */}
       <div className="section-padding pb-0">
         <div className="content-max">

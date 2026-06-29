@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { MessageCircle, X, Send, Loader2, Bot, User, Sparkles } from 'lucide-react';
+import { useTranslation } from '@/i18n/I18nContext';
 import { tracker } from '@/lib/tracking';
 
 interface ChatMessage {
@@ -111,6 +112,7 @@ function parseNavigationLinks(content: string) {
 }
 
 export default function ChatBot() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
@@ -130,7 +132,7 @@ export default function ChatBot() {
     const count = getChatCount();
     if (count >= DAILY_LIMIT) {
       setIsRateLimited(true);
-      setRateLimitMessage('Too many chats for today. Please try again later.');
+      setRateLimitMessage(t('chatbot.rateLimited'));
     }
   }, []);
 
@@ -152,28 +154,16 @@ export default function ChatBot() {
   const greetUser = useCallback(() => {
     if (hasGreeted) return;
     setHasGreeted(true);
-    setMessages([
-      {
-        id: 'msg-greeting-' + Date.now(),
-        role: 'assistant',
-        content:
-          'Welcome to AI Handle.\n' +
-          '\n' +
-          "I'm your AI assistant, ready to help you understand how our coordinated AI workforce can transform your business.\n" +
-          '\n' +
-          "Here's what I can help with:\n" +
-          '- **Services** — AI agents, automations, websites, growth systems\n' +
-          '- **Industries** — Real estate, clinics, B2B, agencies, and more\n' +
-          '- **The AI Team** — Meet our specialised AI agents\n' +
-          '- **How It Works** — Our implementation process\n' +
-          '- **Getting Started** — Book a discovery session\n' +
-          '\n' +
-          'What would you like to know?',
-        timestamp: Date.now(),
-        action: null,
-      },
-    ]);
-  }, [hasGreeted]);
+      setMessages([
+        {
+          id: 'msg-greeting-' + Date.now(),
+          role: 'assistant',
+          content: t('chatbot.greeting'),
+          timestamp: Date.now(),
+          action: null,
+        },
+      ]);
+  }, [hasGreeted, t]);
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
@@ -199,7 +189,7 @@ export default function ChatBot() {
       const newCount = incrementChatCount();
       if (newCount >= DAILY_LIMIT) {
         setIsRateLimited(true);
-        setRateLimitMessage('Too many chats for today. Please try again later.');
+        setRateLimitMessage(t('chatbot.rateLimited'));
       }
 
       try {
@@ -216,13 +206,13 @@ export default function ChatBot() {
 
         if (response.status === 429) {
           setIsRateLimited(true);
-          setRateLimitMessage('Too many chats for today. Please try again later.');
+          setRateLimitMessage(t('chatbot.rateLimited'));
           setMessages((prev) => [
             ...prev,
             {
               id: 'msg-system-' + Date.now(),
               role: 'assistant',
-              content: 'Too many chats for today. Please try again later.',
+              content: t('chatbot.rateLimited'),
               timestamp: Date.now(),
             },
           ]);
@@ -237,7 +227,7 @@ export default function ChatBot() {
             {
               id: 'msg-error-' + Date.now(),
               role: 'assistant',
-              content: data.message || 'Sorry, something went wrong. Please try again or contact us via WhatsApp.',
+              content: data.message || t('chatbot.error'),
               timestamp: Date.now(),
             },
           ]);
@@ -262,7 +252,7 @@ export default function ChatBot() {
           {
             id: 'msg-error-' + Date.now(),
             role: 'assistant',
-            content: 'Connection error. Please check your internet and try again, or contact us via WhatsApp.',
+            content: t('chatbot.connectionError'),
             timestamp: Date.now(),
           },
         ]);
@@ -287,10 +277,10 @@ export default function ChatBot() {
   };
 
   const quickActions = [
-    { label: 'Services', text: 'What services does AI Handle offer?' },
-    { label: 'AI Agents', text: 'Tell me about the AI agents' },
-    { label: 'Industries', text: 'What industries do you work with?' },
-    { label: 'Get Started', text: 'How do I get started with AI Handle?' },
+    { label: t('chatbot.quickActions.0'), text: 'What services does AI Handle offer?' },
+    { label: t('chatbot.quickActions.1'), text: 'Tell me about the AI agents' },
+    { label: t('chatbot.quickActions.2'), text: 'What industries do you work with?' },
+    { label: t('chatbot.quickActions.3'), text: 'How do I get started with AI Handle?' },
   ];
 
   return (
@@ -303,7 +293,7 @@ export default function ChatBot() {
             bottom: 'max(1rem, env(safe-area-inset-bottom, 16px))',
             right: '1rem',
           }}
-          aria-label="Open AI chat assistant"
+          aria-label={t('chatbot.open')}
         >
           <MessageCircle size={20} className="group-hover:rotate-12 transition-transform" />
           <span className="absolute inset-0 rounded-full border-2 border-[#8B5CF6]/40 animate-ping opacity-30" />
@@ -328,17 +318,17 @@ export default function ChatBot() {
                 <Bot size={18} className="text-[#0A0A0A]" />
               </div>
               <div>
-                <h3 className="font-body font-semibold text-sm text-[#F5F0EB]">AI Handle</h3>
+                <h3 className="font-body font-semibold text-sm text-[#F5F0EB]">{t('chatbot.title')}</h3>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] animate-pulse" />
-                  <span className="font-body text-[10px] text-[#5A5550]">Online</span>
+                  <span className="font-body text-[10px] text-[#5A5550]">{t('chatbot.online')}</span>
                 </div>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               className="w-8 h-8 rounded-lg flex items-center justify-center text-[#5A5550] hover:text-[#F5F0EB] hover:bg-white/5 transition-all"
-              aria-label="Close chat"
+              aria-label={t('chatbot.close')}
             >
               <X size={18} />
             </button>
@@ -404,7 +394,7 @@ export default function ChatBot() {
                 <div className="bg-white/5 border border-white/5 rounded-2xl rounded-bl-md px-4 py-3">
                   <div className="flex items-center gap-2">
                     <Loader2 size={14} className="text-[#8B5CF6] animate-spin" />
-                    <span className="text-xs text-[#5A5550] font-body animate-pulse">Thinking...</span>
+                    <span className="text-xs text-[#5A5550] font-body animate-pulse">{t('chatbot.thinking')}</span>
                   </div>
                 </div>
               </div>
@@ -444,7 +434,7 @@ export default function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder={isRateLimited ? 'Come back tomorrow...' : 'Ask about AI Handle...'}
+                placeholder={isRateLimited ? t('chatbot.comeBack') : t('chatbot.placeholder')}
                 disabled={isLoading || isRateLimited}
                 className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm font-body text-[#F5F0EB] placeholder:text-[#3A3A3A] focus:border-[#8B5CF6]/40 focus:outline-none transition-colors disabled:opacity-50"
               />
@@ -458,7 +448,7 @@ export default function ChatBot() {
               </button>
             </div>
             <p className="text-[9px] text-[#3A3A3A] font-body text-center mt-2">
-              AI Handle Assistant · Powered by Mistral AI
+              {t('chatbot.poweredBy')}
             </p>
           </div>
         </div>

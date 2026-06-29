@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/I18nContext';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const countries = [
@@ -11,15 +12,16 @@ const countries = [
 ];
 
 export default function About() {
+  const { t } = useTranslation();
   const ref = useScrollAnimation();
 
   return (
     <section className="section-padding">
       <div ref={ref} className="content-max">
         <div className="text-center mb-16">
-          <p className="label-text text-purple mb-4 animate-item">Coverage</p>
+          <p className="label-text text-purple mb-4 animate-item">{t('about.label')}</p>
           <h2 className="heading-section mb-4 animate-item">
-            UAE Based. Gulf Focused. <span className="serif-italic text-white/50">Globally Capable.</span>
+            {t('about.title')}
           </h2>
         </div>
 
@@ -39,7 +41,7 @@ export default function About() {
         </div>
 
         <p className="body-text text-center mt-12 max-w-xl mx-auto animate-item">
-          We work with responsible businesses where AI can improve communication, operations, customer handling, lead management, content, or reporting.
+          {t('about.description')}
         </p>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from '@/i18n/I18nContext';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import type { Robot } from '@/data';
 
@@ -8,6 +9,7 @@ interface AIWorkforceProps {
 }
 
 export default function AIWorkforce({ robots }: AIWorkforceProps) {
+  const { t } = useTranslation();
   const ref = useScrollAnimation();
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -15,10 +17,10 @@ export default function AIWorkforce({ robots }: AIWorkforceProps) {
     <section id="agents" className="section-padding">
       <div ref={ref} className="content-max">
         <div className="text-center mb-12">
-          <p className="label-text mb-4 text-[#7E22CE] animate-item">Digital Workforce</p>
-          <h2 className="heading-section mb-4 animate-item">Meet the AI Team</h2>
+          <p className="label-text mb-4 text-[#7E22CE] animate-item">{t('aiWorkforce.label')}</p>
+          <h2 className="heading-section mb-4 animate-item">{t('aiWorkforce.title')}</h2>
           <p className="body-text max-w-[600px] mx-auto animate-item">
-            Each agent has one clear job. They work independently and hand off approved tasks to each other.
+            {t('aiWorkforce.description')}
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -56,7 +58,7 @@ export default function AIWorkforce({ robots }: AIWorkforceProps) {
                     onClick={() => setOpenId(isOpen ? null : robot.id)}
                     className="mt-auto flex items-center gap-1 text-[11px] text-[#7E22CE]/70 hover:text-[#7E22CE] transition-colors"
                   >
-                    {isOpen ? 'Show less' : 'Learn more'}
+                    {isOpen ? t('aiWorkforce.showLess') : t('aiWorkforce.learnMore')}
                     <ChevronDown size={13} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
                   {isOpen && (

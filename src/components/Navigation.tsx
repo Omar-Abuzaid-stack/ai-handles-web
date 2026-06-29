@@ -1,37 +1,35 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
-import { Menu, X, Sun, Moon, Monitor } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useTranslation } from '@/i18n/I18nContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
 const routeLinks = [
-  { label: 'Services', to: '/services' },
-  { label: 'AI Workforce', to: '/ai-workforce' },
-  { label: 'Integrations', to: '/integrations' },
-  { label: 'Work', to: '/work' },
-  { label: 'Team', to: '/team' },
-  { label: 'Contact', to: '/contact' },
+  { key: 'services', to: '/services' },
+  { key: 'aiWorkforce', to: '/ai-workforce' },
+  { key: 'integrations', to: '/integrations' },
+  { key: 'work', to: '/work' },
+  { key: 'team', to: '/team' },
+  { key: 'contact', to: '/contact' },
 ];
 
-const themeOptions = [
-  { value: 'dark' as const, icon: Moon, label: 'Dark' },
-  { value: 'light' as const, icon: Sun, label: 'Light' },
-  { value: 'system' as const, icon: Monitor, label: 'System' },
-];
+function localizePath(path: string, lang: string): string {
+  if (lang === 'ar') return `/ar${path}`;
+  return path;
+}
 
 export default function Navigation() {
-  const { theme, setTheme } = useTheme();
+  const { t, lang, setLang } = useTranslation();
+  const { setTheme, isDark } = useTheme();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  const cycleTheme = () => {
-    const order: typeof theme[] = ['dark', 'light', 'system'];
-    const next = order[(order.indexOf(theme) + 1) % 3];
-    setTheme(next);
+  const toggleLanguage = () => {
+    setLang(lang === 'en' ? 'ar' : 'en');
   };
 
   return (
@@ -41,9 +39,9 @@ export default function Navigation() {
         style={{ paddingTop: 'env(safe-area-inset-top)' }}
       >
         <div className="max-w-6xl mx-auto px-4 pt-4 pb-2">
-          {/* Desktop: Liquid Glass Pill */}
+          {/* Desktop */}
           <div className="hidden md:flex liquid-glass rounded-full px-6 py-3 items-center justify-between">
-            <Link to="/" className="flex items-center gap-2.5 group">
+            <Link to={localizePath('/', lang)} className="flex items-center gap-2.5 group">
               <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10">
                 <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
               </div>
@@ -53,40 +51,47 @@ export default function Navigation() {
             <div className="flex items-center gap-7">
               {routeLinks.map((link) => (
                 <Link
-                  key={link.to}
-                  to={link.to}
+                  key={link.key}
+                  to={localizePath(link.to, lang)}
                   className={`font-body text-[13px] transition-colors duration-300 ${
-                    location.pathname === link.to
+                    location.pathname === localizePath(link.to, lang)
                       ? 'text-white font-medium'
                       : 'text-white/40 hover:text-white/70'
                   }`}
                 >
-                  {link.label}
+                  {t(`nav.${link.key}`)}
                 </Link>
               ))}
             </div>
 
             <div className="flex items-center gap-3">
               <button
-                onClick={cycleTheme}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 hover:bg-white/5 transition-all duration-300"
-                aria-label={`Theme: ${theme}. Click to cycle.`}
-                title={`Current: ${theme}`}
+                onClick={toggleLanguage}
+                className="font-body text-[12px] tracking-wide text-black/50 dark:text-white/40 hover:text-black dark:hover:text-white/70 transition-colors duration-300 px-2 py-1 rounded-md hover:bg-black/5 dark:hover:bg-white/5"
+                aria-label={t('nav.language')}
               >
-                {theme === 'dark' && <Moon size={14} />}
-                {theme === 'light' && <Sun size={14} />}
-                {theme === 'system' && <Monitor size={14} />}
+                {lang === 'en' ? 'EN' : 'العربية'}
+                <span className="mx-1 text-black/20 dark:text-white/20">|</span>
+                {lang === 'en' ? 'العربية' : 'EN'}
               </button>
 
-              <Link to="/contact" className="btn-primary text-[13px] py-2 px-5">
-                Speak With Us
+              <button
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className="text-black/50 dark:text-white/40 hover:text-black dark:hover:text-white/70 transition-colors duration-300 p-2 rounded-md hover:bg-black/5 dark:hover:bg-white/5"
+                aria-label="Toggle Theme"
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
+              <Link to={localizePath('/contact', lang)} className="btn-primary text-[13px] py-2 px-5">
+                {t('nav.speakWithUs')}
               </Link>
             </div>
           </div>
 
-          {/* Mobile: Simple bar */}
+          {/* Mobile */}
           <div className="md:hidden flex items-center justify-between px-4 py-3 bg-black/60 backdrop-blur-xl rounded-full border border-white/10">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to={localizePath('/', lang)} className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-full overflow-hidden border border-white/10">
                 <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
               </div>
@@ -94,15 +99,20 @@ export default function Navigation() {
             </Link>
             <div className="flex items-center gap-2">
               <button
-                onClick={cycleTheme}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white/70 transition-all"
-                aria-label={`Theme: ${theme}`}
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className="text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white/80 transition-colors p-1"
+                aria-label="Toggle Theme"
               >
-                {theme === 'dark' && <Moon size={16} />}
-                {theme === 'light' && <Sun size={16} />}
-                {theme === 'system' && <Monitor size={16} />}
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
               </button>
-              <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1" aria-label="Toggle menu">
+              <button
+                onClick={toggleLanguage}
+                className="font-body text-[11px] text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white/80 transition-colors px-2 py-1"
+                aria-label={t('nav.language')}
+              >
+                {lang === 'en' ? 'EN' : 'العربية'}
+              </button>
+              <button onClick={() => setMobileOpen(!mobileOpen)} className="text-black dark:text-white p-1" aria-label={mobileOpen ? t('nav.close') : t('nav.menu')}>
                 {mobileOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
@@ -117,38 +127,19 @@ export default function Navigation() {
         >
           {routeLinks.map((link) => (
             <Link
-              key={link.to}
-              to={link.to}
+              key={link.key}
+              to={localizePath(link.to, lang)}
               onClick={() => setMobileOpen(false)}
               className={`font-body text-2xl transition-colors ${
-                location.pathname === link.to ? 'text-white' : 'text-white/70 hover:text-white'
+                location.pathname === localizePath(link.to, lang) ? 'text-white' : 'text-white/70 hover:text-white'
               }`}
             >
-              {link.label}
+              {t(`nav.${link.key}`)}
             </Link>
           ))}
 
-          {/* Theme Options in Mobile Drawer */}
-          <div className="flex items-center gap-4 mt-4">
-            {themeOptions.map(({ value, icon: Icon, label }) => (
-              <button
-                key={value}
-                onClick={() => setTheme(value)}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  theme === value
-                    ? 'bg-purple/20 text-purple border border-purple/30'
-                    : 'text-white/30 hover:text-white/60 border border-white/10'
-                }`}
-                aria-label={`Switch to ${label} mode`}
-                title={label}
-              >
-                <Icon size={16} />
-              </button>
-            ))}
-          </div>
-
-          <Link to="/contact" onClick={() => setMobileOpen(false)} className="btn-primary mt-4">
-            Speak With Us
+          <Link to={localizePath('/contact', lang)} onClick={() => setMobileOpen(false)} className="btn-primary mt-4">
+            {t('nav.speakWithUs')}
           </Link>
         </div>
       )}

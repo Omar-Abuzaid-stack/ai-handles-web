@@ -4,6 +4,7 @@ import { ArrowLeft, Phone, Mail, MessageCircle, Send, CheckCircle, Loader2, Cale
 import { brand } from '@/data';
 import { isSupabaseConfigured, supabase } from '@/lib/supabase';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { tracker } from '@/lib/tracking';
 
 export default function ContactPage() {
   const ref = useScrollAnimation();
@@ -54,6 +55,10 @@ export default function ContactPage() {
         });
       }
     } catch { /* continue */ }
+    
+    // Track the booking
+    tracker.contactForm(bookingName, bookingEmail);
+    
     setBookingLoading(false);
     setBookingStep('confirmed');
   };
@@ -76,6 +81,9 @@ export default function ContactPage() {
       // Continue even if Supabase fails
     }
 
+    // Track the form submission
+    tracker.contactForm(formData.name, formData.email);
+
     // Open email client as fallback
     const subject = encodeURIComponent('AI Handle Enquiry');
     const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`);
@@ -86,7 +94,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen">
       <div className="section-padding pb-0">
         <div className="content-max">
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-4">
@@ -126,12 +134,12 @@ export default function ContactPage() {
                   {/* Personal details */}
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label className="text-xs text-white/40 mb-1.5 block">Your Name *</label>
-                      <input required value={bookingName} onChange={e => setBookingName(e.target.value)} className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none" placeholder="Name" />
+                      <label className="text-xs text-black/50 dark:text-white/40 mb-1.5 block">Your Name *</label>
+                      <input required value={bookingName} onChange={e => setBookingName(e.target.value)} className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/8 rounded-xl px-4 py-2.5 text-sm focus:border-purple/40 focus:outline-none" placeholder="Name" />
                     </div>
                     <div>
-                      <label className="text-xs text-white/40 mb-1.5 block">Email *</label>
-                      <input required type="email" value={bookingEmail} onChange={e => setBookingEmail(e.target.value)} className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-purple/40 focus:outline-none" placeholder="email@company.com" />
+                      <label className="text-xs text-black/50 dark:text-white/40 mb-1.5 block">Email *</label>
+                      <input required type="email" value={bookingEmail} onChange={e => setBookingEmail(e.target.value)} className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/8 rounded-xl px-4 py-2.5 text-sm focus:border-purple/40 focus:outline-none" placeholder="email@company.com" />
                     </div>
                     <div>
                       <label className="text-xs text-white/40 mb-1.5 block">Phone</label>

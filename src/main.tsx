@@ -32,26 +32,52 @@ import VoiceAIPage from './pages/services/VoiceAIPage.tsx'
 
 import RouterListener from './components/RouterListener.tsx'
 
+const PAGE_ROUTES = [
+  { path: '/', element: <App /> },
+  { path: '/services', element: <ServicesPage /> },
+  { path: '/services/ai-agents', element: <AIAgentsPage /> },
+  { path: '/services/automations', element: <AutomationsPage /> },
+  { path: '/services/ai-deployment', element: <AIDeploymentPage /> },
+  { path: '/services/websites', element: <WebsitesPage /> },
+  { path: '/services/growth', element: <GrowthPage /> },
+  { path: '/services/voice-ai', element: <VoiceAIPage /> },
+  { path: '/ai-workforce', element: <AIWorkforcePage /> },
+  { path: '/integrations', element: <IntegrationsPage /> },
+  { path: '/work', element: <WorkPage /> },
+  { path: '/team', element: <TeamPage /> },
+  { path: '/team/:slug', element: <TeamProfilePage /> },
+  { path: '/contact', element: <ContactPage /> },
+  { path: '/card/:slug', element: <TeamProfilePage /> },
+];
+
+const ARABIC_PAGE_ROUTES = [
+  { path: '/ar', element: <App /> },
+  { path: '/ar/services', element: <ServicesPage /> },
+  { path: '/ar/services/ai-agents', element: <AIAgentsPage /> },
+  { path: '/ar/services/automations', element: <AutomationsPage /> },
+  { path: '/ar/services/ai-deployment', element: <AIDeploymentPage /> },
+  { path: '/ar/services/websites', element: <WebsitesPage /> },
+  { path: '/ar/services/growth', element: <GrowthPage /> },
+  { path: '/ar/services/voice-ai', element: <VoiceAIPage /> },
+  { path: '/ar/ai-workforce', element: <AIWorkforcePage /> },
+  { path: '/ar/integrations', element: <IntegrationsPage /> },
+  { path: '/ar/work', element: <WorkPage /> },
+  { path: '/ar/team', element: <TeamPage /> },
+  { path: '/ar/team/:slug', element: <TeamProfilePage /> },
+  { path: '/ar/contact', element: <ContactPage /> },
+];
+
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
     <BrowserRouter>
       <RouterListener />
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/ai-agents" element={<AIAgentsPage />} />
-        <Route path="/services/automations" element={<AutomationsPage />} />
-        <Route path="/services/ai-deployment" element={<AIDeploymentPage />} />
-        <Route path="/services/websites" element={<WebsitesPage />} />
-        <Route path="/services/growth" element={<GrowthPage />} />
-        <Route path="/services/voice-ai" element={<VoiceAIPage />} />
-        <Route path="/ai-workforce" element={<AIWorkforcePage />} />
-        <Route path="/integrations" element={<IntegrationsPage />} />
-        <Route path="/work" element={<WorkPage />} />
-        <Route path="/team" element={<TeamPage />} />
-        <Route path="/team/:slug" element={<TeamProfilePage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/card/:slug" element={<TeamProfilePage />} />
+        {PAGE_ROUTES.map((r) => (
+          <Route key={r.path} path={r.path} element={r.element} />
+        ))}
+        {ARABIC_PAGE_ROUTES.map((r) => (
+          <Route key={r.path} path={r.path} element={r.element} />
+        ))}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />

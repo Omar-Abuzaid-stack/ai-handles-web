@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/I18nContext';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Bot, Workflow, Cpu, Layout, TrendingUp, Phone, Shield, Building2, Users } from 'lucide-react';
 
@@ -62,6 +63,7 @@ const engagementModels = [
 ];
 
 export default function Capabilities() {
+  const { t } = useTranslation();
   const ref = useScrollAnimation();
 
   return (
@@ -69,12 +71,12 @@ export default function Capabilities() {
       <div ref={ref} className="content-max">
         {/* Main Services */}
         <div className="text-center mb-16">
-          <p className="label-text text-purple mb-4 animate-item">What We Build</p>
+          <p className="label-text text-purple mb-4 animate-item">{t('capabilities.label')}</p>
           <h2 className="heading-section mb-4 animate-item">
-            Custom AI Infrastructure for Your Business
+            {t('capabilities.title')}
           </h2>
           <p className="body-text max-w-xl mx-auto animate-item">
-            Every system is built specifically for your business. No shared platforms. No generic templates. Full privacy, no data leaks.
+            {t('capabilities.description')}
           </p>
         </div>
 
@@ -100,12 +102,12 @@ export default function Capabilities() {
 
         {/* Engagement Models: B2B and B2Agent */}
         <div className="text-center mb-12">
-          <p className="label-text text-purple mb-4 animate-item">Engagement Models</p>
+          <p className="label-text text-purple mb-4 animate-item">{t('capabilities.engagementLabel')}</p>
           <h2 className="heading-section mb-4 animate-item">
-            How We Work With <span className="serif-italic text-white/50">Every Business</span>
+            {t('capabilities.engagementTitle')}
           </h2>
           <p className="body-text max-w-lg mx-auto animate-item">
-            Whether you are a large organisation or an individual professional, we build a system specifically for you.
+            {t('capabilities.engagementDesc')}
           </p>
         </div>
 
@@ -133,7 +135,7 @@ export default function Capabilities() {
           <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 border border-white/10">
             <Shield size={14} className="text-purple" />
             <span className="text-xs text-white/40 font-body">
-              Fully custom systems · Complete privacy · No shared infrastructure · No data leaks · Built specifically for you
+              {t('capabilities.privacyNotice')}
             </span>
           </div>
         </div>

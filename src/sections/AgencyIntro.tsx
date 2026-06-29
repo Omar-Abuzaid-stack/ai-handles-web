@@ -1,24 +1,26 @@
+import { useTranslation } from '@/i18n/I18nContext';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 export default function AgencyIntro() {
+  const { t } = useTranslation();
   const ref = useScrollAnimation();
 
   return (
-    <section className="section-padding bg-black">
+    <section className="section-padding">
       <div ref={ref} className="content-max">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="label-text text-purple mb-6 animate-item">About AI Handle</p>
+          <p className="label-text text-purple mb-6 animate-item">{t('agencyIntro.title')}</p>
           <h2 className="heading-section mb-8 animate-item">
-            Building <span className="serif-italic text-white/50">digital teams</span> for businesses that want to move faster.
+            {t('agencyIntro.subtitle')}
           </h2>
           <p className="body-text mb-6 animate-item">
-            AI Handle is a UAE-based agency that designs, builds, and deploys specialised AI agents, automations, websites, communication systems, and growth infrastructure into real businesses.
+            {t('agencyIntro.description')}
           </p>
           <p className="body-text mb-6 animate-item">
-            Every system is designed from scratch for one business. No shared platforms. No generic templates. No compromises.
+            {t('agencyIntro.description2')}
           </p>
           <p className="body-text animate-item">
-            Each AI agent receives a clear role, approved tools, strict permissions, operational limits, task queues, contextual memory, and a complete activity history.
+            {t('agencyIntro.description3')}
           </p>
         </div>
       </div>

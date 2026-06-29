@@ -82,7 +82,7 @@ export default function DemoVideo({
   };
 
   return (
-    <section id="demo" className="section-padding bg-black">
+    <section id="demo" className="section-padding">
       <div ref={ref} className="content-max">
         <div className="text-center mb-12 animate-item">
           <p className="label-text text-purple mb-4">System Demonstration</p>

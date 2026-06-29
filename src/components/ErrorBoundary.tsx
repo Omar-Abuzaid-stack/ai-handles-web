@@ -11,6 +11,7 @@ interface State {
   error?: Error | null;
 }
 
+
 export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -23,21 +24,19 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Section load error:', error, errorInfo);
-    // Send to configured logging system
     tracker.error(`React Error: ${error.message}`);
   }
 
   render() {
     if (this.state.hasError) {
-      // Handle chunk loading errors (new deployment while user is active)
       const isChunkError = this.state.error?.message?.toLowerCase().includes('failed to fetch dynamically imported module') ||
                            this.state.error?.message?.toLowerCase().includes('importing a module script failed');
 
       return this.props.fallback || (
         <div className="section-padding text-center min-h-[50vh] flex flex-col items-center justify-center">
           <p className="body-text text-white/60 mb-2">
-            {isChunkError 
-              ? "A new version of the website is available." 
+            {isChunkError
+              ? "A new version of the website is available."
               : "Something went wrong. Please refresh the page."}
           </p>
           <button

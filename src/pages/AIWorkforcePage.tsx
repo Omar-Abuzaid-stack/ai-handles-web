@@ -11,7 +11,7 @@ export default function AIWorkforcePage() {
   const toggle = (id: string) => setExpandedId(expandedId === id ? null : id);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen">
       <div className="section-padding pb-0">
         <div className="content-max">
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-8">

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router';
 import { ArrowRight, Play, ChevronDown, Search, MessageSquare, PenTool, Settings, BarChart3, Cpu } from 'lucide-react';
+import { useTranslation } from '@/i18n/I18nContext';
 
 // Professional agent mini-cards for the hero — using Lucide icons for consistency
 const agentHighlights = [
@@ -13,11 +14,14 @@ const agentHighlights = [
 ];
 
 export default function Hero() {
+  const { t, lang } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const lastMouseX = useRef(0.5);
+
+  const localize = (path: string) => lang === 'ar' ? `/ar${path}` : path;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -57,7 +61,7 @@ export default function Hero() {
       id="hero"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black"
+      className="relative min-h-screen w-full flex flex-col overflow-hidden"
     >
       {/* Background Videos for Seamless Looping */}
       <video
@@ -125,18 +129,17 @@ export default function Hero() {
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-32">
         {/* Eyebrow */}
         <p className="label-text text-purple mb-6 opacity-0 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-          UAE-Based AI Agency
+          {t('hero.badge')}
         </p>
 
         {/* Headline */}
         <h1 className="heading-display max-w-4xl mb-6 opacity-0 animate-fade-up" style={{ animationDelay: '0.4s' }}>
-          Imagine a Team That{' '}
-          <span className="serif-italic text-white/50">Never Sleeps</span>.
+          {t('hero.headline')}
         </h1>
 
         {/* Supporting text */}
         <p className="body-text max-w-2xl mb-8 opacity-0 animate-fade-up" style={{ animationDelay: '0.6s' }}>
-          AI Handle deploys specialised AI agents into your business. Each agent owns a defined responsibility, while an AI Orchestrator coordinates the complete workforce.
+          {t('hero.supporting')}
         </p>
 
         {/* Agent mini-cards — desktop only */}
@@ -154,23 +157,23 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12 opacity-0 animate-fade-up" style={{ animationDelay: '0.8s' }}>
-          <Link to="/contact" className="btn-primary">
-            Build My AI Team <ArrowRight size={16} />
+          <Link to={localize('/contact')} className="btn-primary">
+            {t('hero.ctaSub')} <ArrowRight size={16} />
           </Link>
-          <Link to="/ai-workforce" className="btn-secondary">
-            <Play size={14} /> Explore the AI Workforce
+          <Link to={localize('/ai-workforce')} className="btn-secondary">
+            <Play size={14} /> {t('workforce.title')}
           </Link>
-          <Link to="#demo" className="btn-secondary">
-            See How the System Works
-          </Link>
+          <a href="#demo" className="btn-secondary">
+            {t('demo.title')}
+          </a>
           <a href="https://wa.me/971508033084" target="_blank" rel="noopener noreferrer" className="btn-secondary">
-            Speak With Omar
+            {t('hero.cta')}
           </a>
         </div>
 
         {/* Gulf Coverage */}
         <p className="text-xs text-white/30 tracking-wider opacity-0 animate-fade-up" style={{ animationDelay: '1s' }}>
-          Based in the UAE · Serving the Gulf and Global Markets
+          {t('hero.tagline')}
         </p>
       </div>
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { useCmsData } from '@/hooks/useCmsData';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import { LanguageProvider, useTranslation } from '@/i18n/I18nContext';
 import Navigation from '@/components/Navigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -11,7 +12,6 @@ import Hero from '@/sections/Hero';
 import ChatBot from '@/components/ChatBot';
 import { brand } from '@/data';
 
-// Lazy-load below-the-fold sections for code splitting
 const DemoVideo = lazy(() => import('@/sections/DemoVideo'));
 const AIWorkforce = lazy(() => import('@/sections/AIWorkforce'));
 const TeamPreview = lazy(() => import('@/sections/TeamPreview'));
@@ -21,8 +21,14 @@ function SectionDivider() {
   return <div className="w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />;
 }
 
+function localizePath(path: string, lang: string): string {
+  if (lang === 'ar') return `/ar${path}`;
+  return path;
+}
+
 function AppContent() {
   const { robots, loading } = useCmsData();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -50,7 +56,7 @@ function AppContent() {
         <div className="w-16 h-16 rounded-full overflow-hidden border border-white/10 animate-pulse">
           <img src="/brand/ai-handle-logo.png" alt="AI Handle" className="w-full h-full object-cover" />
         </div>
-        <p className="font-body text-xs tracking-[0.2em] text-white/30 uppercase">Loading</p>
+        <p className="font-body text-xs tracking-[0.2em] text-white/30 uppercase">{t('error.loading')}</p>
       </div>
     );
   }
@@ -59,41 +65,34 @@ function AppContent() {
     <div className="min-h-screen bg-black text-white">
       <Navigation />
 
-      {/* 1. Hero */}
       <Hero />
 
       <SectionDivider />
 
-      {/* 2. What AI Handle deploys (Clouds) */}
       <WhatWeDeploy />
 
       <Suspense fallback={null}>
       <SectionDivider />
 
-      {/* 3. AI Workforce preview (Robot Carousel) */}
       <AIWorkforce robots={robots} />
 
       <SectionDivider />
 
-      {/* 4. System demo video */}
       <DemoVideo
         videoUrl={brand.video.src}
         posterImage="/media/system-demo-thumbnail.png"
-        title={brand.video.title}
-        description={brand.video.description}
+        title={t('demo.title')}
+        description={t('demo.desc')}
       />
 
       <SectionDivider />
 
-      {/* 6. Team preview (Redesigned) */}
       <TeamPreview />
 
       <SectionDivider />
 
-      {/* 7. Final CTA */}
       <FinalCTA />
 
-      {/* Footer */}
       <Footer />
       </Suspense>
 
@@ -104,36 +103,35 @@ function AppContent() {
   );
 }
 
-/** Concise "What AI Handle Deploys" section with Explore links */
 function WhatWeDeploy() {
+  const { t, lang } = useTranslation();
   const items = [
-    { title: 'AI Agents', desc: 'Specialised digital workers handling enquiries, sales, and operations.', to: '/services/ai-agents' },
-    { title: 'Business Automations', desc: 'Structured workflows that move data and reduce repetitive work.', to: '/services/automations' },
-    { title: 'AI Deployment', desc: 'Seamlessly integrating AI into your existing company infrastructure.', to: '/services/ai-deployment' },
-    { title: 'Premium Websites', desc: 'High-end platforms that explain, capture, and convert visitors.', to: '/services/websites' },
-    { title: 'Paid Advertising & Growth', desc: 'Targeted campaigns to accelerate customer acquisition.', to: '/services/growth' },
-    { title: 'AI Voice Reception', desc: 'Professional AI reception handling inbound and outbound calls.', to: '/services/voice-ai' },
+    { titleKey: 'aiAgents', to: '/services/ai-agents' },
+    { titleKey: 'automations', to: '/services/automations' },
+    { titleKey: 'deployment', to: '/services/ai-deployment' },
+    { titleKey: 'websites', to: '/services/websites' },
+    { titleKey: 'growth', to: '/services/growth' },
+    { titleKey: 'voice', to: '/services/voice-ai' },
   ];
 
   return (
     <section className="section-padding bg-[#050505] relative overflow-hidden" id="what-we-deploy">
-      {/* Background glow for the cloud effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#7E22CE]/10 blur-[120px] rounded-[100%] pointer-events-none"></div>
 
       <div className="content-max relative z-10">
         <div className="text-center mb-16">
-          <p className="label-text text-[#7E22CE] mb-4">Core Capabilities</p>
-          <h2 className="heading-section mb-4">What We Deploy</h2>
+          <p className="label-text text-[#7E22CE] mb-4">{t('deploy.label')}</p>
+          <h2 className="heading-section mb-4">{t('deploy.title')}</h2>
           <p className="body-text max-w-xl mx-auto text-white/60">
-            A comprehensive suite of digital infrastructure designed to scale your business.
+            {t('deploy.desc')}
           </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 mb-12">
           {items.map((item, index) => (
             <Link 
-              key={item.title} 
-              to={item.to} 
+              key={item.titleKey} 
+              to={localizePath(item.to, lang)} 
               className="group relative flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -141,11 +139,11 @@ function WhatWeDeploy() {
               <div className="relative h-full bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/[0.03] group-hover:border-[#7E22CE]/30 rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#7E22CE]/5 rounded-full blur-3xl group-hover:bg-[#7E22CE]/15 transition-colors duration-500"></div>
                 <div>
-                  <h3 className="font-body text-xl font-medium text-white mb-3 group-hover:text-[#7E22CE] transition-colors">{item.title}</h3>
-                  <p className="text-sm text-white/50 leading-relaxed mb-6">{item.desc}</p>
+                  <h3 className="font-body text-xl font-medium text-white mb-3 group-hover:text-[#7E22CE] transition-colors">{t(`deploy.items.${item.titleKey}.title`)}</h3>
+                  <p className="text-sm text-white/50 leading-relaxed mb-6">{t(`deploy.items.${item.titleKey}.desc`)}</p>
                 </div>
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#7E22CE] tracking-wider uppercase">
-                  <span>Explore</span>
+                  <span>{t('deploy.explore')}</span>
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </div>
@@ -157,25 +155,24 @@ function WhatWeDeploy() {
   );
 }
 
-
-/** Final focused CTA */
 function FinalCTA() {
+  const { t, lang } = useTranslation();
   return (
     <section className="section-padding">
       <div className="content-max text-center">
-        <h2 className="heading-section mb-4">Build the AI Team Behind Your Business.</h2>
+        <h2 className="heading-section mb-4">{t('finalCta.title')}</h2>
         <p className="body-text mb-8 max-w-xl mx-auto">
-          Start with one agent, automate one important workflow, or design a coordinated digital workforce around your operation.
+          {t('finalCta.desc')}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4">
           <a href={brand.founder.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-            Speak With Omar <ArrowRight size={14} />
+            {t('finalCta.cta')} <ArrowRight size={14} />
           </a>
-          <Link to="/contact" className="btn-primary" style={{ background: 'rgba(139,92,246,0.15)', color: '#8B5CF6', border: '1px solid rgba(139,92,246,0.3)' }}>
-            Build My AI Team
+          <Link to={localizePath('/contact', lang)} className="btn-primary" style={{ background: 'rgba(139,92,246,0.15)', color: '#8B5CF6', border: '1px solid rgba(139,92,246,0.3)' }}>
+            {t('finalCta.ctaSub')}
           </Link>
-          <Link to="/work" className="btn-secondary">
-            View Selected Work
+          <Link to={localizePath('/work', lang)} className="btn-secondary">
+            {t('finalCta.ctaWork')}
           </Link>
         </div>
       </div>
@@ -186,9 +183,11 @@ function FinalCTA() {
 function App() {
   return (
     <ThemeProvider>
-      <ErrorBoundary>
-        <AppContent />
-      </ErrorBoundary>
+      <LanguageProvider>
+        <ErrorBoundary>
+          <AppContent />
+        </ErrorBoundary>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
