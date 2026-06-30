@@ -112,6 +112,7 @@ function WhatWeDeploy() {
     { titleKey: 'websites', to: '/services/websites' },
     { titleKey: 'growth', to: '/services/growth' },
     { titleKey: 'voice', to: '/services/voice-ai' },
+    { titleKey: 'aiConsulting', to: '/services/ai-consulting' },
   ];
 
   return (

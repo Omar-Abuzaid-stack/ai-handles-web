@@ -752,6 +752,22 @@ export const services: Service[] = [
     businessBenefit: 'Never miss an opportunity, providing professional support outside normal office hours.',
     link: '/services/voice-ai',
   },
+  {
+    id: 'ai-consulting',
+    icon: 'Brain',
+    title: 'AI Consulting & Advisory',
+    label: 'Strategic Guidance',
+    description: 'We keep researching the best AI tools and strategies for you. Learn from our mistakes so you don\'t have to make them, saving you time, money, and headaches while keeping your business at the bleeding edge.',
+    features: [
+      'Continuous AI tool research',
+      'Strategic roadmap planning',
+      'Avoiding costly implementation mistakes',
+      'Process optimization reviews',
+      'Executive AI briefings',
+    ],
+    businessBenefit: 'Stay ahead of the curve without the expensive trial-and-error.',
+    link: '/services/ai-consulting',
+  },
 ];
 
 // ─── Engagement Models ───

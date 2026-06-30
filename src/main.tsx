@@ -29,6 +29,7 @@ import AIDeploymentPage from './pages/services/AIDeploymentPage.tsx'
 import WebsitesPage from './pages/services/WebsitesPage.tsx'
 import GrowthPage from './pages/services/GrowthPage.tsx'
 import VoiceAIPage from './pages/services/VoiceAIPage.tsx'
+import AIConsultingPage from './pages/services/AIConsultingPage.tsx'
 
 import RouterListener from './components/RouterListener.tsx'
 
@@ -41,6 +42,7 @@ const PAGE_ROUTES = [
   { path: '/services/websites', element: <WebsitesPage /> },
   { path: '/services/growth', element: <GrowthPage /> },
   { path: '/services/voice-ai', element: <VoiceAIPage /> },
+  { path: '/services/ai-consulting', element: <AIConsultingPage /> },
   { path: '/ai-workforce', element: <AIWorkforcePage /> },
   { path: '/integrations', element: <IntegrationsPage /> },
   { path: '/work', element: <WorkPage /> },
@@ -59,6 +61,7 @@ const ARABIC_PAGE_ROUTES = [
   { path: '/ar/services/websites', element: <WebsitesPage /> },
   { path: '/ar/services/growth', element: <GrowthPage /> },
   { path: '/ar/services/voice-ai', element: <VoiceAIPage /> },
+  { path: '/ar/services/ai-consulting', element: <AIConsultingPage /> },
   { path: '/ar/ai-workforce', element: <AIWorkforcePage /> },
   { path: '/ar/integrations', element: <IntegrationsPage /> },
   { path: '/ar/work', element: <WorkPage /> },

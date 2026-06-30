@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { ArrowLeft, Bot, Workflow, Cpu, Layout, TrendingUp, Phone, PenTool, BarChart3, Building2, User, CheckCircle, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Bot, Workflow, Cpu, Layout, TrendingUp, Phone, PenTool, BarChart3, Building2, User, CheckCircle, ArrowRight, Brain } from 'lucide-react';
 import { services, engagementModels, timeline, plans } from '@/data';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -12,6 +12,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Phone: <Phone size={20} />,
   PenTool: <PenTool size={20} />,
   BarChart3: <BarChart3 size={20} />,
+  Brain: <Brain size={20} />,
 };
 
 export default function ServicesPage() {

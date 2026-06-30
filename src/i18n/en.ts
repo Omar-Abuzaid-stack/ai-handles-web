@@ -39,6 +39,7 @@ export const en = {
       websites: { title: 'Premium Websites', desc: 'High-end platforms that explain, capture, and convert visitors.' },
       growth: { title: 'Paid Advertising & Growth', desc: 'Targeted campaigns to accelerate customer acquisition.' },
       voice: { title: 'AI Voice Reception', desc: 'Professional AI reception handling inbound and outbound calls.' },
+      aiConsulting: { title: 'AI Consulting & Advisory', desc: 'Continuous research and strategic guidance to avoid costly mistakes.' },
     },
   },
 
@@ -126,6 +127,13 @@ export const en = {
       desc: 'Professional AI voice agents to handle inbound enquiries, qualify leads, and perform outbound outreach calls.',
       features: ['Inbound call handling', 'Outbound qualification', 'Appointment booking', 'Call summaries', 'Human transfer'],
       benefit: 'Never miss an opportunity, providing professional support outside normal office hours.',
+    },
+    aiConsulting: {
+      title: 'AI Consulting & Advisory',
+      subtitle: 'Strategic Guidance',
+      desc: 'We keep researching the best AI tools and strategies for you. Learn from our mistakes so you don\'t have to make them, saving you time, money, and headaches.',
+      features: ['Continuous AI tool research', 'Strategic roadmap planning', 'Avoiding costly implementation mistakes', 'Process optimization reviews', 'Executive AI briefings'],
+      benefit: 'Stay ahead of the curve without the expensive trial-and-error.',
     },
   },
 
@@ -281,5 +289,6 @@ export const en = {
     websites: { title: 'Premium Websites — AI Handle', desc: 'High-end platforms that explain, capture, and convert visitors.' },
     growth: { title: 'Paid Advertising & Growth — AI Handle', desc: 'Targeted campaigns to accelerate customer acquisition.' },
     voice: { title: 'AI Voice Reception — AI Handle', desc: 'Professional AI reception handling inbound and outbound calls.' },
+    aiConsulting: { title: 'AI Consulting & Advisory — AI Handle', desc: 'Continuous research and strategic guidance to avoid costly mistakes.' },
   },
 };
