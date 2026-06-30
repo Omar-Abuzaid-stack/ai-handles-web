@@ -30,6 +30,7 @@ const KNOWLEDGE_PAYLOAD = {
       { name: 'Premium Websites', description: 'Business websites that explain clearly and capture enquiries.' },
       { name: 'Paid Advertising & Growth', description: 'Ad strategy, landing pages, lead qualification.' },
       { name: 'AI Voice Reception', description: 'Inbound call support, FAQs, appointment booking.' },
+      { name: 'AI Consulting & Advisory', description: 'Continuous AI tool research and strategic guidance.' },
       { name: 'Content Systems', description: 'Planning, creating, and managing content across channels.' },
       { name: 'Reporting & Management', description: 'Clear visibility into leads, workflows, and campaigns.' },
     ],

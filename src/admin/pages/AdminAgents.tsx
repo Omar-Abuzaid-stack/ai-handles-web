@@ -115,9 +115,38 @@ const AdminAgents: React.FC = () => {
                   <div className="md:col-span-2">
                     <label className="block text-xs text-white/50 uppercase tracking-wider mb-1">Description</label>
                     <textarea 
-                      rows={4}
+                      rows={3}
                       value={editForm.description || ''} 
                       onChange={e => setEditForm({...editForm, description: e.target.value})}
+                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-white focus:border-[#C9A96E] focus:outline-none"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-xs text-white/50 uppercase tracking-wider mb-1">Image URL</label>
+                    <input 
+                      type="text" 
+                      value={editForm.image || ''} 
+                      onChange={e => setEditForm({...editForm, image: e.target.value})}
+                      placeholder="/images/robots/name.jpg"
+                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-white focus:border-[#C9A96E] focus:outline-none"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-xs text-white/50 uppercase tracking-wider mb-1">Human Escalation</label>
+                    <input 
+                      type="text" 
+                      value={editForm.humanEscalation || ''} 
+                      onChange={e => setEditForm({...editForm, humanEscalation: e.target.value})}
+                      className="w-full bg-black border border-white/10 rounded px-3 py-2 text-white focus:border-[#C9A96E] focus:outline-none"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-xs text-white/50 uppercase tracking-wider mb-1">Responsibilities (one per line)</label>
+                    <textarea 
+                      rows={4}
+                      value={(editForm.responsibilities || []).join('\n')} 
+                      onChange={e => setEditForm({...editForm, responsibilities: e.target.value.split('\n').filter(r => r.trim())})}
+                      placeholder="Enter each responsibility on a new line"
                       className="w-full bg-black border border-white/10 rounded px-3 py-2 text-white focus:border-[#C9A96E] focus:outline-none"
                     />
                   </div>
