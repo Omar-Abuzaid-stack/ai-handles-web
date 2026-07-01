@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router';
 import { ArrowLeft, Phone, Mail, MessageCircle, Send, CheckCircle, Loader2, Calendar, MapPin, Video, Users } from 'lucide-react';
 import { brand } from '@/data';
@@ -23,27 +23,121 @@ export default function ContactPage() {
   const [bookingPhone, setBookingPhone] = useState('');
   const [bookingLoading, setBookingLoading] = useState(false);
 
-  const availableDates = useMemo(() => {
+  const [availableDates, setAvailableDates] = useState<string[]>([]);
+  const [bookedSlots, setBookedSlots] = useState<Record<string, string[]>>({});
+  const [blockedDates, setBlockedDates] = useState<string[]>([]);
+  const [bookingError, setBookingError] = useState('');
+
+  const TIMEZONE = 'Asia/Dubai';
+  const REQUIRED_DATES = 30;
+  const timeSlots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'];
+
+  // 1. Fetch Supabase Data
+  useEffect(() => {
+    const fetchData = async () => {
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const todayDubai = new Intl.DateTimeFormat('en-CA', { timeZone: TIMEZONE }).format(new Date());
+          const { data: bookings } = await supabase.from('bookings').select('date, time, status').gte('date', todayDubai);
+          const slots: Record<string, string[]> = {};
+          const blocked: string[] = [];
+          if (bookings) {
+            bookings.forEach(b => {
+              if (b.status === 'blocked') {
+                blocked.push(b.date);
+              } else if (b.status !== 'cancelled') {
+                if (!slots[b.date]) slots[b.date] = [];
+                slots[b.date].push(b.time);
+              }
+            });
+          }
+          setBookedSlots(slots);
+          setBlockedDates(blocked);
+        } catch { /* continue */ }
+      }
+    };
+    fetchData();
+  }, [bookingStep]); // re-fetch when they open the calendar
+
+  // 2. Generate Dates based on fetched data
+  useEffect(() => {
+    const getDubaiDateStr = (d: Date) => new Intl.DateTimeFormat('en-CA', { timeZone: TIMEZONE }).format(d);
+    
     const dates: string[] = [];
     const now = new Date();
-    for (let i = 1; i <= 14; i++) {
-      const d = new Date(now);
-      d.setDate(now.getDate() + i);
-      if (d.getDay() !== 0 && d.getDay() !== 6) { // Skip weekends
-        dates.push(d.toISOString().split('T')[0]);
-      }
-    }
-    return dates;
-  }, []);
+    const dubaiParts = new Intl.DateTimeFormat('en-US', { timeZone: TIMEZONE, hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(now);
+    const dubaiHour = parseInt(dubaiParts.find(p => p.type === 'hour')?.value || '0', 10);
+    const dubaiMinute = parseInt(dubaiParts.find(p => p.type === 'minute')?.value || '0', 10);
+    const todayStr = getDubaiDateStr(now);
 
-  const timeSlots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'];
+    let checkDate = new Date();
+    while (dates.length < REQUIRED_DATES) {
+      const dStr = getDubaiDateStr(checkDate);
+      const dayOfWeek = new Intl.DateTimeFormat('en-US', { timeZone: TIMEZONE, weekday: 'short' }).format(checkDate);
+      
+      let isValid = true;
+      if (dayOfWeek === 'Sat' || dayOfWeek === 'Sun') isValid = false;
+      if (blockedDates.includes(dStr)) isValid = false;
+      
+      if (isValid) {
+        let availableSlotsCount = timeSlots.length;
+        if (dStr === todayStr) {
+          availableSlotsCount = timeSlots.filter(t => {
+            const [h, m] = t.split(':').map(Number);
+            return h > dubaiHour || (h === dubaiHour && m > dubaiMinute);
+          }).length;
+        }
+        
+        const bookedCount = bookedSlots[dStr]?.length || 0;
+        if (availableSlotsCount > 0 && bookedCount < availableSlotsCount) {
+          dates.push(dStr);
+        }
+      }
+      
+      checkDate.setDate(checkDate.getDate() + 1);
+      if (checkDate.getTime() - now.getTime() > 100 * 24 * 60 * 60 * 1000) break; // failsafe
+    }
+    
+    setAvailableDates(dates);
+  }, [bookedSlots, blockedDates]);
+
+  // Compute available timeslots for selected date
+  const availableTimeSlots = useMemo(() => {
+    if (!selectedDate) return [];
+    const now = new Date();
+    const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: TIMEZONE }).format(now);
+    const dubaiParts = new Intl.DateTimeFormat('en-US', { timeZone: TIMEZONE, hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(now);
+    const dubaiHour = parseInt(dubaiParts.find(p => p.type === 'hour')?.value || '0', 10);
+    const dubaiMinute = parseInt(dubaiParts.find(p => p.type === 'minute')?.value || '0', 10);
+
+    return timeSlots.filter(t => {
+      if (bookedSlots[selectedDate]?.includes(t)) return false;
+      if (selectedDate === todayStr) {
+        const [h, m] = t.split(':').map(Number);
+        if (h < dubaiHour || (h === dubaiHour && m <= dubaiMinute)) return false;
+      }
+      return true;
+    });
+  }, [selectedDate, bookedSlots]);
 
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     setBookingLoading(true);
+    setBookingError('');
     try {
       if (isSupabaseConfigured && supabase) {
-        await supabase.from('bookings').insert({
+        // Double booking check
+        const { data: existing } = await supabase.from('bookings').select('id').eq('date', selectedDate).eq('time', selectedTime).neq('status', 'cancelled');
+        if (existing && existing.length > 0) {
+          setBookingError('Sorry, this slot was just taken. Please select another time.');
+          setBookingLoading(false);
+          // Remove from local state
+          setBookedSlots(prev => ({...prev, [selectedDate]: [...(prev[selectedDate]||[]), selectedTime]}));
+          setSelectedTime('');
+          return;
+        }
+
+        const { error } = await supabase.from('bookings').insert({
           name: bookingName,
           email: bookingEmail,
           phone: bookingPhone,
@@ -53,12 +147,29 @@ export default function ContactPage() {
           location: meetingType === 'face-to-face' ? clientLocation : 'Online',
           status: 'pending',
         });
+        if (error) throw error;
+
+        // Trigger Telegram
+        fetch('/api/telegram-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: 'booking_confirmed',
+            data: {
+              name: bookingName,
+              email: bookingEmail,
+              phone: bookingPhone,
+              date: selectedDate,
+              time: selectedTime,
+              format: meetingType,
+              location: meetingType === 'face-to-face' ? clientLocation : 'Online',
+            }
+          })
+        }).catch(() => {});
       }
     } catch { /* continue */ }
     
-    // Track the booking
     tracker.contactForm(bookingName, bookingEmail);
-    
     setBookingLoading(false);
     setBookingStep('confirmed');
   };
@@ -162,7 +273,7 @@ export default function ContactPage() {
                     <div>
                       <label className="text-xs text-white/40 mb-2 block">Select a Time *</label>
                       <div className="flex flex-wrap gap-2">
-                        {timeSlots.map(t => (
+                        {availableTimeSlots.map(t => (
                           <button key={t} type="button" onClick={() => setSelectedTime(t)} className={`text-xs px-3 py-1.5 rounded-lg border transition-all duration-200 ${ selectedTime === t ? 'bg-[#7E22CE] border-[#7E22CE] text-white' : 'border-white/10 text-white/40 hover:border-[#7E22CE]/40 hover:text-white/70 bg-white/[0.02]' }`}>
                             {t}
                           </button>
@@ -194,6 +305,7 @@ export default function ContactPage() {
                     </div>
                   )}
                   {/* Submit */}
+                  {bookingError && <p className="text-xs text-red-400 mb-2">{bookingError}</p>}
                   {meetingType && (meetingType === 'online' || clientLocation) && selectedDate && selectedTime && (
                     <button type="submit" disabled={bookingLoading} className="btn-primary w-full justify-center disabled:opacity-50">
                       {bookingLoading ? <Loader2 size={15} className="animate-spin" /> : <><Calendar size={14} /> Confirm Booking</>}

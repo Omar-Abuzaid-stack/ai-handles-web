@@ -5,7 +5,7 @@ const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
 
 const BOT_TOKEN_CHECK = TELEGRAM_BOT_TOKEN ? `${TELEGRAM_BOT_TOKEN.slice(0, 10)}...${TELEGRAM_BOT_TOKEN.slice(-4)}` : 'Not configured';
 
-type NotificationEvent = 'contact_submission' | 'qualified_lead' | 'project_enquiry' | 'chatbot_escalation' | 'content_published' | 'website_error' | 'operational_alert';
+type NotificationEvent = 'contact_submission' | 'qualified_lead' | 'project_enquiry' | 'chatbot_escalation' | 'content_published' | 'website_error' | 'operational_alert' | 'booking_confirmed';
 
 const EVENT_LABELS: Record<NotificationEvent, string> = {
   contact_submission: '📩 New Contact Submission',
@@ -15,6 +15,7 @@ const EVENT_LABELS: Record<NotificationEvent, string> = {
   content_published: '📄 Content Published',
   website_error: '⚠️ Website Error',
   operational_alert: '🔔 Operational Alert',
+  booking_confirmed: '📅 New Booking Confirmed',
 };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

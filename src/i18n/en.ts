@@ -144,6 +144,15 @@ export const en = {
     description: 'Each AI agent is specialised in a specific business function. They work together, share information, and escalate to humans when needed.',
   },
 
+  // ── AI Workforce Section ──
+  aiWorkforce: {
+    label: 'DIGITAL WORKFORCE',
+    title: 'AI Workforce',
+    description: 'Meet the specialised AI agents that research, communicate, create, monitor, and report for your business.',
+    learnMore: 'Learn More',
+    showLess: 'Show Less',
+  },
+
   // ── Integrations Page ──
   integrations: {
     title: 'Integrations',
